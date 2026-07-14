@@ -40,8 +40,24 @@ function Seal() {
         transform="rotate(-90 66 66)"
         style={{ animation: 'alfiDraw 1.3s ease .2s forwards' }}
       />
+      {/* Continuously sweeping gold arc — the "clock" spin */}
+      <circle
+        cx="66"
+        cy="66"
+        r="63"
+        fill="none"
+        stroke={GOLD}
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeDasharray="70 326"
+        style={{
+          opacity: 0,
+          transformBox: 'fill-box',
+          transformOrigin: 'center',
+          animation: 'alfiFade .6s ease 1.5s forwards, alfiSpin 4s linear 1.5s infinite',
+        }}
+      />
       <circle cx="66" cy="66" r="55" fill="none" stroke={CREAM} strokeWidth="0.5" opacity="0.5" />
-      {/* Gold hand — fades in, then spins continuously around the center like a clock hand */}
       <line
         x1="66"
         y1="66"
@@ -49,12 +65,7 @@ function Seal() {
         y2="12"
         stroke={GOLD}
         strokeWidth="1.4"
-        style={{
-          opacity: 0,
-          transformBox: 'view-box',
-          transformOrigin: '66px 66px',
-          animation: 'alfiFade .6s ease 1.1s forwards, alfiSpin 2s linear 1.1s forwards',
-        }}
+        style={{ opacity: 0, animation: 'alfiFade .6s ease 1.1s forwards' }}
       />
       <path
         d="M66 40 L84 92 L74 92 L66 66 L58 92 L48 92 Z"
