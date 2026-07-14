@@ -33,6 +33,27 @@ button:disabled {
   cursor: default;
 }
 
+/* Footer: single line, shrinks to fit narrow screens */
+.site-footer {
+  flex-wrap: nowrap;
+  gap: 8px 16px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .site-footer {
+    gap: 6px 10px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-footer {
+    font-size: 9px;
+  }
+}
+
 @keyframes alfiRise {
   from {
     opacity: 0;
@@ -53,5 +74,14 @@ button:disabled {
 @keyframes alfiFade {
   to {
     opacity: 1;
+  }
+}
+
+@keyframes alfiSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

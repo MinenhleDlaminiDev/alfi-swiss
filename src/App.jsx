@@ -41,6 +41,7 @@ function Seal() {
         style={{ animation: 'alfiDraw 1.3s ease .2s forwards' }}
       />
       <circle cx="66" cy="66" r="55" fill="none" stroke={CREAM} strokeWidth="0.5" opacity="0.5" />
+      {/* Gold hand — fades in, then spins continuously around the center like a clock hand */}
       <line
         x1="66"
         y1="66"
@@ -48,7 +49,12 @@ function Seal() {
         y2="12"
         stroke={GOLD}
         strokeWidth="1.4"
-        style={{ opacity: 0, animation: 'alfiFade .6s ease 1.1s forwards' }}
+        style={{
+          opacity: 0,
+          transformBox: 'view-box',
+          transformOrigin: '66px 66px',
+          animation: 'alfiFade .6s ease 1.1s forwards, alfiSpin 2s linear 1.1s forwards',
+        }}
       />
       <path
         d="M66 40 L84 92 L74 92 L66 66 L58 92 L48 92 Z"
@@ -192,7 +198,7 @@ export default function App() {
               fontWeight: 600,
               letterSpacing: '0.32em',
               paddingLeft: '0.32em',
-              color: 'rgba(244,239,227,0.55)',
+              color: CREAM,
             }}
           >
             COMING&nbsp;SOON
@@ -206,7 +212,7 @@ export default function App() {
               textWrap: 'pretty',
             }}
           >
-            Get in touch.
+            For enquiries, contact us below.
           </p>
         </div>
 
@@ -294,15 +300,13 @@ export default function App() {
 
       {/* FOOTER */}
       <footer
+        className="site-footer"
         style={{
           borderTop: '1px solid rgba(244,239,227,0.1)',
           padding: '26px 24px',
           display: 'flex',
-          flexWrap: 'wrap',
-          gap: '8px 24px',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: 12,
           color: 'rgba(244,239,227,0.45)',
           textAlign: 'center',
         }}
