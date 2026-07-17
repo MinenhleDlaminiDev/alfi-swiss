@@ -214,6 +214,7 @@ export default function App() {
           >
             COMING&nbsp;SOON
           </div>
+          {/* Hidden for now — keep for later
           <p
             style={{
               margin: 0,
@@ -225,9 +226,11 @@ export default function App() {
           >
             For enquiries, contact us below.
           </p>
+          */}
         </div>
 
-        {/* CONTACT FORM */}
+        {/* CONTACT FORM — hidden for now, keep for later */}
+        {false && (
         <div
           style={{
             width: '100%',
@@ -307,6 +310,7 @@ export default function App() {
             </form>
           )}
         </div>
+        )}
       </main>
 
       {/* FOOTER */}
