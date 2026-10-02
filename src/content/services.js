@@ -82,8 +82,6 @@ export const details = [
     flip: false,
   },
   {
-    /* Deliberately text-only: breaks the image rhythm, and we hold six licensed
-       images, none of which depicts markets. Add a seventh to give this a photo. */
     id: 'investment-advisory',
     eyebrow: '02 — Investment Advisory, Alternatives & Risk',
     heading: 'Disciplined investing is not about chasing performance.',
@@ -97,8 +95,11 @@ export const details = [
       'Careful assessment of hedge funds, structured products and differentiated strategies',
       'A disciplined view of concentration, volatility, leverage, counterparty and credit exposure',
     ],
-    image: null,
-    flip: false,
+    image: {
+      src: '/images/services-investment-advisory.jpg',
+      alt: 'Grid of dark windows across a concrete facade',
+    },
+    flip: true,
   },
   {
     id: 'strategic-advisory',
@@ -116,7 +117,7 @@ export const details = [
       src: '/images/services-strategic-advisory.jpg',
       alt: 'Stone staircase descending into shadow',
     },
-    flip: true,
+    flip: false,
   },
 ];
 
