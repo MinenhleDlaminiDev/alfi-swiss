@@ -22,7 +22,7 @@ export const story = {
     'continuity and direct access to decision makers.',
   ],
   pullquote: 'An independent, connected and enduring Swiss partner.',
-  image: { src: '/images/about-firm.jpg', alt: 'Swiss lake and mountain landscape' },
+  image: { slug: 'about-firm', alt: 'Swiss lake and mountain landscape' },
 };
 
 export const differentiators = {

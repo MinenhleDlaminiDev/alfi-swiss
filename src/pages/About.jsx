@@ -5,17 +5,21 @@ import {
 import { cta } from '../content/site.js'
 import { hero, story, differentiators, clients } from '../content/about.js'
 import './About.css'
+import Seo from '../components/Seo.jsx'
+import { seo } from '../content/seo.js'
 
 /* About (ASP-08). Deck slides 3, 4 and 11. */
 export default function About() {
   return (
     <>
+      <Seo title={seo.about.title} description={seo.about.description} />
+
       <PageHero eyebrow={hero.eyebrow} headingLines={hero.headingLines} lead={hero.lead} />
 
       {/* The firm */}
       <Section tone="paper">
         <Split flip>
-          <Figure src={story.image.src} alt={story.image.alt} />
+          <Figure slug={story.image.slug} alt={story.image.alt} />
           <div>
             {story.paragraphs.map((p, i) => (
               <p key={i} className="about-para">{p}</p>

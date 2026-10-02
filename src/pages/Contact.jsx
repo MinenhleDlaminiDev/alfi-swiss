@@ -3,11 +3,15 @@ import EnquiryForm from '../components/EnquiryForm/EnquiryForm.jsx'
 import { contact, regulatory } from '../content/site.js'
 import { hero, leadership, form, office } from '../content/contact.js'
 import './Contact.css'
+import Seo from '../components/Seo.jsx'
+import { seo } from '../content/seo.js'
 
 /* Contact (ASP-11). Deck slide 12. */
 export default function Contact() {
   return (
     <>
+      <Seo title={seo.contact.title} description={seo.contact.description} />
+
       <PageHero eyebrow={hero.eyebrow} headingLines={hero.headingLines} lead={hero.lead} />
 
       {/* Enquiry form beside the office details */}
@@ -30,7 +34,7 @@ export default function Contact() {
             <a className="contact-email" href={`mailto:${contact.email}`}>{contact.email}</a>
             <p className="contact-reach">{contact.reach}</p>
             <div className="contact-figure">
-              <Figure src={office.image.src} alt={office.image.alt} ratio="4 / 3" />
+              <Figure slug={office.image.slug} alt={office.image.alt} ratio="4 / 3" />
             </div>
           </aside>
         </div>

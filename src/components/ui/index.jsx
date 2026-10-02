@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import './ui.css'
 
+export { default as Figure } from './Figure.jsx'
+
 /* Shared UI primitives (ASP-06).
    Every page composes from these; none of them hard-code a colour or size.
 
@@ -89,15 +91,20 @@ export function NumberedCards({ items = [] }) {
   )
 }
 
-/* `anchors` controls whether rows carry an id. Only one list per page may own
-   the anchor ids, otherwise a deep link like #wealth-management is ambiguous. */
-export function ServiceRows({ items = [], anchors = false }) {
+/* Index rows link INTO the detail sections below them. The details own the
+   DOM ids; these rows carry none, so a deep link is never ambiguous. Rows
+   whose service is covered by a shared detail section point at that section. */
+export function ServiceRows({ items = [] }) {
   return (
     <div className="ui-rows">
       {items.map((it) => (
-        <article key={it.n} id={anchors ? it.id : undefined} className="ui-row">
+        <article key={it.n} className="ui-row">
           <div className="ui-row__n">{it.n}</div>
-          <h3 className="ui-row__title">{it.title}</h3>
+          <h3 className="ui-row__title">
+            {it.linkTo
+              ? <a className="ui-row__link" href={`#${it.linkTo}`}>{it.title}</a>
+              : it.title}
+          </h3>
           <p className="ui-row__text">{it.text}</p>
         </article>
       ))}
@@ -116,16 +123,6 @@ export function ProcessSteps({ items = [] }) {
         </li>
       ))}
     </ol>
-  )
-}
-
-/* Plain <img> for now; ASP-12 adds srcset, modern formats and intrinsic
-   dimensions to stop layout shift. */
-export function Figure({ src, alt, ratio }) {
-  return (
-    <div className="ui-figure" style={ratio ? { '--figure-ratio': ratio } : undefined}>
-      <img src={src} alt={alt} loading="lazy" decoding="async" />
-    </div>
   )
 }
 

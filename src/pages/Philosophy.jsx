@@ -5,17 +5,21 @@ import {
 import { cta } from '../content/site.js'
 import { hero, principles, process, closing } from '../content/philosophy.js'
 import './Philosophy.css'
+import Seo from '../components/Seo.jsx'
+import { seo } from '../content/seo.js'
 
 /* Philosophy (ASP-10). Deck slides 9-10. */
 export default function Philosophy() {
   return (
     <>
+      <Seo title={seo.philosophy.title} description={seo.philosophy.description} />
+
       <PageHero eyebrow={hero.eyebrow} headingLines={hero.headingLines} lead={hero.lead} />
 
       {/* Four principles, beside the image */}
       <Section tone="paper">
         <Split>
-          <Figure src={principles.image.src} alt={principles.image.alt} />
+          <Figure slug={principles.image.slug} alt={principles.image.alt} />
           <div>
             <Eyebrow>{principles.eyebrow}</Eyebrow>
             <h2 className="svc-detail__heading">{principles.heading}</h2>

@@ -1,0 +1,80 @@
+# ALFI Swiss Partners — Apache configuration (ASP-13)
+#
+# This file is deployed into the site web root and REPLACES the .htaccess that
+# is there. Infomaniak's original directives are preserved verbatim below; if
+# Infomaniak ever adds new ones server-side, re-merge them here before the next
+# deploy or they will be lost.
+
+
+# ---------------------------------------------------------------------------
+# Infomaniak defaults — preserved verbatim
+# ---------------------------------------------------------------------------
+SetOutputFilter DEFLATE
+AddOutputFilterByType DEFLATE "application/atom+xml" "application/javascript" "application/json" "application/ld+json" "application/manifest+json" "application/rdf+xml" "application/rss+xml" "application/schema+json" "application/vnd.geo+json" "application/vnd.ms-fontobject" "application/x-font-ttf" "application/x-javascript" "application/x-web-app-manifest+json" "application/xhtml+xml" "application/xml" "font/eot" "font/opentype" "image/bmp" "image/svg+xml" "image/vnd.microsoft.icon" "image/x-icon" "text/cache-manifest" "text/css" "text/html" "text/javascript" "text/plain" "text/vcard" "text/vnd.rim.location.xloc" "text/vtt" "text/x-component" "text/x-cross-domain-policy" "text/xml"
+
+# SECTION BEGIN GIT PROTECTION
+RedirectMatch 404 /\.git
+# SECTION END GIT PROTECTION
+
+
+# ---------------------------------------------------------------------------
+# Single-page application routing
+# ---------------------------------------------------------------------------
+# /about, /services, /philosophy and /contact have no file on disk, so without
+# this a refresh or a shared deep link returns Apache's 404.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Guard dot-paths FIRST. In per-directory context mod_rewrite runs before
+  # mod_alias, so the catch-all below would otherwise rewrite /.git/config to
+  # index.html and return 200 — silently defeating the git protection above.
+  # .well-known is exempt: Let's Encrypt uses it for certificate renewal.
+  RewriteRule (^|/)\.(?!well-known/) - [F,L]
+
+  # Never rewrite a request that maps to a real file or directory, or
+  # /images/*, /assets/* and /favicon.svg would all return the HTML shell.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Everything else is handled by the client-side router.
+  RewriteRule . /index.html [L]
+</IfModule>
+
+
+# ---------------------------------------------------------------------------
+# Caching
+# ---------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # Order matters: Apache applies every matching FilesMatch in sequence and the
+  # last `Header set` wins, so the general rule goes first and the specific
+  # content-hashed rule overrides it.
+
+  # Unhashed scripts and styles revalidate hourly.
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+
+  # Vite's content-hashed bundles (index-DMwA1gVP.css) change name whenever the
+  # content does, so they are safe to pin forever.
+  <FilesMatch "-[A-Za-z0-9_-]{8,}\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Images are NOT content-hashed: the pipeline emits stable names like
+  # home-positioning-1200w.webp. A replaced photo keeps its filename, so
+  # "immutable" would strand visitors on the old one for a year. 30 days.
+  <FilesMatch "\.(webp|jpe?g|png|svg)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+
+  # index.html must always revalidate, or visitors keep booting an old build
+  # and never receive the new hashed asset URLs.
+  <FilesMatch "\.(html|json)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

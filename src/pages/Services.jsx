@@ -5,6 +5,8 @@ import {
 import { cta } from '../content/site.js'
 import { hero, index, details, closing } from '../content/services.js'
 import './Services.css'
+import Seo from '../components/Seo.jsx'
+import { seo } from '../content/seo.js'
 
 /* Services (ASP-09). Deck slides 5-8.
 
@@ -13,6 +15,8 @@ import './Services.css'
 export default function Services() {
   return (
     <>
+      <Seo title={seo.services.title} description={seo.services.description} />
+
       <PageHero eyebrow={hero.eyebrow} headingLines={hero.headingLines} lead={hero.lead} />
 
       {/* Index of the five service areas */}
@@ -26,7 +30,7 @@ export default function Services() {
       {details.map((d, i) => (
         <Section key={d.id} id={d.id} tone={i % 2 === 0 ? 'cream' : 'paper'}>
           <Split flip={d.flip}>
-            {d.image && <Figure src={d.image.src} alt={d.image.alt} />}
+            {d.image && <Figure slug={d.image.slug} alt={d.image.alt} />}
             <div>
               <Eyebrow>{d.eyebrow}</Eyebrow>
               <h2 className="svc-detail__heading">{d.heading}</h2>

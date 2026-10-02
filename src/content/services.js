@@ -76,7 +76,7 @@ export const details = [
       'Intergenerational wealth transfer considerations',
     ],
     image: {
-      src: '/images/services-wealth-management.jpg',
+      slug: 'services-wealth-management',
       alt: 'Empty colonnaded stone corridor',
     },
     flip: false,
@@ -96,7 +96,7 @@ export const details = [
       'A disciplined view of concentration, volatility, leverage, counterparty and credit exposure',
     ],
     image: {
-      src: '/images/services-investment-advisory.jpg',
+      slug: 'services-investment-advisory',
       alt: 'Grid of dark windows across a concrete facade',
     },
     flip: true,
@@ -114,7 +114,7 @@ export const details = [
       'Family-business continuity and succession planning',
     ],
     image: {
-      src: '/images/services-strategic-advisory.jpg',
+      slug: 'services-strategic-advisory',
       alt: 'Stone staircase descending into shadow',
     },
     flip: false,

@@ -1,0 +1,22 @@
+/* Figure (ASP-12) */
+
+.ui-figure {
+  position: relative;
+  overflow: hidden;
+  background: var(--c-navy-lift);
+}
+
+.ui-figure picture { display: block; }
+
+/* width/height on the <img> give the intrinsic ratio; the aspect-ratio here
+   crops to the designed slot. object-fit keeps the crop centred. */
+.ui-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: var(--figure-ratio, 4 / 5);
+}
+
+@media (max-width: 900px) {
+  .ui-figure img { aspect-ratio: 3 / 2; }
+}

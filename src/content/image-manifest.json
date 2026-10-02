@@ -1,0 +1,72 @@
+{
+  "about-firm": {
+    "width": 2000,
+    "height": 2996,
+    "aspect": 0.6676,
+    "widths": [
+      480,
+      768,
+      1200
+    ]
+  },
+  "contact-geneva": {
+    "width": 2000,
+    "height": 2495,
+    "aspect": 0.8016,
+    "widths": [
+      480,
+      768,
+      1200
+    ]
+  },
+  "home-positioning": {
+    "width": 2000,
+    "height": 3000,
+    "aspect": 0.6667,
+    "widths": [
+      480,
+      768,
+      1200
+    ]
+  },
+  "philosophy-principles": {
+    "width": 2000,
+    "height": 2800,
+    "aspect": 0.7143,
+    "widths": [
+      480,
+      768,
+      1200
+    ]
+  },
+  "services-investment-advisory": {
+    "width": 2000,
+    "height": 2667,
+    "aspect": 0.7499,
+    "widths": [
+      480,
+      768,
+      1200
+    ]
+  },
+  "services-strategic-advisory": {
+    "width": 2000,
+    "height": 2668,
+    "aspect": 0.7496,
+    "widths": [
+      480,
+      768,
+      1200
+    ]
+  },
+  "services-wealth-management": {
+    "width": 2000,
+    "height": 3361,
+    "aspect": 0.5951,
+    "widths": [
+      480,
+      768,
+      1200
+    ]
+  }
+}

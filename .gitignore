@@ -4,3 +4,8 @@ dist-ssr
 *.local
 .env
 .DS_Store
+
+# Generated image derivatives — masters live in assets/images/
+# Rebuild with: npm run images
+public/images/*.webp
+public/images/*.jpg

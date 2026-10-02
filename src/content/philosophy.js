@@ -35,7 +35,7 @@ export const principles = {
     },
   ],
   image: {
-    src: '/images/philosophy-principles.jpg',
+    slug: 'philosophy-principles',
     alt: 'Monument pillars against the sky',
   },
 };

@@ -33,7 +33,7 @@ export const positioning = {
     'translate financial complexity into clear, durable decisions across investments, ' +
     'financing, estate planning and strategic opportunities.',
   link: { label: 'More about the firm', to: '/about' },
-  image: { src: '/images/home-positioning.jpg', alt: 'Colonnaded stone hall' },
+  image: { slug: 'home-positioning', alt: 'Colonnaded stone hall' },
 };
 
 export const pillars = {

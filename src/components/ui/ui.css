@@ -210,16 +210,6 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
   color: var(--c-muted);
 }
 
-/* ---------------- Figure ---------------- */
-/* ASP-12 replaces the <img> here with a responsive, modern-format component. */
-.ui-figure { position: relative; overflow: hidden; background: var(--c-navy-lift); }
-.ui-figure img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  aspect-ratio: var(--figure-ratio, 4 / 5);
-}
-
 /* ---------------- Split (image beside text) ---------------- */
 .ui-split {
   display: grid;
@@ -268,10 +258,19 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
 
   .ui-split { grid-template-columns: 1fr; }
   .ui-split--flip > .ui-figure { order: 0; }
-  .ui-figure img { aspect-ratio: 3 / 2; }
 
   /* Selector matches the .ui-section--navy .ui-stat rule above (0-2-0) so the
      gold border is not outranked inside this media query. */
   .ui-stat,
   .ui-section--navy .ui-stat { border-left: 2px solid var(--c-gold); }
+}
+
+/* Service index rows link into their detail section */
+.ui-row__link {
+  border-bottom: 1px solid transparent;
+  transition: color var(--d-fast) var(--e-out), border-color var(--d-fast) var(--e-out);
+}
+.ui-row__link:hover {
+  color: var(--c-gold-ink);
+  border-bottom-color: var(--c-gold);
 }

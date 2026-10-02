@@ -7,6 +7,8 @@ import { cta } from '../content/site.js'
 import { hero, credentials, positioning, pillars, servicesTeaser, closing } from '../content/home.js'
 import { index as serviceIndex } from '../content/services.js'
 import './Home.css'
+import Seo from '../components/Seo.jsx'
+import { seo } from '../content/seo.js'
 
 /* Home — gateway page (ASP-07).
    Deliberately does NOT carry the full services list or the process steps;
@@ -14,6 +16,8 @@ import './Home.css'
 export default function Home() {
   return (
     <>
+      <Seo title={seo.home.title} description={seo.home.description} />
+
       {/* Hero */}
       <section className="home-hero">
         <div className="wrap home-hero__inner">
@@ -42,7 +46,7 @@ export default function Home() {
       {/* Positioning */}
       <Section tone="paper">
         <Split>
-          <Figure src={positioning.image.src} alt={positioning.image.alt} />
+          <Figure slug={positioning.image.slug} alt={positioning.image.alt} />
           <div>
             <Eyebrow>{positioning.eyebrow}</Eyebrow>
             <h2 className="home-pos__heading">{positioning.heading}</h2>

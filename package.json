@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "node scripts/build-images.mjs --force && vite build",
+    "preview": "vite preview",
+    "images": "node scripts/build-images.mjs --force",
+    "predev": "node scripts/build-images.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -16,6 +18,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
+    "sharp": "^0.35.5",
     "vite": "^6.0.7"
   }
 }
