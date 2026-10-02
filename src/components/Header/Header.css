@@ -89,6 +89,13 @@
 .hdr__bars.is-open span:nth-child(2) { opacity: 0; }
 .hdr__bars.is-open span:nth-child(3) { transform: translateY(-0.375rem) rotate(-45deg); }
 
+/* The bars morph into a cross by moving, so the transition is real motion.
+   Drop the tween but keep the end states — the icon must still read as a
+   cross when the menu is open, or there is no way to tell it is open. */
+@media (prefers-reduced-motion: reduce) {
+  .hdr__bars span { transition: none; }
+}
+
 /* ---- Mobile panel ---- */
 .hdr__panel {
   display: none;

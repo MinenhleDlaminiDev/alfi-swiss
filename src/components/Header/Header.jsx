@@ -67,10 +67,22 @@ export default function Header() {
       if (items.length === 0) return
       const first = items[0]
       const last = items[items.length - 1]
-      if (e.shiftKey && document.activeElement === first) {
+      const active = document.activeElement
+
+      // Focus can sit outside the trap entirely while the panel is open: tap
+      // any non-focusable part of the overlay and the browser moves focus to
+      // <body>. Wrapping only at the two ends does not catch that, so the next
+      // Tab walks into the page underneath the overlay. Pull it back in.
+      if (!items.includes(active)) {
+        e.preventDefault()
+        ;(e.shiftKey ? last : first).focus()
+        return
+      }
+
+      if (e.shiftKey && active === first) {
         e.preventDefault()
         last.focus()
-      } else if (!e.shiftKey && document.activeElement === last) {
+      } else if (!e.shiftKey && active === last) {
         e.preventDefault()
         first.focus()
       }

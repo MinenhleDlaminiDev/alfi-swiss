@@ -45,9 +45,32 @@ button, input, textarea, select { font: inherit; color: inherit; }
 
 /* ---- Focus: always visible, never removed ---- */
 :focus-visible {
-  outline: 2px solid var(--c-gold);
+  outline: 2px solid var(--c-focus);
   outline-offset: 3px;
   border-radius: 1px;
+}
+
+/* The ring colour follows the surface it sits on, because one colour cannot
+   clear 3:1 against both cream and navy. --c-focus is inherited, so each dark
+   or gold surface redefines it for everything inside it.
+
+   Measured: gold on navy 7.55:1 · gold-ink on paper 3.84:1 · navy on gold 7.55:1.
+   The bug this fixes: a gold ring on the gold CTA was gold-on-gold, 1:1. */
+.hdr,
+.ftr,
+.ui-pagehero,
+.ui-section--navy,
+.band--navy,
+.home-hero,
+.home-creds {
+  --c-focus: var(--c-gold);
+}
+
+/* Gold surfaces need a navy ring — gold on gold is 1:1, i.e. no ring at all.
+   This is the whole reason --c-focus is a token and not a literal. */
+.ui-btn--gold,
+.skip-link {
+  --c-focus: var(--c-navy);
 }
 
 /* ---- Layout helpers ---- */
@@ -81,39 +104,24 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .skip-link:focus { left: var(--s-4); top: var(--s-4); }
 
 /* ---- Keyframes ---- */
-@keyframes alfiRise {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: none; }
-}
-@keyframes alfiFade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
+/* alfiDraw is used by Seal.css to draw the outer ring on first paint.
+   alfiRise, alfiFade and alfiSpin were removed in ASP-15: the audit found
+   zero usages of them or of the .u-rise / .u-fade / .u-draw / .u-spin
+   utilities, so the reduced-motion block was guarding nothing that existed. */
 @keyframes alfiDraw {
   to { stroke-dashoffset: 0; }
 }
-@keyframes alfiSpin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
 
 /* Reduced motion.
-   Scoped deliberately to our own named animation utilities and the seal.
-   Do NOT replace this with a `*` + !important blanket rule: that silently
-   disables every animation in the project, including ones added later. */
-@media (prefers-reduced-motion: reduce) {
-  .u-rise,
-  .u-fade,
-  .u-draw,
-  .u-spin,
-  [data-animate] {
-    animation: none;
-    transition: none;
-    opacity: 1;
-    transform: none;
-  }
-}
+   There is no global block here on purpose. Each component that animates owns
+   its own `prefers-reduced-motion` guard, next to the rule it overrides:
 
-/* Animation utilities */
-.u-rise { animation: alfiRise var(--d-slow) var(--e-out) both; }
-.u-fade { animation: alfiFade var(--d-slow) var(--e-out) both; }
+     Seal.css        .seal__ring--draw   (ring draw)
+     Header.css      .hdr__bars span     (hamburger morph)
+
+   Two rules when adding motion anywhere:
+   1. Add a guard beside it. A central list drifts out of date silently — that
+      is how the hamburger kept animating under `reduce` until ASP-15.
+   2. Never use a `*` + !important blanket rule. It disables every animation in
+      the project, ours and any library's, guarded or not, and the failure is
+      invisible because nothing errors — it just goes still. */

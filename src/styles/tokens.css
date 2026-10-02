@@ -16,6 +16,13 @@
   --c-muted:       #5C6570;
   --c-error:       #B4472A;
 
+  /* Focus ring (ASP-15).
+     Inherited, so any dark or gold surface can redefine it for its subtree.
+     Default is gold-ink: 3.84:1 on --c-paper, 3.50:1 on --c-cream, where plain
+     --c-gold measures only 2.17:1 and fails the 3:1 minimum for a focus
+     indicator. Surfaces that flip it are listed in index.css. */
+  --c-focus:       var(--c-gold-ink);
+
   /* Rules / hairlines */
   --c-rule:        rgba(11, 28, 51, 0.12);
   --c-rule-dark:   rgba(244, 239, 227, 0.14);
