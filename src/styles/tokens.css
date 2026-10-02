@@ -1,0 +1,88 @@
+/* ALFI Swiss Partners — design tokens (ASP-01)
+   Single source of truth for colour, type, spacing and layout.
+   No component should hard-code a hex value or a raw pixel scale. */
+
+:root {
+  /* ---- Brand palette ---- */
+  --c-navy:        #0B1C33;
+  --c-navy-deep:   #081526;
+  --c-navy-lift:   #12294A;
+  --c-gold:        #C9A94E;
+  --c-gold-soft:   #E0C877;
+  --c-gold-ink:    #9A7B25;  /* gold that meets AA on light backgrounds */
+  --c-cream:       #F4EFE3;
+  --c-paper:       #FBFAF7;
+  --c-ink:         #1A2436;
+  --c-muted:       #5C6570;
+  --c-error:       #B4472A;
+
+  /* Rules / hairlines */
+  --c-rule:        rgba(11, 28, 51, 0.12);
+  --c-rule-dark:   rgba(244, 239, 227, 0.14);
+
+  /* On-dark text tiers */
+  --c-on-dark:     #F4EFE3;
+  --c-on-dark-70:  rgba(244, 239, 227, 0.72);
+  --c-on-dark-50:  rgba(244, 239, 227, 0.52);
+
+  /* ---- Typography ---- */
+  --f-serif: Georgia, 'Times New Roman', 'Nimbus Roman', serif;
+  --f-sans:  'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Fluid type scale: clamp(min, preferred, max) */
+  --t-hero:    clamp(2.25rem, 1.30rem + 4.2vw, 3.875rem);  /*  36 -> 62 */
+  --t-h1:      clamp(1.875rem, 1.30rem + 2.6vw, 2.875rem); /*  30 -> 46 */
+  --t-h2:      clamp(1.625rem, 1.25rem + 1.7vw, 2.375rem); /*  26 -> 38 */
+  --t-h3:      clamp(1.125rem, 1.00rem + 0.6vw, 1.4375rem);/*  18 -> 23 */
+  --t-lead:    clamp(0.975rem, 0.92rem + 0.25vw, 1.0625rem);
+  --t-body:    1rem;
+  --t-small:   0.875rem;
+  --t-caption: 0.8125rem;
+  --t-eyebrow: 0.6875rem;
+
+  --lh-tight: 1.12;
+  --lh-head:  1.25;
+  --lh-body:  1.65;
+  --lh-loose: 1.8;
+
+  --ls-eyebrow: 0.3em;
+  --ls-wordmark: 0.3em;
+  --ls-btn: 0.2em;
+
+  /* ---- Spacing (4px base) ---- */
+  --s-1:  0.25rem;
+  --s-2:  0.5rem;
+  --s-3:  0.75rem;
+  --s-4:  1rem;
+  --s-5:  1.5rem;
+  --s-6:  2rem;
+  --s-7:  2.5rem;
+  --s-8:  3rem;
+  --s-9:  4rem;
+  --s-10: 5rem;
+  --s-11: 6.5rem;
+
+  /* Vertical rhythm for full-width bands */
+  --band-y: clamp(3.875rem, 2.5rem + 5vw, 6.5rem);
+
+  /* ---- Layout ---- */
+  --wrap:     1180px;
+  --wrap-pad: clamp(1.5rem, 0.9rem + 2.4vw, 2.5rem);
+  --header-h: 86px;
+  --header-h-sm: 68px;
+
+  /* ---- Motion ---- */
+  --e-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --d-fast: 180ms;
+  --d-base: 320ms;
+  --d-slow: 900ms;
+
+  --radius: 2px;
+  --z-header: 50;
+}
+
+/* Breakpoints are documented here for reference; CSS custom properties
+   cannot be used in media queries, so these values are repeated literally:
+     sm  <= 560px
+     md  <= 900px   (mobile nav switches here)
+     lg  <= 1200px                                            */
