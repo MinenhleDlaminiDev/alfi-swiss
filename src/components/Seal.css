@@ -1,0 +1,20 @@
+/* Seal (ASP-04).
+   The draw animation lives here rather than in an inline style so the
+   reduced-motion rule can actually override it — an inline `style` would win
+   over any stylesheet declaration. */
+
+.seal__ring--draw {
+  stroke-dasharray: 390;
+  stroke-dashoffset: 390;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  animation: alfiDraw 1.3s var(--e-out) 0.2s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seal__ring--draw {
+    animation: none;
+    /* Leave the ring fully drawn rather than invisible */
+    stroke-dashoffset: 0;
+  }
+}

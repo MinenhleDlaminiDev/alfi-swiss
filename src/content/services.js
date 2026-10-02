@@ -1,4 +1,10 @@
-/* Services (ASP-03). Source: content deck v1, slides 5-8. */
+/* Services (ASP-03). Source: content deck v1, slides 5-8.
+
+   Anchor ownership: the three `details` sections own the DOM ids. The `index`
+   rows are links INTO them (`linkTo`), and deliberately carry no id of their
+   own — otherwise a deep link like #wealth-management would match two elements.
+   The deck groups five service areas into three detail sections, so rows 03 and
+   04 both point at the investment-advisory section, which covers them. */
 
 export const hero = {
   eyebrow: 'Our Services',
@@ -15,7 +21,7 @@ export const hero = {
 export const index = [
   {
     n: '01',
-    id: 'wealth-management',
+    linkTo: 'wealth-management',
     title: 'Wealth Management',
     text:
       'Financial planning, intergenerational wealth transfer and coordination of banking ' +
@@ -23,7 +29,7 @@ export const index = [
   },
   {
     n: '02',
-    id: 'investment-advisory',
+    linkTo: 'investment-advisory',
     title: 'Portfolio & Investment Advisory',
     text:
       'Independent advice and introductions to private banks for portfolio strategy aligned ' +
@@ -31,7 +37,7 @@ export const index = [
   },
   {
     n: '03',
-    id: 'alternatives',
+    linkTo: 'investment-advisory',
     title: 'Alternatives & Structured Solutions',
     text:
       'Access-oriented review of hedge funds, structured products and alternative strategies ' +
@@ -39,7 +45,7 @@ export const index = [
   },
   {
     n: '04',
-    id: 'risk-credit',
+    linkTo: 'investment-advisory',
     title: 'Risk & Credit Advisory',
     text:
       'Assessment and advisory on financial, market and credit risk, in coordination with ' +
@@ -47,7 +53,7 @@ export const index = [
   },
   {
     n: '05',
-    id: 'strategic-advisory',
+    linkTo: 'strategic-advisory',
     title: 'Corporate & Strategic Advisory',
     text: 'Independent counsel for entrepreneurs and family-owned businesses.',
   },
@@ -76,6 +82,8 @@ export const details = [
     flip: false,
   },
   {
+    /* Deliberately text-only: breaks the image rhythm, and we hold six licensed
+       images, none of which depicts markets. Add a seventh to give this a photo. */
     id: 'investment-advisory',
     eyebrow: '02 — Investment Advisory, Alternatives & Risk',
     heading: 'Disciplined investing is not about chasing performance.',
@@ -89,11 +97,8 @@ export const details = [
       'Careful assessment of hedge funds, structured products and differentiated strategies',
       'A disciplined view of concentration, volatility, leverage, counterparty and credit exposure',
     ],
-    image: {
-      src: '/images/services-strategic-advisory.jpg',
-      alt: 'Stone staircase descending into shadow',
-    },
-    flip: true,
+    image: null,
+    flip: false,
   },
   {
     id: 'strategic-advisory',
@@ -108,10 +113,10 @@ export const details = [
       'Family-business continuity and succession planning',
     ],
     image: {
-      src: '/images/philosophy-principles.jpg',
-      alt: 'Monument pillars against the sky',
+      src: '/images/services-strategic-advisory.jpg',
+      alt: 'Stone staircase descending into shadow',
     },
-    flip: false,
+    flip: true,
   },
 ];
 

@@ -1,0 +1,271 @@
+/* Deep-linked sections must clear the sticky header. */
+html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
+[id] { scroll-margin-top: calc(var(--header-h) + var(--s-5)); }
+
+@media (max-width: 900px) {
+  html { scroll-padding-top: calc(var(--header-h-sm) + var(--s-4)); }
+  [id] { scroll-margin-top: calc(var(--header-h-sm) + var(--s-4)); }
+}
+
+/* Shared UI primitives (ASP-06). Tokens only — no literal colours or sizes. */
+
+/* ---------------- Eyebrow ---------------- */
+.ui-eyebrow {
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--c-gold-ink);
+  margin: 0;
+}
+.ui-eyebrow--on-dark { color: var(--c-gold); }
+.ui-eyebrow--dim { color: var(--c-on-dark-50); }
+
+/* ---------------- Section ---------------- */
+.ui-section { padding-block: var(--band-y); }
+.ui-section--paper { background: var(--c-paper); }
+.ui-section--cream { background: var(--c-cream); }
+.ui-section--navy {
+  background: var(--c-navy);
+  color: var(--c-on-dark);
+}
+.ui-section--navy h2,
+.ui-section--navy h3 { color: var(--c-cream); }
+
+/* ---------------- Section head ---------------- */
+.ui-sechead { max-width: 38rem; }
+.ui-sechead--center { margin-inline: auto; text-align: center; }
+.ui-sechead__heading { margin-top: var(--s-4); }
+.ui-sechead__lead {
+  margin-top: var(--s-4);
+  color: var(--c-muted);
+  font-size: var(--t-lead);
+  line-height: var(--lh-loose);
+}
+.ui-section--navy .ui-sechead__lead { color: var(--c-on-dark-70); }
+
+/* ---------------- Button ---------------- */
+.ui-btn {
+  display: inline-block;
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-btn);
+  text-transform: uppercase;
+  padding: 1.0625rem 1.875rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: center;
+  transition: background-color var(--d-fast) var(--e-out),
+              color var(--d-fast) var(--e-out),
+              border-color var(--d-fast) var(--e-out);
+}
+.ui-btn--gold { background: var(--c-gold); color: var(--c-navy); }
+.ui-btn--gold:hover { background: var(--c-gold-soft); }
+
+.ui-btn--navy { background: var(--c-navy); color: var(--c-cream); }
+.ui-btn--navy:hover { background: var(--c-navy-lift); }
+
+.ui-btn--ghost {
+  border-color: rgba(244, 239, 227, 0.32);
+  color: var(--c-cream);
+  background: transparent;
+}
+.ui-btn--ghost:hover { border-color: var(--c-gold); color: var(--c-gold); }
+
+.ui-btn[disabled] { opacity: 0.6; cursor: default; }
+
+/* Inline underlined link */
+.ui-link {
+  display: inline-block;
+  margin-top: var(--s-5);
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-navy);
+  border-bottom: 1px solid var(--c-gold);
+  padding-bottom: var(--s-1);
+  transition: color var(--d-fast) var(--e-out);
+}
+.ui-link:hover { color: var(--c-gold-ink); }
+.ui-section--navy .ui-link { color: var(--c-cream); }
+
+/* ---------------- Page hero (inner pages) ---------------- */
+.ui-pagehero {
+  background: var(--c-navy);
+  color: var(--c-on-dark);
+  padding-block: clamp(3.375rem, 2.2rem + 4vw, 5.75rem);
+}
+.ui-pagehero__heading {
+  color: var(--c-cream);
+  margin-top: var(--s-4);
+  max-width: 46rem;
+  font-size: var(--t-h1);
+}
+.ui-pagehero__line { display: block; }
+.ui-pagehero__lead {
+  margin-top: var(--s-5);
+  max-width: 40rem;
+  color: var(--c-on-dark-70);
+  font-size: var(--t-lead);
+  line-height: var(--lh-loose);
+}
+
+/* ---------------- Stat block ---------------- */
+.ui-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--s-6);
+}
+.ui-stat { padding-left: var(--s-5); border-left: 1px solid var(--c-rule); }
+.ui-stat__figure {
+  font-family: var(--f-serif);
+  font-size: clamp(2rem, 1.4rem + 2vw, 2.75rem);
+  line-height: 1;
+  color: var(--c-gold);
+}
+.ui-stat__text {
+  margin-top: var(--s-3);
+  font-size: var(--t-small);
+  line-height: var(--lh-body);
+  color: var(--c-muted);
+  max-width: 20rem;
+}
+
+/* On a navy band the stat inherits on-dark treatment */
+.ui-section--navy .ui-stat { border-left-color: var(--c-rule-dark); }
+.ui-section--navy .ui-stat__text { color: var(--c-on-dark-70); }
+
+/* ---------------- Numbered card grid ---------------- */
+.ui-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  border-top: 1px solid var(--c-rule);
+}
+.ui-card {
+  padding: var(--s-6) var(--s-5) var(--s-4) 0;
+  border-right: 1px solid var(--c-rule);
+}
+.ui-card:last-child { border-right: none; }
+.ui-card:not(:first-child) { padding-left: var(--s-5); }
+.ui-card__n {
+  font-family: var(--f-serif);
+  font-size: var(--t-caption);
+  color: var(--c-gold-ink);
+  letter-spacing: 0.1em;
+}
+.ui-card__title { margin: var(--s-4) 0 var(--s-3); }
+.ui-card__text {
+  font-size: var(--t-small);
+  line-height: var(--lh-body);
+  color: var(--c-muted);
+}
+.ui-section--navy .ui-card { border-color: var(--c-rule-dark); }
+.ui-section--navy .ui-card__n { color: var(--c-gold); }
+.ui-section--navy .ui-card__text { color: var(--c-on-dark-70); }
+.ui-section--navy .ui-cards { border-top-color: var(--c-rule-dark); }
+
+/* ---------------- Service row ---------------- */
+.ui-rows { border-top: 1px solid var(--c-rule); }
+.ui-row {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr 19rem;
+  gap: var(--s-6);
+  padding-block: var(--s-5);
+  border-bottom: 1px solid var(--c-rule);
+  align-items: baseline;
+}
+.ui-row__n {
+  font-family: var(--f-serif);
+  font-size: var(--t-caption);
+  color: var(--c-gold-ink);
+}
+.ui-row__title { font-size: var(--t-h3); }
+.ui-row__text {
+  font-size: var(--t-small);
+  line-height: var(--lh-body);
+  color: var(--c-muted);
+}
+
+/* ---------------- Process steps ---------------- */
+.ui-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--s-5);
+}
+.ui-step { border-top: 2px solid var(--c-gold); padding-top: var(--s-5); }
+.ui-step__n {
+  font-family: var(--f-serif);
+  font-size: var(--t-caption);
+  color: var(--c-gold-ink);
+}
+.ui-step__title { margin: var(--s-3) 0 var(--s-2); font-size: var(--t-h3); }
+.ui-step__text {
+  font-size: var(--t-caption);
+  line-height: var(--lh-body);
+  color: var(--c-muted);
+}
+
+/* ---------------- Figure ---------------- */
+/* ASP-12 replaces the <img> here with a responsive, modern-format component. */
+.ui-figure { position: relative; overflow: hidden; background: var(--c-navy-lift); }
+.ui-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: var(--figure-ratio, 4 / 5);
+}
+
+/* ---------------- Split (image beside text) ---------------- */
+.ui-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 1rem + 4vw, 4.5rem);
+  align-items: center;
+}
+.ui-split--flip > .ui-figure { order: 2; }
+
+/* ---------------- Bullet list ---------------- */
+.ui-bullets { list-style: none; margin: var(--s-5) 0 0; padding: 0; }
+.ui-bullets li {
+  position: relative;
+  padding: var(--s-3) 0 var(--s-3) var(--s-5);
+  border-top: 1px solid var(--c-rule);
+  font-size: var(--t-small);
+  line-height: var(--lh-body);
+}
+.ui-bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.35em;
+  width: 0.5625rem;
+  height: 1px;
+  background: var(--c-gold-ink);
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 900px) {
+  .ui-cards { grid-template-columns: 1fr; border-top: none; }
+  .ui-card {
+    border-right: none;
+    border-top: 1px solid var(--c-rule);
+    padding: var(--s-5) 0 var(--s-4);
+  }
+  .ui-card:not(:first-child) { padding-left: 0; }
+  .ui-section--navy .ui-card { border-top-color: var(--c-rule-dark); }
+
+  .ui-row { grid-template-columns: 2.5rem 1fr; gap: var(--s-3) var(--s-4); }
+  .ui-row__text { grid-column: 2; }
+
+  .ui-steps { grid-template-columns: 1fr; gap: 0; }
+  .ui-step { border-top: 1px solid var(--c-rule); padding-block: var(--s-5) var(--s-4); }
+  .ui-step:first-child { border-top: 2px solid var(--c-gold); }
+
+  .ui-split { grid-template-columns: 1fr; }
+  .ui-split--flip > .ui-figure { order: 0; }
+  .ui-figure img { aspect-ratio: 3 / 2; }
+
+  .ui-stat { border-left: 2px solid var(--c-gold); }
+}
