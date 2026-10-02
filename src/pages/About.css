@@ -1,0 +1,23 @@
+/* About (ASP-08) */
+
+.about-para {
+  color: var(--c-muted);
+  line-height: var(--lh-loose);
+}
+.about-para + .about-para { margin-top: var(--s-4); }
+
+.about-quote {
+  margin: var(--s-6) 0 0;
+  padding-left: var(--s-5);
+  border-left: 2px solid var(--c-gold);
+  font-family: var(--f-serif);
+  font-size: var(--t-h3);
+  line-height: var(--lh-head);
+  color: var(--c-navy);
+}
+
+.about-grid { margin-top: var(--s-7); }
+
+.about-closing { text-align: center; }
+.about-closing__heading { margin-top: var(--s-5); }
+.about-closing .ui-btn { margin-top: var(--s-7); }

@@ -1,0 +1,67 @@
+/* Enquiry form (ASP-11) */
+
+.enq { display: flex; flex-direction: column; gap: var(--s-4); }
+
+.enq__field { display: flex; flex-direction: column; gap: var(--s-2); }
+
+/* Visible label rather than placeholder-only: a placeholder disappears on
+   focus and is not a reliable accessible name. */
+.enq__label {
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.enq input,
+.enq textarea {
+  background: var(--c-paper);
+  border: 1px solid var(--c-rule);
+  border-radius: var(--radius);
+  padding: 0.875rem 1rem;
+  font-size: var(--t-small);
+  font-family: inherit;
+  color: var(--c-ink);
+  transition: border-color var(--d-fast) var(--e-out);
+}
+.enq textarea { resize: vertical; min-height: 6rem; }
+
+.enq input:focus,
+.enq textarea:focus { border-color: var(--c-gold); }
+
+.enq [aria-invalid='true'] { border-color: var(--c-error); }
+
+.enq__err {
+  font-size: var(--t-caption);
+  color: var(--c-error);
+}
+
+.enq__formerr {
+  font-size: var(--t-small);
+  line-height: var(--lh-body);
+  color: var(--c-error);
+  border-left: 2px solid var(--c-error);
+  padding-left: var(--s-4);
+}
+
+.enq__submit { margin-top: var(--s-2); }
+
+/* ---- Success ---- */
+.enq__success {
+  border: 1px solid rgba(201, 169, 78, 0.4);
+  border-radius: var(--radius);
+  padding: var(--s-7) var(--s-6);
+  background: rgba(201, 169, 78, 0.06);
+}
+.enq__successtitle {
+  font-family: var(--f-serif);
+  font-size: var(--t-h3);
+  color: var(--c-gold-ink);
+}
+.enq__successbody {
+  margin-top: var(--s-2);
+  font-size: var(--t-small);
+  line-height: var(--lh-body);
+  color: var(--c-muted);
+}

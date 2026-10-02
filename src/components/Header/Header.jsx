@@ -41,15 +41,20 @@ export default function Header() {
     document.body.style.overflow = 'hidden'
 
     // The toggle sits outside the panel but is part of the trap — it is the
-    // labelled "Close menu" control.
+    // labelled "Close menu" control. It must come FIRST, because it precedes
+    // the panel in the DOM: listing it last would mean tabbing forward off the
+    // final panel link is not intercepted, and focus escapes into the page
+    // underneath the open overlay.
     const getFocusables = () => {
       const inPanel = panelRef.current
         ? Array.from(panelRef.current.querySelectorAll('a[href], button:not([disabled])'))
         : []
-      return toggleRef.current ? [...inPanel, toggleRef.current] : inPanel
+      return toggleRef.current ? [toggleRef.current, ...inPanel] : inPanel
     }
 
-    getFocusables()[0]?.focus()
+    // Focus the first menu link, not the toggle — the toggle leads the array
+    // for DOM-order trapping, but it is not where a user wants to land.
+    panelRef.current?.querySelector('a[href]')?.focus()
 
     function onKeyDown(e) {
       if (e.key === 'Escape') {

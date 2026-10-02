@@ -1,0 +1,13 @@
+/* Philosophy (ASP-10) */
+
+.phil-grid { margin-top: var(--s-7); }
+
+.phil-process { margin-top: var(--s-7); }
+
+.phil-closing { text-align: center; }
+.phil-closing__heading {
+  margin-top: var(--s-5);
+  max-width: 44rem;
+  margin-inline: auto;
+}
+.phil-closing .ui-btn { margin-top: var(--s-7); }

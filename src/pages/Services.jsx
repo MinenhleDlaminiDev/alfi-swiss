@@ -1,16 +1,50 @@
-import { hero } from '../content/services.js'
+import {
+  PageHero, Section, Eyebrow, Button,
+  ServiceRows, Split, Figure, Bullets,
+} from '../components/ui/index.jsx'
+import { cta } from '../content/site.js'
+import { hero, index, details, closing } from '../content/services.js'
+import './Services.css'
 
-/* Services (ASP-02 route stub). Built out in ASP-0X. */
+/* Services (ASP-09). Deck slides 5-8.
+
+   The `details` sections own the anchor ids; the index rows link into them,
+   so `anchors` is left false on ServiceRows to avoid duplicate ids. */
 export default function Services() {
   return (
-    <section className="band band--navy">
-      <div className="wrap">
-        <p style={{ letterSpacing: '0.3em', textTransform: 'uppercase', fontSize: 11, color: 'var(--c-gold)' }}>
-          {hero.eyebrow}
-        </p>
-        <h1 style={{ marginTop: 16 }}>{hero.headingLines.join(' ')}</h1>
-        <p style={{ marginTop: 20, maxWidth: 620, color: 'var(--c-on-dark-70)' }}>{hero.lead}</p>
-      </div>
-    </section>
+    <>
+      <PageHero eyebrow={hero.eyebrow} headingLines={hero.headingLines} lead={hero.lead} />
+
+      {/* Index of the five service areas */}
+      <Section tone="paper">
+        <div className="svc-index">
+          <ServiceRows items={index} />
+        </div>
+      </Section>
+
+      {/* Detail sections, alternating sides */}
+      {details.map((d, i) => (
+        <Section key={d.id} id={d.id} tone={i % 2 === 0 ? 'cream' : 'paper'}>
+          <Split flip={d.flip}>
+            {d.image && <Figure src={d.image.src} alt={d.image.alt} />}
+            <div>
+              <Eyebrow>{d.eyebrow}</Eyebrow>
+              <h2 className="svc-detail__heading">{d.heading}</h2>
+              <p className="svc-detail__body">{d.body}</p>
+              <Bullets items={d.points} />
+            </div>
+          </Split>
+        </Section>
+      ))}
+
+      {/* Closing */}
+      <section className="ui-section ui-section--navy svc-closing">
+        <div className="wrap">
+          <Eyebrow tone="dim">{closing.eyebrow}</Eyebrow>
+          <h2 className="svc-closing__heading">{closing.heading}</h2>
+          <Button to={cta.request.to} variant="gold">{cta.request.label}</Button>
+        </div>
+      </section>
+    </>
   )
 }

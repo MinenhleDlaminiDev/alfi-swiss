@@ -1,0 +1,14 @@
+/* Services (ASP-09) */
+
+.svc-index { margin-top: var(--s-6); }
+
+.svc-detail__heading { margin-top: var(--s-4); }
+.svc-detail__body {
+  margin-top: var(--s-5);
+  color: var(--c-muted);
+  line-height: var(--lh-loose);
+}
+
+.svc-closing { text-align: center; }
+.svc-closing__heading { margin-top: var(--s-5); }
+.svc-closing .ui-btn { margin-top: var(--s-7); }

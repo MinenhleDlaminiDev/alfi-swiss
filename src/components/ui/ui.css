@@ -29,6 +29,9 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
   background: var(--c-navy);
   color: var(--c-on-dark);
 }
+/* h1 included deliberately: RouteError renders an h1 inside this section and
+   would otherwise inherit the global navy heading colour, navy-on-navy. */
+.ui-section--navy h1,
 .ui-section--navy h2,
 .ui-section--navy h3 { color: var(--c-cream); }
 
@@ -267,5 +270,8 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
   .ui-split--flip > .ui-figure { order: 0; }
   .ui-figure img { aspect-ratio: 3 / 2; }
 
-  .ui-stat { border-left: 2px solid var(--c-gold); }
+  /* Selector matches the .ui-section--navy .ui-stat rule above (0-2-0) so the
+     gold border is not outranked inside this media query. */
+  .ui-stat,
+  .ui-section--navy .ui-stat { border-left: 2px solid var(--c-gold); }
 }

@@ -1,16 +1,47 @@
-import { hero } from '../content/philosophy.js'
+import {
+  PageHero, Section, SectionHead, Eyebrow, Button,
+  NumberedCards, ProcessSteps, Split, Figure,
+} from '../components/ui/index.jsx'
+import { cta } from '../content/site.js'
+import { hero, principles, process, closing } from '../content/philosophy.js'
+import './Philosophy.css'
 
-/* Philosophy (ASP-02 route stub). Built out in ASP-0X. */
+/* Philosophy (ASP-10). Deck slides 9-10. */
 export default function Philosophy() {
   return (
-    <section className="band band--navy">
-      <div className="wrap">
-        <p style={{ letterSpacing: '0.3em', textTransform: 'uppercase', fontSize: 11, color: 'var(--c-gold)' }}>
-          {hero.eyebrow}
-        </p>
-        <h1 style={{ marginTop: 16 }}>{hero.headingLines.join(' ')}</h1>
-        <p style={{ marginTop: 20, maxWidth: 620, color: 'var(--c-on-dark-70)' }}>{hero.lead}</p>
-      </div>
-    </section>
+    <>
+      <PageHero eyebrow={hero.eyebrow} headingLines={hero.headingLines} lead={hero.lead} />
+
+      {/* Four principles, beside the image */}
+      <Section tone="paper">
+        <Split>
+          <Figure src={principles.image.src} alt={principles.image.alt} />
+          <div>
+            <Eyebrow>{principles.eyebrow}</Eyebrow>
+            <h2 className="svc-detail__heading">{principles.heading}</h2>
+            <div className="phil-grid">
+              <NumberedCards items={principles.items} />
+            </div>
+          </div>
+        </Split>
+      </Section>
+
+      {/* Five-stage process */}
+      <Section tone="cream">
+        <SectionHead eyebrow={process.eyebrow} heading={process.heading} lead={process.lead} />
+        <div className="phil-process">
+          <ProcessSteps items={process.steps} />
+        </div>
+      </Section>
+
+      {/* Closing */}
+      <section className="ui-section ui-section--navy phil-closing">
+        <div className="wrap">
+          <Eyebrow tone="dim">{closing.eyebrow}</Eyebrow>
+          <h2 className="phil-closing__heading">{closing.heading}</h2>
+          <Button to={cta.request.to} variant="gold">{cta.request.label}</Button>
+        </div>
+      </section>
+    </>
   )
 }
