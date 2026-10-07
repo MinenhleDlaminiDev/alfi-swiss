@@ -73,6 +73,23 @@
   font-style: italic;
 }
 
+/* ---- Digital business card (ASP-19) ---- */
+.contact-card {
+  margin-top: var(--s-8);
+  border-top: 1px solid var(--c-rule);
+  padding-top: var(--s-7);
+}
+
+.contact-card__lead {
+  max-width: 34rem;
+  margin-top: var(--s-4);
+  font-size: var(--t-small);
+  line-height: var(--lh-loose);
+  color: var(--c-muted);
+}
+
+.contact-card__slot { margin-top: var(--s-6); }
+
 /* ---- Regulatory ---- */
 .contact-reg { max-width: 50rem; }
 .contact-reg__body {

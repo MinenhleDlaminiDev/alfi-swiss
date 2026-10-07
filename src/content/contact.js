@@ -9,6 +9,50 @@ export const hero = {
     'or send a note and a partner will respond.',
 };
 
+/* Copy introducing the card on the Contact page (ASP-19). */
+export const cardSection = {
+  eyebrow: 'Digital Card',
+  heading: 'Save our details.',
+  lead:
+    'Scan the code with a phone camera to add Alexander Dimanow to your contacts, ' +
+    'or download the contact file directly.',
+};
+
+/* Digital business card details (ASP-18).
+   This is the single source of truth: scripts/build-vcard.mjs generates both
+   public/<slug>.vcf and the QR from this object, and <VCard> renders from it.
+   Change a number here and all three follow. Never hard-code these in a
+   component or re-type them into the .vcf by hand.
+
+   Phone numbers are stored in E.164 (`tel`) for the dial links and separately
+   as the spaced form the partner's printed card uses (`display`), because the
+   two are not mechanically derivable from each other across countries. */
+export const card = {
+  slug: 'alexander-dimanow',
+  name: 'Alexander Dimanow',
+  firstName: 'Alexander',
+  lastName: 'Dimanow',
+  role: 'Managing Partner',
+  org: 'ALFI Swiss Partners',
+  phones: [
+    { kind: 'cell', label: 'M', display: '+41 79 208 72 96', tel: '+41792087296' },
+    { kind: 'work', label: 'D', display: '+41 22 707 82 80', tel: '+41227078280' },
+  ],
+  email: 'alexander.dimanow@alfiswisspartners.com',
+  address: {
+    street: '36 Boulevard Helvétique',
+    postalCode: '1207',
+    city: 'Geneva',
+    country: 'Switzerland',
+    /* As printed on the card, which abbreviates the country. */
+    displayLines: ['36 Boulevard Helvétique', 'CH – 1207 Geneva'],
+  },
+  website: 'https://www.alfiswisspartners.com',
+  websiteDisplay: 'www.alfiswisspartners.com',
+  qrCaption: 'Scan to save contact',
+  download: 'Download contact file',
+};
+
 export const leadership = {
   eyebrow: 'Leadership',
   heading: 'Senior partners, directly involved.',

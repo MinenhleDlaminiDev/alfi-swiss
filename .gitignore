@@ -9,3 +9,9 @@ dist-ssr
 # Rebuild with: npm run images
 public/images/*.webp
 public/images/*.jpg
+
+# Generated vCard artefacts — the source of truth is `card` in
+# src/content/contact.js. Committing these risks a stale copy disagreeing with
+# the content file. Rebuild with: npm run vcard
+public/*.vcf
+public/*-qr.svg

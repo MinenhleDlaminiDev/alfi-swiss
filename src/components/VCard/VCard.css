@@ -1,0 +1,255 @@
+/* Digital business card (ASP-19).
+   Ported from the supplied alfi-vcard-white.html.
+
+   The card carries its own small palette because the supplied design does not
+   use the site tokens: its gold is #8A7028, not --c-gold-ink #9A7B25, and its
+   hairline is #E5E1D6, not --c-rule. They are declared once here as --vc-*
+   rather than scattered as literals through the rules, which is what the
+   no-hard-coded-hex rule in tokens.css is actually protecting against.
+
+   Keeping the supplied gold was deliberate: measured on the card's white it
+   gives 4.74:1, where --c-gold-ink gives 4.01:1. At 10–11px the text needs
+   4.5:1, so the supplied colour passes where the site token would not. */
+.vcard {
+  --vc-gold: #8A7028;
+  --vc-line: #E5E1D6;
+  --vc-ink: #0B1C33;
+  --vc-muted: #5A6675;
+  /* The focus ring must clear 3:1 on this card's white (ASP-15). The site
+     default --c-gold-ink manages 4.01:1 here, so it is kept, but it is pinned
+     explicitly so a future change to the surrounding section cannot inherit a
+     ring that fails against white. */
+  --c-focus: var(--c-gold-ink);
+
+  position: relative;
+  width: 348px;
+  max-width: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--vc-line);
+  border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(11, 28, 51, 0.14);
+  color: var(--vc-ink);
+}
+
+.vcard__watermark {
+  position: absolute;
+  top: -60px;
+  right: -140px;
+  width: 452px;
+  height: 452px;
+  opacity: 0.05;
+  pointer-events: none;
+  color: var(--vc-ink);
+}
+
+.vcard__inner {
+  --vc-pad: 28px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 38px var(--vc-pad) 34px;
+}
+
+/* ---- Head ---- */
+.vcard__seal {
+  width: 58px;
+  height: 58px;
+  color: var(--vc-ink);
+}
+
+.vcard__wordmark {
+  margin-top: 11px;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  /* Tracking adds space after the final letter; indent by the same amount so
+     the word reads as optically centred. */
+  padding-left: 0.3em;
+  line-height: 1;
+  color: var(--vc-ink);
+}
+
+.vcard__suffix {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.vcard__suffixtext {
+  font-size: 8.5px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  padding-left: 0.34em;
+  text-transform: uppercase;
+  color: var(--vc-gold);
+}
+
+.vcard__rule {
+  height: 1px;
+  background: rgba(138, 112, 40, 0.55);
+}
+.vcard__rule--l { width: 19px; }
+.vcard__rule--r { width: 22px; }
+
+.vcard__divider {
+  width: 38px;
+  height: 1px;
+  margin: 16px 0;
+  background: rgba(11, 28, 51, 0.12);
+}
+
+/* ---- Identity ---- */
+.vcard__name {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--vc-ink);
+}
+
+.vcard__role {
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  padding-left: 0.22em;
+  text-transform: uppercase;
+  color: var(--vc-gold);
+}
+
+/* ---- Contact rows ---- */
+.vcard__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 100%;
+  margin-top: 18px;
+  text-align: left;
+}
+
+.vcard__row {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--vc-ink);
+}
+
+a.vcard__row:hover .vcard__value { color: var(--vc-gold); }
+
+.vcard__badge {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 29px;
+  height: 29px;
+  border: 1px solid var(--vc-line);
+  border-radius: 7px;
+  font-size: 11px;
+  color: var(--vc-gold);
+}
+
+.vcard__value {
+  min-width: 0;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+/* Phone numbers are short and must never break mid-number. */
+.vcard__value--tel { white-space: nowrap; }
+
+/* The supplied design sets `white-space: nowrap` on every row. On the email
+   that overflows once the card drops below its 348px width — and the card
+   clips, so the address would have silently lost its tail rather than wrapped.
+   The email is the one value that is allowed to break. */
+.vcard__value--email { overflow-wrap: anywhere; }
+
+/* ---- QR ---- */
+.vcard__qrblock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 19px;
+  /* The symbol plus its frame is 334px, wider than the content column inside
+     the card's 28px padding. Pull the block out so it fits, instead of being
+     clipped by `overflow: hidden` — which would cut through the QR's finder
+     pattern while the page itself showed no overflow at all.
+
+     The arithmetic is off the BORDER box: the card's 348px includes its 1px
+     borders, so the content column is 348 - 2 - 56 = 290, and reaching 334
+     needs 22px a side, not 21. At 21 the frame landed at 332, the image's
+     `max-width: 100%` clamped 324 down to 322, and the modules went
+     fractional again — 2px of inset quietly undoing the whole-number rule. */
+  margin-inline: calc(-1 * var(--vc-pad));
+}
+
+.vcard__qrframe {
+  display: block;
+  width: 334px;
+  max-width: 100%;
+  margin-inline: auto;
+  /* A flex item shrinks by default. That pulled the symbol to 316px and 322px
+     at some widths - fractional module sizes, the exact thing the whole-number
+     rule exists to prevent. */
+  flex: none;
+  padding: 4px;
+  background: #fff;
+  border: 1px solid var(--vc-line);
+  border-radius: 9px;
+}
+
+.vcard__qr {
+  display: block;
+  flex: none;
+  /* 324 = 81 modules x exactly 4 CSS px.
+     The supplied design rendered this at 112px, which is 1.38 px per module —
+     roughly a third of what any decoder can read, so the code could not be
+     scanned at all.
+
+     The whole number matters as much as the size: at a fractional module size
+     the browser's vector rasteriser antialiases every module edge into grey,
+     and a 1x screen capture at 3.68 px/module failed to decode even though the
+     same symbol decoded cleanly from the source SVG.
+
+     Change this only in multiples of 81, and re-run the rendered-QR decode
+     test afterwards. */
+  width: 324px;
+  height: auto;
+}
+
+.vcard__qrcaption {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  padding-left: 0.26em;
+  text-transform: uppercase;
+  color: rgba(11, 28, 51, 0.62);
+}
+
+.vcard__site {
+  margin-top: 17px;
+  font-size: 10.5px;
+  letter-spacing: 0.13em;
+  color: var(--vc-muted);
+}
+
+/* Below 376px a 324px symbol no longer fits inside the card. Step DOWN TO A
+   WHOLE NUMBER of pixels per module rather than letting it scale to something
+   fractional: 243 = 81 modules x 3px, the floor verified to decode from real
+   rendered pixels. Any new step must also be a multiple of 81. */
+@media (max-width: 375px) {
+  .vcard__inner { --vc-pad: 18px; padding: 32px var(--vc-pad) 28px; }
+  .vcard__qr { width: 243px; }
+  /* 253px frame against an 18px inset — a smaller bleed, same reason. */
+  .vcard__qrframe { width: 253px; }
+}
+
+/* Colour change only on hover — no movement — so there is nothing here for
+   `prefers-reduced-motion` to switch off. If a transform or animation is ever
+   added, give it a guard beside the rule, per the convention in index.css. */

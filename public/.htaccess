@@ -44,6 +44,18 @@ RedirectMatch 404 /\.git
 
 
 # ---------------------------------------------------------------------------
+# MIME types (ASP-18)
+# ---------------------------------------------------------------------------
+# Apache does not know .vcf out of the box, so it is served with no
+# Content-Type. Combined with the `nosniff` header set below, the browser is
+# then forbidden from guessing, and a phone shows the card as plain text
+# instead of offering to add the contact. This single line is what makes the
+# download button work on iOS.
+<IfModule mod_mime.c>
+  AddType text/vcard .vcf
+</IfModule>
+
+# ---------------------------------------------------------------------------
 # Caching
 # ---------------------------------------------------------------------------
 <IfModule mod_headers.c>
@@ -73,6 +85,14 @@ RedirectMatch 404 /\.git
   # and never receive the new hashed asset URLs.
   <FilesMatch "\.(html|json)$">
     Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  # The contact file is not content-hashed and carries details that can change
+  # (a direct line, an address). A day is long enough to be cheap and short
+  # enough that a correction reaches people quickly. Must come after the
+  # image rule above, which would otherwise pin the matching QR SVG for 30 days.
+  <FilesMatch "(\.vcf|-qr\.svg)$">
+    Header set Cache-Control "public, max-age=86400"
   </FilesMatch>
 
   Header always set X-Content-Type-Options "nosniff"

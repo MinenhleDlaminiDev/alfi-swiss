@@ -1,7 +1,8 @@
 import { PageHero, Section, Eyebrow, Split, Figure } from '../components/ui/index.jsx'
 import EnquiryForm from '../components/EnquiryForm/EnquiryForm.jsx'
 import { contact, regulatory } from '../content/site.js'
-import { hero, leadership, form, office } from '../content/contact.js'
+import { hero, leadership, form, office, cardSection } from '../content/contact.js'
+import VCard from '../components/VCard/VCard.jsx'
 import './Contact.css'
 import Seo from '../components/Seo.jsx'
 import { seo } from '../content/seo.js'
@@ -55,6 +56,16 @@ export default function Contact() {
               </p>
             </article>
           ))}
+        </div>
+
+        {/* Digital business card (ASP-19) */}
+        <div className="contact-card">
+          <Eyebrow>{cardSection.eyebrow}</Eyebrow>
+          <h3 className="contact-heading">{cardSection.heading}</h3>
+          <p className="contact-card__lead">{cardSection.lead}</p>
+          <div className="contact-card__slot">
+            <VCard />
+          </div>
         </div>
       </Section>
 
