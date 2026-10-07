@@ -16,6 +16,8 @@ export default function Header() {
   const [open, setOpen] = useState(false)
   const panelRef = useRef(null)
   const toggleRef = useRef(null)
+  const sentinelRef = useRef(null)
+  const stuck = useStuck(sentinelRef)
   const { pathname } = useLocation()
 
   const close = useCallback(() => setOpen(false), [])
@@ -109,7 +111,12 @@ export default function Header() {
     ))
 
   return (
-    <header className="hdr">
+    <>
+      {/* Sentinel for the stuck state. It sits in normal flow immediately
+          above the sticky header, so "the sentinel has scrolled out of view"
+          and "the header is now stuck" are the same event. */}
+      <span ref={sentinelRef} className="hdr__sentinel" aria-hidden="true" />
+      <header className={'hdr' + (stuck ? ' is-stuck' : '')}>
       <div className="wrap hdr__inner">
         <NavLink to="/" className="hdr__brand" aria-label={firm.fullName}>
           <Seal size={34} />
@@ -146,6 +153,42 @@ export default function Header() {
             which would not re-run the pathname effect. */}
         <nav className="hdr__panelnav" aria-label="Mobile">{renderLinks(close)}</nav>
       </div>
-    </header>
+      </header>
+    </>
   )
+}
+
+/* ASP-20 — sticky header state.
+ *
+ * True once the page has scrolled far enough that the header has left its
+ * resting place, so it can fade in a translucent blurred background and let
+ * content read as passing behind glass rather than colliding with it.
+ *
+ * Watches a zero-height sentinel sitting in normal flow just above the
+ * header, not the header itself. Observing the sticky element directly does
+ * not work: it is pinned at `top: 0`, so any negative top rootMargin clips it
+ * by that much even while resting, and it reports "stuck" from the first
+ * paint — which is exactly what the first attempt here did.
+ *
+ * A sentinel also costs nothing on scroll: the browser reports the crossing,
+ * instead of us recomputing a position on every frame.
+ */
+function useStuck(ref) {
+  const [isStuck, setIsStuck] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    // Guarded: without IntersectionObserver the header simply stays solid,
+    // which is the pre-ASP-20 appearance and perfectly usable.
+    if (!el || typeof IntersectionObserver === 'undefined') return
+
+    const io = new IntersectionObserver(
+      ([entry]) => setIsStuck(!entry.isIntersecting),
+      { threshold: 0 },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [ref])
+
+  return isStuck
 }

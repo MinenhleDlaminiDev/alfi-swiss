@@ -80,9 +80,26 @@
 
   /* ---- Motion ---- */
   --e-out: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --d-fast: 180ms;
-  --d-base: 320ms;
-  --d-slow: 900ms;
+  --d-fast: 180ms;    /* colour and border changes */
+  --d-base: 320ms;    /* a surface lifting or settling */
+  --d-slower: 520ms;  /* an image easing inside a surface that is already moving */
+
+  /* The stagger is the point. When a card lifts in --d-base and the image
+     inside it zooms over --d-slower, the two settle at different moments and
+     the result reads as considered. Matching the durations makes the whole
+     thing move as one slab and feel mechanical. */
+
+  /* ---- Elevation ----
+     Tinted with the navy, not black. Our ground is cream and paper; a neutral
+     black shadow over a warm surface reads as grey dirt rather than depth. */
+  --shadow-1: 0 1px 2px rgba(11, 28, 51, 0.05),
+              0 1px 3px rgba(11, 28, 51, 0.04);
+  --shadow-2: 0 4px 10px rgba(11, 28, 51, 0.07),
+              0 2px 4px rgba(11, 28, 51, 0.04);
+  --shadow-3: 0 14px 36px rgba(11, 28, 51, 0.13),
+              0 4px 10px rgba(11, 28, 51, 0.05);
+  /* The header sits on navy, so its shadow is deeper to register at all. */
+  --shadow-header: 0 1px 18px rgba(4, 10, 20, 0.38);
 
   --radius: 2px;
   --z-header: 50;

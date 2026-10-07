@@ -61,7 +61,21 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
   text-align: center;
   transition: background-color var(--d-fast) var(--e-out),
               color var(--d-fast) var(--e-out),
-              border-color var(--d-fast) var(--e-out);
+              border-color var(--d-fast) var(--e-out),
+              transform var(--d-fast) var(--e-out);
+}
+
+/* Press feedback. Small enough to feel like the button taking the press
+   rather than a bounce — the reference uses 0.97, which is noticeably springy
+   on a button this wide; 0.985 reads as firm. */
+.ui-btn:active { transform: scale(0.985); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-btn { transition: background-color var(--d-fast) var(--e-out),
+                        color var(--d-fast) var(--e-out),
+                        border-color var(--d-fast) var(--e-out); }
+  /* Colour feedback on press stays; the movement does not. */
+  .ui-btn:active { transform: none; }
 }
 .ui-btn--gold { background: var(--c-gold); color: var(--c-navy); }
 .ui-btn--gold:hover { background: var(--c-gold-soft); }

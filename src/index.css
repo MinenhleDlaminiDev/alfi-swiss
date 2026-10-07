@@ -73,6 +73,15 @@ button, input, textarea, select { font: inherit; color: inherit; }
   --c-focus: var(--c-navy);
 }
 
+/* Smooth scrolling for in-page anchors (ASP-20).
+   Guarded: under `reduce` this must be `auto`, or every anchor jump becomes an
+   animation the user asked not to see. */
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 /* Visible to screen readers, not to the eye. Used where an icon or an
    abbreviation carries meaning that would otherwise be lost — a "M" badge
    reads as the letter M, not "mobile".

@@ -6,7 +6,30 @@
   z-index: var(--z-header);
   background: var(--c-navy);
   border-bottom: 1px solid var(--c-rule-dark);
+  /* Background and shadow only. Nothing here changes the header's size, so
+     sticking cannot shift the page. */
+  transition: background-color var(--d-base) var(--e-out),
+              box-shadow var(--d-base) var(--e-out);
 }
+
+/* Once stuck, the header gains a shadow so content passing under it reads as
+   behind rather than butting against it. */
+.hdr.is-stuck { box-shadow: var(--shadow-header); }
+
+/* The translucency is applied ONLY where the blur behind it is supported.
+   Without the blur, a semi-transparent navy bar over a cream section shows
+   sharp text sliding through the nav links and is unreadable — so browsers
+   without backdrop-filter keep the solid navy, which is the original look. */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .hdr.is-stuck {
+    background: rgba(11, 28, 51, 0.88);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+  }
+}
+
+/* The mobile panel sits inside the header but carries its own opaque navy,
+   so the translucent bar above it does not bleed through the open menu. */
 
 .hdr__inner {
   display: flex;
@@ -124,4 +147,15 @@
 @media (min-width: 901px) {
   .hdr__inner { min-height: var(--header-h); }
   .hdr__panel { display: none !important; }
+}
+
+/* Zero-height marker in normal flow directly above the sticky header.
+   Not display:none — a hidden element has no box to intersect, so the
+   observer would never fire. */
+.hdr__sentinel {
+  display: block;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
 }
