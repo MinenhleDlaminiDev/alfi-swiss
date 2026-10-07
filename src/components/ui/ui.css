@@ -94,6 +94,7 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
 
 /* Inline underlined link */
 .ui-link {
+  position: relative;
   display: inline-block;
   margin-top: var(--s-5);
   font-size: var(--t-eyebrow);
@@ -101,10 +102,33 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--c-navy);
-  border-bottom: 1px solid var(--c-gold);
+  /* The resting rule is faint but always present: it is what marks this as a
+     link at all, so it must not depend on hover. The hover rule below draws
+     over it rather than replacing it. */
+  border-bottom: 1px solid rgba(201, 169, 78, 0.4);
   padding-bottom: var(--s-1);
   transition: color var(--d-fast) var(--e-out);
 }
+
+/* A full-strength gold rule that wipes across on hover and focus, over the
+   faint resting one. scaleX from the left rather than animating width, so it
+   composites on the GPU and cannot reflow the text above it. */
+.ui-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--c-gold-ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--d-base) var(--e-out);
+}
+.ui-link:hover::after,
+.ui-link:focus-visible::after { transform: scaleX(1); }
+
+/* Keyboard users get the same signal as the mouse, not just the focus ring. */
 .ui-link:hover { color: var(--c-gold-ink); }
 .ui-section--navy .ui-link { color: var(--c-cream); }
 
@@ -281,10 +305,38 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
 
 /* Service index rows link into their detail section */
 .ui-row__link {
-  border-bottom: 1px solid transparent;
-  transition: color var(--d-fast) var(--e-out), border-color var(--d-fast) var(--e-out);
+  position: relative;
+  transition: color var(--d-fast) var(--e-out);
 }
-.ui-row__link:hover {
-  color: var(--c-gold-ink);
-  border-bottom-color: var(--c-gold);
+.ui-row__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--c-gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--d-base) var(--e-out);
+}
+.ui-row__link:hover,
+.ui-row__link:focus-visible { color: var(--c-gold-ink); }
+.ui-row__link:hover::after,
+.ui-row__link:focus-visible::after { transform: scaleX(1); }
+
+/* ---------------- Depth (ASP-21) ----------------
+   Resting elevation only. These surfaces are NOT interactive — NumberedCards
+   are plain <article>s and figures sit outside any link — so they get depth to
+   lift them off the page, never a hover lift. A panel that rises under the
+   cursor promises a click that does not exist. */
+.ui-card { box-shadow: var(--shadow-1); }
+
+/* ---------------- Reduced motion ----------------
+   The underline wipes are transforms, so they stop. The colour change stays,
+   which is what actually signals the hover; the rule simply appears at full
+   width instead of growing. */
+@media (prefers-reduced-motion: reduce) {
+  .ui-link::after,
+  .ui-row__link::after { transition: none; }
 }

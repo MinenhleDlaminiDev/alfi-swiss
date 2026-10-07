@@ -130,3 +130,33 @@
   .home-teaser { grid-template-columns: 1fr; }
   .home-teaser__list a { font-size: 1.0625rem; padding-block: var(--s-3); }
 }
+
+/* The teaser rows are full-width links, so the whole row may respond to the
+   cursor (ASP-21). Honest, because the entire row really is the click target.
+
+   The tint goes on the <li> and the nudge on the <a>: transitioning the link's
+   own padding would reflow the row on every frame, while a transform is
+   composited and cannot. Same reason the underline wipes use scaleX. */
+.home-teaser__list li {
+  transition: background-color var(--d-base) var(--e-out);
+}
+.home-teaser__list li:hover,
+.home-teaser__list li:focus-within {
+  background-color: rgba(201, 169, 78, 0.06);
+}
+
+.home-teaser__list a {
+  transition: color var(--d-fast) var(--e-out),
+              transform var(--d-base) var(--e-out);
+}
+.home-teaser__list a:hover,
+.home-teaser__list a:focus-visible {
+  transform: translateX(6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-teaser__list a { transition: color var(--d-fast) var(--e-out); }
+  /* The row still warms on hover; it just does not slide. */
+  .home-teaser__list a:hover,
+  .home-teaser__list a:focus-visible { transform: none; }
+}

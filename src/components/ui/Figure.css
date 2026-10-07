@@ -20,3 +20,7 @@
 @media (max-width: 900px) {
   .ui-figure img { aspect-ratio: 3 / 2; }
 }
+
+/* Resting elevation (ASP-21). Figures are not interactive — none sits inside
+   a link — so they take depth but never a hover response. */
+.ui-figure { box-shadow: var(--shadow-2); }
