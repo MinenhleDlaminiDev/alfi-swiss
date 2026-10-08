@@ -11,10 +11,18 @@
   animation: alfiDraw 1.3s var(--e-out) 0.2s forwards;
 }
 
+/* Under reduced motion the ring still draws, but quickly.
+   The same reasoning as the reveals in index.css: the preference is about
+   vestibular triggers — travel, scale, spin, parallax — and a stroke revealing
+   itself in place moves nothing across the screen. Nothing translates, nothing
+   scales, the mark does not rotate while it draws.
+
+   It was previously switched off entirely here. That was part of a blanket
+   approach which, taken together, left the whole site motionless for anyone
+   with the setting on. Shortened rather than removed. */
 @media (prefers-reduced-motion: reduce) {
   .seal__ring--draw {
-    animation: none;
-    /* Leave the ring fully drawn rather than invisible */
-    stroke-dashoffset: 0;
+    animation-duration: 420ms;
+    animation-delay: 0s;
   }
 }

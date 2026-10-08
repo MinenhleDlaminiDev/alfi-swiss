@@ -119,7 +119,7 @@ export default function Header() {
       <header className={'hdr' + (stuck ? ' is-stuck' : '')}>
       <div className="wrap hdr__inner">
         <NavLink to="/" className="hdr__brand" aria-label={firm.fullName}>
-          <Seal size={34} />
+          <Seal size={34} animate />
           <span className="hdr__brandtext">
             <span className="hdr__name">{firm.name}</span>
             <span className="hdr__sub">{firm.suffix}</span>

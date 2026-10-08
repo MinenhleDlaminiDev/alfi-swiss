@@ -19,7 +19,7 @@ export function Eyebrow({ children, tone = 'default', as: Tag = 'p' }) {
 export function Section({ tone = 'paper', children, id, className = '' }) {
   return (
     <section id={id} className={`ui-section ui-section--${tone} ${className}`.trim()}>
-      <div className="wrap">{children}</div>
+      <div className="wrap u-reveal">{children}</div>
     </section>
   )
 }
@@ -51,7 +51,7 @@ export function TextLink({ to, children }) {
 export function PageHero({ eyebrow, headingLines = [], lead }) {
   return (
     <section className="ui-pagehero">
-      <div className="wrap">
+      <div className="wrap u-reveal u-reveal--hero">
         {eyebrow && <Eyebrow tone="on-dark">{eyebrow}</Eyebrow>}
         <h1 className="ui-pagehero__heading">
           {headingLines.map((line, i) => (

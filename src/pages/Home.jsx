@@ -20,7 +20,7 @@ export default function Home() {
 
       {/* Hero */}
       <section className="home-hero">
-        <div className="wrap home-hero__inner">
+        <div className="wrap home-hero__inner u-reveal u-reveal--hero">
           <Eyebrow tone="on-dark">{hero.eyebrow}</Eyebrow>
           <h1 className="home-hero__heading">
             {hero.headingLines.map((line, i) => (

@@ -19,6 +19,27 @@
     <meta property="og:image" content="https://alfiswisspartners.com/images/home-positioning-1200w.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <title>ALFI Swiss Partners</title>
+    <script>
+      /* ASP-24 — set the reveal opt-in BEFORE first paint.
+         Doing this in React's effect instead would paint the content, then
+         hide it, then reveal it: a visible blink on every load.
+
+         Deliberately inline and synchronous. If this script never runs — JS
+         off, CSP, a parse error — the class is absent, nothing is hidden and
+         the page renders complete. src/lib/reveal.js removes the class again
+         if it finds it cannot observe, so the content can never be left
+         stranded at opacity 0.
+
+         NOT gated on prefers-reduced-motion. That gate was the first version
+         and it was wrong: it removed the animation entirely for anyone with
+         the setting on, which is a large share of Windows machines and
+         included the people who commissioned it. The preference is honoured
+         in CSS instead, where `reduce` keeps the fade and drops the movement —
+         see the reduced-motion block beside `.u-reveal` in index.css. */
+      try {
+        document.documentElement.classList.add('js-motion')
+      } catch (e) { /* leave the page visible */ }
+    </script>
   </head>
   <body>
     <div id="root"></div>
