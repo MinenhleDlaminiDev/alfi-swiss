@@ -77,7 +77,7 @@ export const details = [
     ],
     image: {
       slug: 'services-wealth-management',
-      alt: 'Empty colonnaded stone corridor',
+      alt: 'An empty stone walkway inside a stone building',
     },
     flip: false,
   },
@@ -97,7 +97,7 @@ export const details = [
     ],
     image: {
       slug: 'services-investment-advisory',
-      alt: 'Grid of dark windows across a concrete facade',
+      alt: 'Windows repeating in a grid across a dark facade',
     },
     flip: true,
   },
@@ -115,7 +115,7 @@ export const details = [
     ],
     image: {
       slug: 'services-strategic-advisory',
-      alt: 'Stone staircase descending into shadow',
+      alt: 'A concrete staircase in light and shadow',
     },
     flip: false,
   },

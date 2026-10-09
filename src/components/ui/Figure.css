@@ -13,12 +13,18 @@
 .ui-figure picture { display: block; }
 
 /* width/height on the <img> give the intrinsic ratio; the aspect-ratio here
-   crops to the designed slot. object-fit keeps the crop centred. */
+   crops to the designed slot. object-fit keeps the crop centred.
+
+   Landscape by default since 9 Oct 2026. It was 4/5, which made every section
+   containing a figure taller than its own text needed — the image set the
+   height of the row and the prose beside it ran out long before the picture
+   did. The masters were re-sourced as landscape at the same time, so this is
+   not a crop of a portrait photograph; it is the shape they were shot in. */
 .ui-figure img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  aspect-ratio: var(--figure-ratio, 4 / 5);
+  aspect-ratio: var(--figure-ratio, 4 / 3);
 }
 
 @media (max-width: 900px) {
@@ -34,7 +40,7 @@
 /* The ratio moves from the image to the FRAME. That is the whole reason this
    costs nothing in layout: the box is declared up front and fixed, and the
    image inside it is then free to be the wrong size and move about. */
-.ui-figure--par { aspect-ratio: var(--figure-ratio, 4 / 5); }
+.ui-figure--par { aspect-ratio: var(--figure-ratio, 4 / 3); }
 
 .ui-figure--par .ui-figure__par {
   position: absolute;

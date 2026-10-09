@@ -22,7 +22,10 @@ export const story = {
     'continuity and direct access to decision makers.',
   ],
   pullquote: 'An independent, connected and enduring Swiss partner.',
-  image: { slug: 'about-firm', alt: 'Swiss lake and mountain landscape' },
+  /* "Swiss" was dropped from the alt text when the landscape masters came in:
+     the new photograph's location is not recorded, and the old one named a
+     country nobody had verified. */
+  image: { slug: 'about-firm', alt: 'Mountains above open water, in black and white' },
 };
 
 export const differentiators = {

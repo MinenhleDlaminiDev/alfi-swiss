@@ -59,7 +59,7 @@ export const positioning = {
      every other factual line has been through the client. */
   image: {
     slug: 'home-positioning',
-    alt: 'Colonnaded stone hall',
+    alt: 'Arches and columns lining an empty hallway',
     caption: 'Independent by structure',
   },
 };

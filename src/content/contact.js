@@ -103,5 +103,5 @@ export const form = {
 export const office = {
   eyebrow: 'Office',
   heading: 'Geneva.',
-  image: { slug: 'contact-geneva', alt: 'Rooftops of central Geneva' },
+  image: { slug: 'contact-geneva', alt: 'Geneva across the lake, with the Jet d’Eau' },
 };

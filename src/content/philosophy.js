@@ -36,7 +36,7 @@ export const principles = {
   ],
   image: {
     slug: 'philosophy-principles',
-    alt: 'Monument pillars against the sky',
+    alt: 'A tall stone column against an open sky',
   },
 };
 

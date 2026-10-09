@@ -1,8 +1,8 @@
 {
   "about-firm": {
-    "width": 2000,
-    "height": 2996,
-    "aspect": 0.6676,
+    "width": 2400,
+    "height": 1881,
+    "aspect": 1.2759,
     "widths": [
       480,
       768,
@@ -10,9 +10,9 @@
     ]
   },
   "contact-geneva": {
-    "width": 2000,
-    "height": 2495,
-    "aspect": 0.8016,
+    "width": 2400,
+    "height": 1600,
+    "aspect": 1.5,
     "widths": [
       480,
       768,
@@ -68,9 +68,9 @@
     ]
   },
   "home-positioning": {
-    "width": 2000,
-    "height": 3000,
-    "aspect": 0.6667,
+    "width": 2400,
+    "height": 1799,
+    "aspect": 1.3341,
     "widths": [
       480,
       768,
@@ -78,9 +78,9 @@
     ]
   },
   "philosophy-principles": {
-    "width": 2000,
-    "height": 2800,
-    "aspect": 0.7143,
+    "width": 2400,
+    "height": 1600,
+    "aspect": 1.5,
     "widths": [
       480,
       768,
@@ -88,9 +88,9 @@
     ]
   },
   "services-investment-advisory": {
-    "width": 2000,
-    "height": 2667,
-    "aspect": 0.7499,
+    "width": 2400,
+    "height": 1600,
+    "aspect": 1.5,
     "widths": [
       480,
       768,
@@ -98,9 +98,9 @@
     ]
   },
   "services-strategic-advisory": {
-    "width": 2000,
-    "height": 2668,
-    "aspect": 0.7496,
+    "width": 2400,
+    "height": 1606,
+    "aspect": 1.4944,
     "widths": [
       480,
       768,
@@ -108,9 +108,9 @@
     ]
   },
   "services-wealth-management": {
-    "width": 2000,
-    "height": 3361,
-    "aspect": 0.5951,
+    "width": 2400,
+    "height": 1600,
+    "aspect": 1.5,
     "widths": [
       480,
       768,
