@@ -1,0 +1,115 @@
+# ALFI Swiss Partners — Netlify configuration (ASP-37)
+#
+# The UAT mirror of public/.htaccess. Apache serves production on Infomaniak
+# and never reads this file; Netlify serves UAT and never reads the .htaccess.
+# The two have to be changed together or UAT stops predicting production,
+# which is the only reason UAT exists.
+#
+# Deliberately absent, both recorded on the ticket so the gaps read as
+# decisions rather than oversights:
+#
+#   [build]  — the site already builds from settings in the Netlify UI. A
+#              build block here would override them, so adding one risks
+#              breaking a working deploy to restate what already works.
+#
+#   dot-path guard — Apache needs `RewriteRule (^|/)\.(?!well-known/) - [F,L]`
+#              because its web root can contain a .git directory. Netlify
+#              publishes only dist/, which has none, and declines to serve
+#              dotfiles regardless.
+
+
+# ---------------------------------------------------------------------------
+# Single-page application routing
+# ---------------------------------------------------------------------------
+# /about, /services, /philosophy and /contact have no file on disk. Without
+# this they return Netlify's own 404 on a refresh or a shared link, which is
+# exactly what UAT has been doing since it went up.
+#
+# Netlify checks the publish directory for a real file BEFORE applying a
+# redirect, so this cannot shadow /images/*, /assets/*, /favicon.svg or the
+# .vcf. That is the opposite of Apache, where the equivalent catch-all has to
+# be guarded with explicit -f and -d conditions.
+#
+# status = 200, not 301: the browser keeps the URL it asked for and the
+# client-side router reads it. A redirect would rewrite the address bar to /
+# and lose the route.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+
+# ---------------------------------------------------------------------------
+# MIME types
+# ---------------------------------------------------------------------------
+# Netlify does not know .vcf, so it serves it as application/octet-stream.
+# Combined with the nosniff header below, the browser is then forbidden from
+# guessing and a phone offers a meaningless download instead of adding the
+# contact. This block is what makes the card work on iOS.
+# Content-Type and Cache-Control are set together in one block rather than in
+# two blocks matching the same path. Netlify merges matching rules, but a
+# single block removes any question about which one wins.
+[[headers]]
+  for = "/*.vcf"
+  [headers.values]
+    Content-Type = "text/vcard; charset=utf-8"
+    Cache-Control = "public, max-age=86400"
+
+
+# ---------------------------------------------------------------------------
+# Security headers — every response
+# ---------------------------------------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+
+# ---------------------------------------------------------------------------
+# Caching
+# ---------------------------------------------------------------------------
+# Netlify applies every matching rule and the LAST match wins, the same way
+# Apache treats FilesMatch — so these run general to specific, and the order
+# below is load-bearing.
+
+# Vite's content-hashed bundles change filename whenever their content does,
+# so they are safe to pin forever. Scoped to /assets/, which is the only
+# place Vite emits them.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Images are NOT content-hashed: the pipeline emits stable names like
+# home-positioning-1200w.webp. A replaced photograph keeps its filename, so
+# "immutable" would strand visitors on the old one for a year. Thirty days.
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# index.html must always revalidate, or a visitor keeps booting an old build
+# and never receives the new hashed asset URLs.
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+
+# The QR carries details that can change — a direct line, an address — and is
+# not content-hashed. A day is cheap to serve and short enough that a
+# correction reaches people quickly. The .vcf takes the same tier, set
+# alongside its Content-Type above.
+#
+# This comes AFTER the /images/* rule on purpose: the QR lives outside
+# /images/ today, but if it is ever moved there this ordering is what keeps
+# it on a day rather than inheriting thirty.
+[[headers]]
+  for = "/*-qr.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
