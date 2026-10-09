@@ -60,6 +60,10 @@ export const leadership = {
     {
       name: 'Alexander Dimanow',
       role: 'Managing Partner',
+      /* Portraits supplied by the client (ASP-35). A named partner is never
+         illustrated with stock photography, so there is no fallback: if a
+         slug is missing the card simply renders without a picture. */
+      portrait: 'card-partner-dimanow',
       bio:
         'Geneva-based banking executive with more than 40 years of experience in private ' +
         'banking, wealth advisory and institutional finance. Background spans portfolio ' +
@@ -70,6 +74,10 @@ export const leadership = {
     {
       name: 'António Fiuza',
       role: 'Managing Partner',
+      /* Supplied at 325px wide, which is under the 560w a card wants on a 2x
+         screen, so this one is softer than Dimanow's. Flagged to the client
+         for a larger file; the ladder already declines to upscale it. */
+      portrait: 'card-partner-fiuza',
       bio:
         'Biography to be completed with approved background, key roles, areas of expertise ' +
         'and credentials.',
@@ -103,5 +111,11 @@ export const form = {
 export const office = {
   eyebrow: 'Office',
   heading: 'Geneva.',
-  image: { slug: 'contact-geneva', alt: 'Geneva across the lake, with the Jet d’Eau' },
+  image: {
+    slug: 'contact-geneva',
+    alt: 'Geneva across the lake, with the Jet d’Eau',
+    /* Safe to name the place here, unlike the other captions: this master IS
+       recorded as Geneva in CREDITS.md. */
+    caption: 'Geneva',
+  },
 };

@@ -360,10 +360,10 @@
   color: var(--c-navy);
   transition: color var(--d-fast) var(--e-out);
 }
-.home-teaser__list a:hover { color: var(--c-gold-ink); }
+.home-teaser__list a:hover { color: var(--c-gold-deep); }
 .home-teaser__n {
   font-size: var(--t-caption);
-  color: var(--c-gold-ink);
+  color: var(--c-gold-deep);
   min-width: 1.25rem;
 }
 
@@ -482,7 +482,7 @@
 .home-teaser__arrow {
   font-family: var(--f-sans);
   font-size: 1rem;
-  color: var(--c-gold-ink);
+  color: var(--c-gold-deep);
   opacity: 0;
   transform: translateX(-8px);
   transition: opacity var(--d-fast) var(--e-out),

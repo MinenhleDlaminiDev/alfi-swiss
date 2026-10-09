@@ -419,3 +419,9 @@ html { scroll-behavior: smooth; }
   }
   .js-motion .u-reveal--hero.is-in > * { transition-delay: 0ms; }
 }
+
+/* Focus has to clear the reveal's settled `transform: none` for exactly the
+   same reason hover does (ASP-34). Same token, same distance. */
+.js-motion .u-reveal.is-in .ui-cards > .ui-card--link:focus-within {
+  transform: translateY(var(--card-lift));
+}

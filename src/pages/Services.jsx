@@ -30,8 +30,17 @@ export default function Services() {
       {details.map((d, i) => (
         <Section key={d.id} id={d.id} tone={i % 2 === 0 ? 'cream' : 'paper'}>
           <Split flip={d.flip}>
-            {d.image && <Figure slug={d.image.slug} alt={d.image.alt} />}
-            <div>
+            {d.image && (
+              <Figure
+                slug={d.image.slug}
+                alt={d.image.alt}
+                caption={d.image.caption}
+                live
+              />
+            )}
+            {/* u-stagger (ASP-34): eyebrow, heading, body and the bullet
+                list arrive in sequence rather than as one slab. */}
+            <div className="u-stagger">
               <Eyebrow>{d.eyebrow}</Eyebrow>
               <h2 className="svc-detail__heading">{d.heading}</h2>
               <p className="svc-detail__body">{d.body}</p>

@@ -57,7 +57,7 @@
 .enq__successtitle {
   font-family: var(--f-serif);
   font-size: var(--t-h3);
-  color: var(--c-gold-ink);
+  color: var(--c-gold-deep);
 }
 .enq__successbody {
   margin-top: var(--s-2);

@@ -23,6 +23,7 @@ export const index = [
     n: '01',
     linkTo: 'wealth-management',
     title: 'Wealth Management',
+    image: 'card-svc-wealth',
     text:
       'Financial planning, intergenerational wealth transfer and coordination of banking ' +
       'relationships.',
@@ -31,6 +32,7 @@ export const index = [
     n: '02',
     linkTo: 'investment-advisory',
     title: 'Portfolio & Investment Advisory',
+    image: 'card-svc-portfolio',
     text:
       'Independent advice and introductions to private banks for portfolio strategy aligned ' +
       'with objectives and risk profile.',
@@ -39,6 +41,7 @@ export const index = [
     n: '03',
     linkTo: 'investment-advisory',
     title: 'Alternatives & Structured Solutions',
+    image: 'card-svc-alternatives',
     text:
       'Access-oriented review of hedge funds, structured products and alternative strategies ' +
       'sourced through partner banks.',
@@ -47,6 +50,7 @@ export const index = [
     n: '04',
     linkTo: 'investment-advisory',
     title: 'Risk & Credit Advisory',
+    image: 'card-svc-risk',
     text:
       'Assessment and advisory on financial, market and credit risk, in coordination with ' +
       'banking partners.',
@@ -55,6 +59,7 @@ export const index = [
     n: '05',
     linkTo: 'strategic-advisory',
     title: 'Corporate & Strategic Advisory',
+    image: 'card-svc-strategic',
     text: 'Independent counsel for entrepreneurs and family-owned businesses.',
   },
 ];
@@ -77,6 +82,7 @@ export const details = [
     ],
     image: {
       slug: 'services-wealth-management',
+      caption: 'Structure, held over time',
       alt: 'An empty stone walkway inside a stone building',
     },
     flip: false,
@@ -97,6 +103,7 @@ export const details = [
     ],
     image: {
       slug: 'services-investment-advisory',
+      caption: 'Discipline over performance',
       alt: 'Windows repeating in a grid across a dark facade',
     },
     flip: true,
@@ -115,6 +122,7 @@ export const details = [
     ],
     image: {
       slug: 'services-strategic-advisory',
+      caption: 'Decisions beyond the portfolio',
       alt: 'A concrete staircase in light and shadow',
     },
     flip: false,

@@ -19,7 +19,12 @@ export default function About() {
       {/* The firm */}
       <Section tone="paper">
         <Split flip>
-          <Figure slug={story.image.slug} alt={story.image.alt} />
+          <Figure
+            slug={story.image.slug}
+            alt={story.image.alt}
+            caption={story.image.caption}
+            live
+          />
           <div>
             {story.paragraphs.map((p, i) => (
               <p key={i} className="about-para">{p}</p>

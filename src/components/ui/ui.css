@@ -15,7 +15,7 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
   font-weight: 600;
   letter-spacing: var(--ls-eyebrow);
   text-transform: uppercase;
-  color: var(--c-gold-ink);
+  color: var(--c-gold-deep);
   margin: 0;
 }
 .ui-eyebrow--on-dark { color: var(--c-gold); }
@@ -129,7 +129,7 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
 .ui-link:focus-visible::after { transform: scaleX(1); }
 
 /* Keyboard users get the same signal as the mouse, not just the focus ring. */
-.ui-link:hover { color: var(--c-gold-ink); }
+.ui-link:hover { color: var(--c-gold-deep); }
 .ui-section--navy .ui-link { color: var(--c-cream); }
 
 /* ---------------- Page hero (inner pages) ---------------- */
@@ -324,7 +324,7 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
 .ui-row__n {
   font-family: var(--f-serif);
   font-size: var(--t-caption);
-  color: var(--c-gold-ink);
+  color: var(--c-gold-deep);
 }
 .ui-row__title { font-size: var(--t-h3); }
 .ui-row__text {
@@ -343,7 +343,7 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
 .ui-step__n {
   font-family: var(--f-serif);
   font-size: var(--t-caption);
-  color: var(--c-gold-ink);
+  color: var(--c-gold-deep);
 }
 .ui-step__title { margin: var(--s-3) 0 var(--s-2); font-size: var(--t-h3); }
 .ui-step__text {
@@ -423,7 +423,7 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
   transition: transform var(--d-base) var(--e-out);
 }
 .ui-row__link:hover,
-.ui-row__link:focus-visible { color: var(--c-gold-ink); }
+.ui-row__link:focus-visible { color: var(--c-gold-deep); }
 .ui-row__link:hover::after,
 .ui-row__link:focus-visible::after { transform: scaleX(1); }
 
@@ -456,3 +456,41 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
   .ui-cards { grid-template-columns: 1fr; }
   .ui-card__media { aspect-ratio: 2 / 1; }
 }
+
+/* ---------------- Service index cards (ASP-34) ----------------
+ *
+ * The same card as everywhere else, with one difference that matters: these
+ * ones go somewhere. The whole surface is the link, so the lift is honest
+ * here in a way it is not on the Home pillars, and `cursor: pointer` is
+ * correct rather than a promise it cannot keep.
+ */
+/* 18rem, not 16: at 16rem five cards lay out 4 + 1 and the orphan on the
+   second row reads as a mistake. 18rem forces three across, so five becomes
+   3 + 2, which looks deliberate. */
+.ui-cards--svc { grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+
+.ui-card--link { cursor: pointer; }
+
+.ui-card__hit {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+}
+
+/* The ring goes round the whole card, not the text inside it, because the
+   whole card is what gets activated. */
+.ui-card--link:focus-within {
+  outline: 2px solid var(--c-focus);
+  outline-offset: 3px;
+}
+.ui-card__hit:focus-visible { outline: none; }
+
+/* Keyboard focus has to produce the same state as the cursor, or a card is
+   alive for a mouse and dead for a keyboard. */
+.ui-card--link:focus-within {
+  transform: translateY(var(--card-lift));
+  box-shadow: var(--shadow-3);
+  border-color: rgba(201, 169, 78, 0.45);
+}
+.ui-card--link:focus-within .ui-card__img { transform: scale(1.06); }

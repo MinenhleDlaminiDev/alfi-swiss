@@ -41,6 +41,9 @@ export const principles = {
   image: {
     slug: 'philosophy-principles',
     alt: 'A tall stone column against an open sky',
+    /* Thematic. The column's location is not recorded, so the caption says
+       what the section is about rather than where the photograph was taken. */
+    caption: 'Principles before products',
   },
 };
 

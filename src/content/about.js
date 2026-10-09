@@ -25,7 +25,14 @@ export const story = {
   /* "Swiss" was dropped from the alt text when the landscape masters came in:
      the new photograph's location is not recorded, and the old one named a
      country nobody had verified. */
-  image: { slug: 'about-firm', alt: 'Mountains above open water, in black and white' },
+  image: {
+    slug: 'about-firm',
+    alt: 'Mountains above open water, in black and white',
+    /* Thematic, not a place. The master's location is not recorded, and
+       "Swiss" was already removed from this image's alt text for exactly
+       that reason — a caption naming a country would put it straight back. */
+    caption: 'Judgement built over decades',
+  },
 };
 
 export const differentiators = {

@@ -129,6 +129,24 @@
       720
     ]
   },
+  "card-partner-dimanow": {
+    "width": 900,
+    "height": 1125,
+    "aspect": 0.8,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-partner-fiuza": {
+    "width": 325,
+    "height": 406,
+    "aspect": 0.8005,
+    "widths": [
+      320
+    ]
+  },
   "card-preservation": {
     "width": 1440,
     "height": 960,
@@ -153,6 +171,56 @@
     "width": 1440,
     "height": 960,
     "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-svc-alternatives": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-svc-portfolio": {
+    "width": 1440,
+    "height": 1000,
+    "aspect": 1.44,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-svc-risk": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-svc-strategic": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-svc-wealth": {
+    "width": 1440,
+    "height": 1007,
+    "aspect": 1.43,
     "widths": [
       320,
       560,

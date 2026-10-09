@@ -170,21 +170,37 @@ function CardImage({ slug }) {
    ~340px; one across on a phone is the viewport less its gutters. */
 const CARD_SIZES = '(max-width: 560px) calc(100vw - 3rem), (max-width: 900px) 45vw, 280px'
 
-/* Index rows link INTO the detail sections below them. The details own the
-   DOM ids; these rows carry none, so a deep link is never ambiguous. Rows
-   whose service is covered by a shared detail section point at that section. */
+/* Service index (ASP-06, rebuilt as cards in ASP-34).
+ *
+ * Index cards link INTO the detail sections below them. The details own the
+ * DOM ids; these cards carry none, so a deep link is never ambiguous. Cards
+ * whose service is covered by a shared detail section point at that section
+ * — the deck groups five service areas into three details, so three of these
+ * five legitimately share a destination.
+ *
+ * The whole card is the link (ASP-23), not just the title. A card that lifts
+ * under the cursor has to be clickable across its whole surface or the lift
+ * is a lie about where to aim. The anchor wraps the content rather than
+ * being stretched over it with a pseudo-element, so the link text a screen
+ * reader announces is the real title and the card is one tab stop, not two.
+ */
 export function ServiceRows({ items = [] }) {
   return (
-    <div className="ui-rows">
+    <div className="ui-cards ui-cards--svc">
       {items.map((it) => (
-        <article key={it.n} className="ui-row">
-          <div className="ui-row__n">{it.n}</div>
-          <h3 className="ui-row__title">
-            {it.linkTo
-              ? <a className="ui-row__link" href={`#${it.linkTo}`}>{it.title}</a>
-              : it.title}
-          </h3>
-          <p className="ui-row__text">{it.text}</p>
+        <article key={it.n} className="ui-card ui-card--link">
+          <a className="ui-card__hit" href={it.linkTo ? `#${it.linkTo}` : undefined}>
+            {it.image && (
+              <div className="ui-card__media">
+                <CardImage slug={it.image} />
+              </div>
+            )}
+            <div className="ui-card__body">
+              <div className="ui-card__n">{it.n}</div>
+              <h3 className="ui-card__title">{it.title}</h3>
+              <p className="ui-card__text">{it.text}</p>
+            </div>
+          </a>
         </article>
       ))}
     </div>

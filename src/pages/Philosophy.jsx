@@ -19,7 +19,12 @@ export default function Philosophy() {
       {/* Four principles, beside the image */}
       <Section tone="paper">
         <Split>
-          <Figure slug={principles.image.slug} alt={principles.image.alt} />
+          <Figure
+            slug={principles.image.slug}
+            alt={principles.image.alt}
+            caption={principles.image.caption}
+            live
+          />
           <div>
             <Eyebrow>{principles.eyebrow}</Eyebrow>
             <h2 className="svc-detail__heading">{principles.heading}</h2>
