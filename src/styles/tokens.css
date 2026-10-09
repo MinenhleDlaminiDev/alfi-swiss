@@ -75,8 +75,17 @@
   /* ---- Layout ---- */
   --wrap:     1180px;
   --wrap-pad: clamp(1.5rem, 0.9rem + 2.4vw, 2.5rem);
-  --header-h: 86px;
-  --header-h-sm: 68px;
+  /* The header's height is set entirely by these — `.hdr__inner` takes one as
+     a min-height and its contents are only 34-35px tall, so the rest is air.
+     Slimmed from 86/68 on 9 Oct 2026.
+
+     Do not change one of these without the other, and do not hard-code a
+     header height anywhere else. Three things measure off these tokens:
+     the hero's `calc(100svh - var(--header-h))`, which is what stops a full
+     header running past the fold, and `scroll-padding-top` / `scroll-margin-top`
+     in ui.css, which is what stops a deep link landing underneath the bar. */
+  --header-h: 70px;
+  --header-h-sm: 58px;
 
   /* ---- Motion ---- */
   --e-out: cubic-bezier(0.22, 0.61, 0.36, 1);
