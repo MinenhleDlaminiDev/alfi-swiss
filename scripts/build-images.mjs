@@ -23,6 +23,19 @@ const MANIFEST = 'src/content/image-manifest.json'
 /* Figure slots are at most ~590px CSS wide (half of the 1180px wrap), so 1200w
    already covers a 2x display. Anything larger is downloaded and never used. */
 const WIDTHS = [480, 768, 1200]
+
+/* Hero masters are the exception to the note above (ASP-26).
+ *
+ * A figure slot is at most ~590px CSS wide, so 1200w covers a 2x display and
+ * anything larger is downloaded and never used. A hero is 100vw, so on a
+ * 1440px screen at 2x it genuinely wants ~2880px, and capping it at 1200 would
+ * show visibly soft. These get their own ladder.
+ *
+ * Matched by filename prefix rather than a list, so adding a fifth hero slide
+ * needs no change here. */
+const HERO_PREFIX = 'hero-'
+const HERO_WIDTHS = [768, 1200, 1800, 2560, 3200]
+const widthsFor = (slug) => (slug.startsWith(HERO_PREFIX) ? HERO_WIDTHS : WIDTHS)
 const QUALITY = { webp: 76, jpeg: 80 }
 const FORCE = process.argv.includes('--force')
 
@@ -86,7 +99,7 @@ for (const file of masters) {
   const meta = await sharp(input).metadata()
   totalIn += statSync(input).size
 
-  const widths = WIDTHS.filter((w) => w <= meta.width)
+  const widths = widthsFor(slug).filter((w) => w <= meta.width)
   if (widths.length === 0) {
     // Narrower than the smallest target: emit it at its native width so the
     // manifest never carries an empty `widths` array.

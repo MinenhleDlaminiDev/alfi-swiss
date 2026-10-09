@@ -3,28 +3,50 @@
 /* ---- Hero ---- */
 .home-hero {
   position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(120% 100% at 72% 0%, var(--c-navy-lift) 0%, var(--c-navy) 58%),
-    var(--c-navy);
   color: var(--c-on-dark);
-  padding-block: clamp(4.25rem, 2.5rem + 6vw, 7.375rem);
+  background: var(--c-navy);
+
+  /* No `overflow: hidden` here on purpose. The backdrop clips its own images,
+     and clipping the section instead cut the CTAs off the bottom on any
+     screen shorter than about 950px — the buttons were there, just sliced.
+     Without it the section grows past the viewport when the content needs
+     more room, which costs a few pixels of scroll instead of a lost button. */
+
+  /* Full viewport, with the content sitting at the bottom over the darkest
+     part of the veil.
+
+     svh, not vh: on mobile `100vh` is the viewport with the address bar
+     HIDDEN, so the hero overflows by the height of the bar on load and the
+     page jumps as it retracts. `100svh` is the smallest stable viewport and
+     does not move. The vh line is the fallback for browsers without svh. */
+  /* The header is sticky, not fixed, so it sits in normal flow ABOVE this
+     section and the hero starts at y = header height. A plain 100svh would
+     therefore run a full header's worth past the fold — which it did, pushing
+     the CTAs off the bottom of every laptop screen. Subtract it. */
+  min-height: calc(100vh - var(--header-h));
+  min-height: calc(100svh - var(--header-h));
+
+  display: flex;
+  align-items: flex-end;
+
+  padding-block: var(--s-8);
 }
 
-/* Faint "A" watermark, echoing the seal and the digital business card */
-.home-hero::after {
-  content: '';
-  position: absolute;
-  right: -3.75rem;
-  top: 50%;
-  translate: 0 -50%;
-  width: 32.5rem;
-  height: 32.5rem;
-  pointer-events: none;
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 132'><path d='M66 18 L104 110 L86 110 L66 62 L46 110 L28 110 Z' fill='%23F4EFE3' opacity='0.035'/></svg>") no-repeat center / contain;
-}
+/* The eyebrow is gold everywhere else, where it sits on flat navy and
+   measures 7.55:1. Over a photograph it does not: measured 2.07:1 at its worst
+   across the four slides, against the 4.5:1 that 11px text needs.
 
-.home-hero__inner { position: relative; z-index: 1; max-width: 47.5rem; }
+   Darkening the veil enough to rescue gold would need roughly half the current
+   luminance at that height, which flattens the photograph into a grey panel
+   and defeats the point of having one. Cream costs one accent colour and
+   measures 5.5:1+ over every slide. */
+.home-hero .ui-eyebrow { color: var(--c-cream); }
+
+.home-hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 47.5rem;
+}
 
 .home-hero__heading {
   font-size: var(--t-hero);
@@ -125,7 +147,11 @@
 .home-closing .ui-btn { margin-top: var(--s-7); }
 
 @media (max-width: 900px) {
-  .home-hero::after { width: 18rem; right: -6.875rem; }
+  /* The header is shorter below this breakpoint, so the hero can be taller. */
+  .home-hero {
+    min-height: calc(100vh - var(--header-h-sm));
+    min-height: calc(100svh - var(--header-h-sm));
+  }
   .home-hero__cta { flex-direction: column; align-items: stretch; }
   .home-teaser { grid-template-columns: 1fr; }
   .home-teaser__list a { font-size: 1.0625rem; padding-block: var(--s-3); }

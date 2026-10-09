@@ -1,0 +1,54 @@
+/* Rotating hero background (ASP-26 / ASP-27) */
+
+.hero-bd {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  /* Navy underneath, so the hero never flashes white before the first
+     photograph decodes. */
+  background: var(--c-navy);
+}
+
+.hero-bd picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.hero-bd__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Every slide sits at 0 and only the active one is raised, so the crossfade
+     is a pure opacity change with no reflow and nothing moving. */
+  opacity: 0;
+  transition: opacity 1200ms var(--e-out);
+}
+
+.hero-bd__img.is-active { opacity: 1; }
+
+/* The veil is what makes white type legible over a photograph, and it is
+   weighted to the bottom: the image reads at the top, the text sits on
+   near-solid navy where it lands.
+
+   Measured against all four slides — see the ticket. Do not lighten the
+   bottom stop without re-measuring contrast over the brightest one. */
+.hero-bd__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      var(--c-navy) 0%,
+      rgba(11, 28, 51, 0.94) 28%,
+      rgba(11, 28, 51, 0.74) 58%,
+      rgba(11, 28, 51, 0.52) 100%
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No crossfade. The first slide is the only one mounted in this case
+     anyway, so this is belt and braces for a preference that changes after
+     load. */
+  .hero-bd__img { transition: none; }
+}

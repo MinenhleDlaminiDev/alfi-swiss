@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import HeroBackdrop from '../components/HeroBackdrop/HeroBackdrop.jsx'
 import {
   Section, SectionHead, Eyebrow, Button, TextLink,
   StatBlock, NumberedCards, Split, Figure,
@@ -20,6 +21,7 @@ export default function Home() {
 
       {/* Hero */}
       <section className="home-hero">
+        <HeroBackdrop slides={hero.slides} />
         <div className="wrap home-hero__inner u-reveal u-reveal--hero">
           <Eyebrow tone="on-dark">{hero.eyebrow}</Eyebrow>
           <h1 className="home-hero__heading">

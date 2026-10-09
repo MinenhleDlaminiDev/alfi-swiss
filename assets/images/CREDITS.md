@@ -13,3 +13,7 @@ Licence terms: https://unsplash.com/license
 | services-strategic-advisory.jpg | Services — strategic advisory | Stone staircase into shadow | `photo-1766477406383-34e0773be664` |
 | philosophy-principles.jpg | Philosophy — principles | Monument pillar against sky | `photo-1551270029-4bc0f7eabf78` |
 | services-investment-advisory.jpg | Services — investment advisory | Dark window grid | `photo-1771847572589-a1b5e1d7a76f` |
+| hero-geneva.jpg | Home — hero, slide 1 | Geneva from above, city meeting the lake | `photo-1584200463394-bba4b2117e4d` |
+| hero-alps.jpg | Home — hero, slide 2 | Alps above a sea of cloud | `photo-1507039915464-9d829b6d2d78` |
+| hero-arcade.jpg | Home — hero, slide 3 | Classical stone arcade | `photo-1786296651642-43cf245aaae3` |
+| hero-boardroom.jpg | Home — hero, slide 4 | Long boardroom table | `photo-1775492783040-9ebacb1f7861` |

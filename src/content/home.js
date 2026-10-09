@@ -3,6 +3,15 @@
 export const hero = {
   eyebrow: 'Independent Wealth Advisory Firm',
   headingLines: ['Navigating Wealth.', 'Preserving Legacies.'],
+  /* Hero backdrop (ASP-26 / ASP-27). Order is the rotation order; the first is
+     the one that loads eagerly and is preloaded in index.html, so changing it
+     means changing the preload too. Credits in assets/images/CREDITS.md. */
+  slides: [
+    { slug: 'hero-geneva' },
+    { slug: 'hero-alps' },
+    { slug: 'hero-arcade' },
+    { slug: 'hero-boardroom' },
+  ],
   lead:
     'An independent wealth advisory firm headquartered in Geneva, providing senior-level ' +
     'strategic counsel and introductions to leading private banks for private clients, ' +

@@ -19,6 +19,54 @@
       1200
     ]
   },
+  "hero-alps": {
+    "width": 3200,
+    "height": 2136,
+    "aspect": 1.4981,
+    "widths": [
+      768,
+      1200,
+      1800,
+      2560,
+      3200
+    ]
+  },
+  "hero-arcade": {
+    "width": 3200,
+    "height": 2133,
+    "aspect": 1.5002,
+    "widths": [
+      768,
+      1200,
+      1800,
+      2560,
+      3200
+    ]
+  },
+  "hero-boardroom": {
+    "width": 3200,
+    "height": 2133,
+    "aspect": 1.5002,
+    "widths": [
+      768,
+      1200,
+      1800,
+      2560,
+      3200
+    ]
+  },
+  "hero-geneva": {
+    "width": 3200,
+    "height": 2048,
+    "aspect": 1.5625,
+    "widths": [
+      768,
+      1200,
+      1800,
+      2560,
+      3200
+    ]
+  },
   "home-positioning": {
     "width": 2000,
     "height": 3000,
