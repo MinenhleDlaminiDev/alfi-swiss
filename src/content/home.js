@@ -12,6 +12,13 @@ export const hero = {
     { slug: 'hero-arcade' },
     { slug: 'hero-boardroom' },
   ],
+  /* The pause control's accessible name (ASP-30). It reads as what pressing
+     the button will DO, not as what the rotation is currently doing, which is
+     the convention every media player follows. */
+  controls: {
+    pause: 'Pause background images',
+    play: 'Play background images',
+  },
   lead:
     'An independent wealth advisory firm headquartered in Geneva, providing senior-level ' +
     'strategic counsel and introductions to leading private banks for private clients, ' +

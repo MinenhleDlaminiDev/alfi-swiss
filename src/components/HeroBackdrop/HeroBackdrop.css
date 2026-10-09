@@ -52,6 +52,13 @@
   animation: heroDrift 8000ms var(--e-out) forwards;
 }
 
+/* Pausing has to stop the drift too (ASP-30), or a visitor who presses pause
+   watches the image carry on growing for up to another eight seconds and
+   reasonably concludes the button is broken. */
+.hero-bd.is-paused .hero-bd__img.is-active {
+  animation-play-state: paused;
+}
+
 /* The veil is what makes white type legible over a photograph, and it is
    weighted to the bottom: the image reads at the top, the text sits on
    near-solid navy where it lands.
@@ -69,6 +76,57 @@
       rgba(11, 28, 51, 0.74) 58%,
       rgba(11, 28, 51, 0.52) 100%
     );
+}
+
+/* ---- Pause control (ASP-30) ----
+ *
+ * This is load-bearing, not decoration: the rotation loops, so WCAG 2.2.2 is
+ * satisfied by this button rather than by the rotation ending. Hiding it with
+ * `display: none` at any breakpoint reintroduces the failure.
+ *
+ * Sits bottom-right, clear of the left-aligned hero copy and of the scroll
+ * cue in the centre.
+ */
+.hero-bd__toggle {
+  position: absolute;
+  right: var(--wrap-pad);
+  bottom: var(--s-6);
+  z-index: 2;
+
+  /* 44px of hit area, which is the minimum worth offering a thumb, with a
+     smaller glyph inside it. */
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+  border: 1px solid rgba(244, 239, 227, 0.38);
+  border-radius: 50%;
+  /* Opaque enough that the glyph's contrast does not depend on which
+     photograph is behind it — measured against the brightest of the four. */
+  background: rgba(8, 21, 38, 0.66);
+  color: var(--c-cream);
+  cursor: pointer;
+  transition: background-color var(--d-fast) var(--e-out),
+              border-color var(--d-fast) var(--e-out);
+}
+
+.hero-bd__toggle:hover {
+  background: rgba(8, 21, 38, 0.82);
+  border-color: var(--c-gold);
+}
+
+.hero-bd__toggle-icon {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 900px) {
+  .hero-bd__toggle {
+    bottom: var(--s-5);
+    right: var(--s-5);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -22,7 +22,7 @@ export default function Home() {
 
       {/* Hero */}
       <section className="home-hero">
-        <HeroBackdrop slides={hero.slides} />
+        <HeroBackdrop slides={hero.slides} labels={hero.controls} />
         <div className="wrap home-hero__inner u-reveal u-reveal--hero">
           <Eyebrow tone="on-dark">{hero.eyebrow}</Eyebrow>
           <h1 className="home-hero__heading">
