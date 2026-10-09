@@ -27,8 +27,11 @@
   min-height: calc(100svh - var(--header-h));
 
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 
+  /* Equal top and bottom, so `center` actually reads as centred. With uneven
+     padding the block sits optically low even when it is mathematically
+     centred within the content box. */
   padding-block: var(--s-8);
 }
 
