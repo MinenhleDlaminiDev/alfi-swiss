@@ -34,6 +34,7 @@ export const differentiators = {
   items: [
     {
       n: '01',
+      image: 'card-independent-advice',
       title: 'Independent advice',
       text:
         'Free from the internal pressures of large institutions, we assess solutions and ' +
@@ -41,6 +42,7 @@ export const differentiators = {
     },
     {
       n: '02',
+      image: 'card-bank-introductions',
       title: 'Curated bank introductions',
       text:
         'We introduce clients to the financial institutions, trust companies or other ' +
@@ -48,6 +50,7 @@ export const differentiators = {
     },
     {
       n: '03',
+      image: 'card-long-term',
       title: 'Long-term perspective',
       text: 'Success is measured by durable outcomes, client continuity and legacy preservation.',
     },
@@ -61,21 +64,25 @@ export const clients = {
   items: [
     {
       n: '01',
+      image: 'card-hnw-individuals',
       title: 'High-net-worth individuals',
       text: 'Portfolio strategy guidance, risk review and long-term wealth planning.',
     },
     {
       n: '02',
+      image: 'card-families',
       title: 'Families and family offices',
       text: 'Intergenerational continuity, governance and specialist coordination.',
     },
     {
       n: '03',
+      image: 'card-business-owners',
       title: 'Business owners',
       text: 'Strategic advice around liquidity, concentration risk and business transitions.',
     },
     {
       n: '04',
+      image: 'card-institutions',
       title: 'Institutions and foundations',
       text: 'Investment governance, risk oversight and advisory support.',
     },

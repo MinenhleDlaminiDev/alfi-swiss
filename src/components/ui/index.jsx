@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useCountUp } from '../../lib/countUp.js'
+import manifest from '../../content/image-manifest.json'
 import './ui.css'
 
 export { default as Figure } from './Figure.jsx'
@@ -98,19 +99,76 @@ export function StatBlock({ items = [] }) {
   )
 }
 
+/* Numbered cards (ASP-06, rebuilt as surfaces in ASP-31).
+ *
+ * `image` is optional on every item. A card without one renders as a panel
+ * with no picture rather than a gap, which is what lets the fifteen cards on
+ * the site be migrated a page at a time instead of all at once.
+ *
+ * The images are DECORATIVE and take alt="". The title sits immediately
+ * beside each one and already says what the card is about; fifteen
+ * descriptions of abstract architectural photography would add nothing to a
+ * screen reader except fifteen interruptions before the actual content. */
 export function NumberedCards({ items = [] }) {
   return (
     <div className="ui-cards">
       {items.map((it) => (
         <article key={it.n} className="ui-card">
-          <div className="ui-card__n">{it.n}</div>
-          <h3 className="ui-card__title">{it.title}</h3>
-          <p className="ui-card__text">{it.text}</p>
+          {it.image && (
+            <div className="ui-card__media">
+              <CardImage slug={it.image} />
+            </div>
+          )}
+          <div className="ui-card__body">
+            <div className="ui-card__n">{it.n}</div>
+            <h3 className="ui-card__title">{it.title}</h3>
+            <p className="ui-card__text">{it.text}</p>
+          </div>
         </article>
       ))}
     </div>
   )
 }
+
+/* Deliberately not <Figure>: that component owns a frame ratio, a shadow, an
+   optional caption and the parallax wrapper, none of which a card wants. This
+   is the same srcset maths and nothing else. */
+function CardImage({ slug }) {
+  const meta = manifest[slug]
+
+  if (!meta || !meta.widths?.length) {
+    if (import.meta.env.DEV) {
+      console.error(`NumberedCards: "${slug}" is not in the image manifest. Run: npm run images`)
+    }
+    return null
+  }
+
+  const srcset = (ext) => meta.widths.map((w) => `/images/${slug}-${w}w.${ext} ${w}w`).join(', ')
+  const fallback = meta.widths[meta.widths.length - 1]
+
+  return (
+    <picture>
+      <source type="image/webp" srcSet={srcset('webp')} sizes={CARD_SIZES} />
+      <img
+        className="ui-card__img"
+        src={`/images/${slug}-${fallback}w.jpg`}
+        srcSet={srcset('jpg')}
+        sizes={CARD_SIZES}
+        alt=""
+        width={meta.width}
+        height={meta.height}
+        /* Every card grid on the site sits below the fold. Eager loading
+           would put four more images in front of the hero's LCP for nothing. */
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
+  )
+}
+
+/* Four across inside the 1180px wrap is ~270px; two across on a tablet is
+   ~340px; one across on a phone is the viewport less its gutters. */
+const CARD_SIZES = '(max-width: 560px) calc(100vw - 3rem), (max-width: 900px) 45vw, 280px'
 
 /* Index rows link INTO the detail sections below them. The details own the
    DOM ids; these rows carry none, so a deep link is never ambiguous. Rows

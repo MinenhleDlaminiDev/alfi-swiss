@@ -178,34 +178,138 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
 .ui-section--navy .ui-stat { border-left-color: var(--c-rule-dark); }
 .ui-section--navy .ui-stat__text { color: var(--c-on-dark-70); }
 
-/* ---------------- Numbered card grid ---------------- */
+/* ---------------- Numbered card grid (ASP-31) ----------------
+ *
+ * Was four columns divided by hairlines, which read as a table. Now they are
+ * real surfaces: a photograph, then the number, title and text on a panel.
+ *
+ * `align-items: stretch` is the default and is doing real work here — the
+ * cards in a row match heights, so the panels line up along the bottom even
+ * though the text in them is different lengths. */
 .ui-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  border-top: 1px solid var(--c-rule);
+  gap: var(--s-5);
 }
+
 .ui-card {
-  padding: var(--s-6) var(--s-5) var(--s-4) 0;
-  border-right: 1px solid var(--c-rule);
+  /* The lift distance lives in a custom property because two rules need it:
+     this one, and a higher-specificity copy in index.css that has to outrank
+     the reveal system's settled `transform: none`. One value, one place to
+     change it, and setting it to 0 under reduced motion disables both. */
+  --card-lift: -4px;
+  display: flex;
+  flex-direction: column;
+  background: var(--c-paper);
+  border: 1px solid var(--c-rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+  /* Composited properties only. A card that animated its size or position in
+     layout would reflow the whole grid on every frame of a hover. */
+  transition: transform var(--d-base) var(--e-out),
+              box-shadow var(--d-base) var(--e-out),
+              border-color var(--d-base) var(--e-out);
 }
-.ui-card:last-child { border-right: none; }
-.ui-card:not(:first-child) { padding-left: var(--s-5); }
+
+/* The media box owns a fixed ratio, so a row of cards has level tops however
+   different the source photographs are, and the image inside it is free to
+   scale without changing the card's height. */
+.ui-card__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: var(--c-navy-lift);
+}
+
+.ui-card__media picture { display: block; height: 100%; }
+
+.ui-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--d-slower) var(--e-out);
+}
+
+.ui-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--s-5);
+}
+
+/* --c-gold-deep, not --c-gold-ink: at 13px this is small text and needs
+   4.5:1, which gold-ink misses at 3.84:1 on paper. Measured 5.35:1.
+   The same gap exists on the other numbered elements across the site and is
+   tracked separately — this fixes the one this ticket owns. */
 .ui-card__n {
   font-family: var(--f-serif);
   font-size: var(--t-caption);
-  color: var(--c-gold-ink);
+  color: var(--c-gold-deep);
   letter-spacing: 0.1em;
+  transition: color var(--d-fast) var(--e-out);
 }
-.ui-card__title { margin: var(--s-4) 0 var(--s-3); }
+.ui-card__title { margin: var(--s-3) 0 var(--s-3); }
 .ui-card__text {
   font-size: var(--t-small);
   line-height: var(--lh-body);
   color: var(--c-muted);
 }
-.ui-section--navy .ui-card { border-color: var(--c-rule-dark); }
+
+/* ---- Hover ----
+ *
+ * These cards lift, and that is a deliberate departure from the ASP-21 rule
+ * that only interactive things respond to the cursor — overridden by the
+ * user on 9 Oct 2026.
+ *
+ * What is NOT taken from an interactive element is `cursor: pointer`. The
+ * lift is a flourish; a pointer is a promise of a click that does not exist,
+ * and it is the only part of the treatment that would change what a visitor
+ * actually tries to do. If these cards are ever given destinations, the
+ * cursor comes with the link, not with this rule. */
+.ui-card:hover {
+  transform: translateY(var(--card-lift));
+  box-shadow: var(--shadow-3);
+  border-color: rgba(201, 169, 78, 0.45);
+}
+.ui-card:hover .ui-card__img { transform: scale(1.06); }
+
+/* The number does NOT warm to --c-gold on hover, though it did at first.
+   Gold measures 2.17:1 on paper: "warming" it made a compliant 5.35:1 label
+   fail 1.4.3 for as long as the cursor was on the card. Contrast applies to
+   every state, not just the resting one.
+   The hover is carried by the lift, the deeper shadow, the gold border and
+   the image scale — all of them either non-text or motion, none of them
+   subject to the 4.5:1 that 13px text is. */
+
+@media (prefers-reduced-motion: reduce) {
+  /* The movement goes; the depth and the colour stay. A card that still
+     deepens and warms under the cursor reads as responsive without anything
+     travelling or scaling.
+
+     Zeroing the token rather than overriding `transform` is what makes this
+     reach the copy of the hover rule in index.css too — that one has to sit
+     at a higher specificity to clear the reveal, and would otherwise sail
+     straight past an override written here. */
+  .ui-card { --card-lift: 0px; }
+  .ui-card:hover .ui-card__img { transform: none; }
+  .ui-card__img { transition: none; }
+}
+
+/* ---- On a navy band ---- */
+.ui-section--navy .ui-card {
+  background: var(--c-navy-lift);
+  border-color: var(--c-rule-dark);
+  /* A navy-tinted shadow is invisible on navy. Depth on a dark band has to
+     come from the surface being lighter than its ground, which it is. */
+  box-shadow: none;
+}
+.ui-section--navy .ui-card:hover {
+  border-color: rgba(201, 169, 78, 0.5);
+  box-shadow: none;
+}
 .ui-section--navy .ui-card__n { color: var(--c-gold); }
 .ui-section--navy .ui-card__text { color: var(--c-on-dark-70); }
-.ui-section--navy .ui-cards { border-top-color: var(--c-rule-dark); }
 
 /* ---------------- Service row ---------------- */
 .ui-rows { border-top: 1px solid var(--c-rule); }
@@ -278,14 +382,12 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
 
 /* ---------------- Responsive ---------------- */
 @media (max-width: 900px) {
-  .ui-cards { grid-template-columns: 1fr; border-top: none; }
-  .ui-card {
-    border-right: none;
-    border-top: 1px solid var(--c-rule);
-    padding: var(--s-5) 0 var(--s-4);
-  }
-  .ui-card:not(:first-child) { padding-left: 0; }
-  .ui-section--navy .ui-card { border-top-color: var(--c-rule-dark); }
+  /* Two across, not one. The surface stays — the old rules here stripped the
+     borders and padding back to a divided list, which was right when the
+     cards WERE a divided list and is wrong now they are panels (ASP-31).
+     A tablet has room for a pair, and four full-width cards in a column is a
+     lot of scrolling for four short sentences. */
+  .ui-cards { grid-template-columns: repeat(2, 1fr); }
 
   .ui-row { grid-template-columns: 2.5rem 1fr; gap: var(--s-3) var(--s-4); }
   .ui-row__text { grid-column: 2; }
@@ -325,12 +427,17 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
 .ui-row__link:hover::after,
 .ui-row__link:focus-visible::after { transform: scaleX(1); }
 
-/* ---------------- Depth (ASP-21) ----------------
-   Resting elevation only. These surfaces are NOT interactive — NumberedCards
-   are plain <article>s and figures sit outside any link — so they get depth to
-   lift them off the page, never a hover lift. A panel that rises under the
-   cursor promises a click that does not exist. */
-.ui-card { box-shadow: var(--shadow-1); }
+/* ---------------- Depth (ASP-21, amended ASP-31) ----------------
+   The rule was: resting elevation only, never a hover lift, because a panel
+   that rises under the cursor promises a click that does not exist.
+
+   It still holds for figures, which take depth and never respond.
+
+   It no longer holds for NumberedCards: the user chose the lift on
+   9 Oct 2026, knowing the trade. The compromise kept is `cursor: default` —
+   the card moves, but it never claims to be clickable. The card's own
+   elevation now lives with the rest of its rules further up, so there is one
+   place that decides how a card looks. */
 
 /* ---------------- Reduced motion ----------------
    The underline wipes are transforms, so they stop. The colour change stays,
@@ -339,4 +446,13 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
 @media (prefers-reduced-motion: reduce) {
   .ui-link::after,
   .ui-row__link::after { transition: none; }
+}
+
+/* ---------------- Cards on a phone (ASP-31) ----------------
+   One per row below 560px, where two would leave each card narrower than its
+   own title. The taller crop goes with it: a full-width 16/10 photograph eats
+   most of a phone screen before the text starts. */
+@media (max-width: 560px) {
+  .ui-cards { grid-template-columns: 1fr; }
+  .ui-card__media { aspect-ratio: 2 / 1; }
 }

@@ -35,7 +35,23 @@ const WIDTHS = [480, 768, 1200]
  * needs no change here. */
 const HERO_PREFIX = 'hero-'
 const HERO_WIDTHS = [768, 1200, 1800, 2560, 3200]
-const widthsFor = (slug) => (slug.startsWith(HERO_PREFIX) ? HERO_WIDTHS : WIDTHS)
+
+/* Card masters are the exception in the other direction (ASP-31).
+ *
+ * A card in a four-across grid is about 270px CSS wide, so 560w already
+ * covers a 2x display and the 1200w from the content ladder would be more
+ * than four times the pixels the slot can ever use. With fifteen of them on
+ * the site that difference is the whole page weight of a card page.
+ *
+ * Same prefix mechanism as the heroes, so adding a card needs no change here. */
+const CARD_PREFIX = 'card-'
+const CARD_WIDTHS = [320, 560, 720]
+
+const widthsFor = (slug) => {
+  if (slug.startsWith(HERO_PREFIX)) return HERO_WIDTHS
+  if (slug.startsWith(CARD_PREFIX)) return CARD_WIDTHS
+  return WIDTHS
+}
 const QUALITY = { webp: 76, jpeg: 80 }
 const FORCE = process.argv.includes('--force')
 

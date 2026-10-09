@@ -251,6 +251,21 @@ html { scroll-behavior: smooth; }
               transform var(--reveal-dur) var(--e-out);
 }
 
+/* A settled card has to be allowed to move again (ASP-31).
+ *
+ * The rule above pins `transform: none` on every revealed child of a card
+ * grid, at four classes of specificity. `.ui-card:hover` is two, so the hover
+ * lift silently did nothing: every other part of the hover worked, the card
+ * just never rose. The symptom is easy to misread as the transform being
+ * wrong rather than outranked.
+ *
+ * This is the same declaration at matching specificity. The distance comes
+ * from --card-lift so there is still only one value, and zeroing that token
+ * under reduced motion switches off this copy as well. */
+.js-motion .u-reveal.is-in .ui-cards > .ui-card:hover {
+  transform: translateY(var(--card-lift));
+}
+
 /* The rhythm, not the distance, is what reads as considered. Capped at five:
    beyond that a stagger stops being rhythm and becomes lag. */
 .js-motion .u-reveal.is-in :is(.ui-cards, .ui-rows, .ui-steps) > *:nth-child(2) { transition-delay: 70ms; }

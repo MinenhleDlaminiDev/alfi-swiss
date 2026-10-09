@@ -9,6 +9,156 @@
       1200
     ]
   },
+  "card-bank-introductions": {
+    "width": 1440,
+    "height": 983,
+    "aspect": 1.4649,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-business-owners": {
+    "width": 1440,
+    "height": 955,
+    "aspect": 1.5079,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-confidentiality": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-diversification": {
+    "width": 1440,
+    "height": 1013,
+    "aspect": 1.4215,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-families": {
+    "width": 1440,
+    "height": 1080,
+    "aspect": 1.3333,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-hnw-individuals": {
+    "width": 1440,
+    "height": 957,
+    "aspect": 1.5047,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-independence": {
+    "width": 1440,
+    "height": 1080,
+    "aspect": 1.3333,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-independent-advice": {
+    "width": 1440,
+    "height": 957,
+    "aspect": 1.5047,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-institutions": {
+    "width": 1440,
+    "height": 1080,
+    "aspect": 1.3333,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-integrated-view": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-long-term": {
+    "width": 1440,
+    "height": 810,
+    "aspect": 1.7778,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-monitoring": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-preservation": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-risk-opportunity": {
+    "width": 1440,
+    "height": 862,
+    "aspect": 1.6705,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-senior-attention": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
   "contact-geneva": {
     "width": 2400,
     "height": 1600,

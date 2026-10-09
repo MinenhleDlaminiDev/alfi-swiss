@@ -15,21 +15,25 @@ export const principles = {
   items: [
     {
       n: '01',
+      image: 'card-preservation',
       title: 'Preservation first',
       text: 'Capital preservation precedes return. Downside is assessed before upside.',
     },
     {
       n: '02',
+      image: 'card-diversification',
       title: 'Diversification with purpose',
       text: 'Diversification is deliberate, not incidental — each holding earns its place.',
     },
     {
       n: '03',
+      image: 'card-risk-opportunity',
       title: 'Risk-adjusted opportunity',
       text: 'Opportunity is measured against the risk taken to reach it, never in isolation.',
     },
     {
       n: '04',
+      image: 'card-monitoring',
       title: 'Transparent monitoring',
       text: 'Clear reporting, revisited assumptions and no ambiguity about cost or exposure.',
     },

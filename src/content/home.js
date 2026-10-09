@@ -69,19 +69,19 @@ export const pillars = {
   heading: 'An exclusive structure built around clarity, discretion and senior judgement.',
   items: [
     {
-      n: '01', title: 'Independence',
+      n: '01', title: 'Independence', image: 'card-independence',
       text: 'As an independent family office, we find the most adequate advisers for our clients.',
     },
     {
-      n: '02', title: 'Senior attention',
+      n: '02', title: 'Senior attention', image: 'card-senior-attention',
       text: 'Direct access to experienced partners throughout the relationship.',
     },
     {
-      n: '03', title: 'Integrated view',
+      n: '03', title: 'Integrated view', image: 'card-integrated-view',
       text: 'Investments, risk, credit and estate planning considered together.',
     },
     {
-      n: '04', title: 'Confidentiality',
+      n: '04', title: 'Confidentiality', image: 'card-confidentiality',
       text: 'Relationships handled with the utmost discretion expected from a Swiss institution.',
     },
   ],

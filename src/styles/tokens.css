@@ -9,7 +9,12 @@
   --c-navy-lift:   #12294A;
   --c-gold:        #C9A94E;
   --c-gold-soft:   #E0C877;
-  --c-gold-ink:    #9A7B25;  /* gold that meets AA on light backgrounds */
+  --c-gold-ink:    #9A7B25;  /* gold for LARGE text and non-text on light */
+  /* Gold for SMALL text on a light surface (ASP-31). --c-gold-ink measures
+     3.84:1 on paper and 3.50:1 on cream, which clears the 3:1 that non-text
+     and large text need but not the 4.5:1 that anything under 18.66px does.
+     This one measures 5.35:1 on paper and 4.87:1 on cream. */
+  --c-gold-deep:   #80641E;
   --c-cream:       #F4EFE3;
   --c-paper:       #FBFAF7;
   --c-ink:         #1A2436;
