@@ -4,6 +4,10 @@
   position: relative;
   overflow: hidden;
   background: var(--c-navy-lift);
+  /* It is a <figure> element now (ASP-28), which carries a browser default
+     margin of 1em 40px. Without this the Split grid gains 40px of inset on
+     both sides of every image on the site. */
+  margin: 0;
 }
 
 .ui-figure picture { display: block; }
@@ -24,3 +28,84 @@
 /* Resting elevation (ASP-21). Figures are not interactive — none sits inside
    a link — so they take depth but never a hover response. */
 .ui-figure { box-shadow: var(--shadow-2); }
+
+/* ---- Live figure: in-frame parallax (ASP-28) ---- */
+
+/* The ratio moves from the image to the FRAME. That is the whole reason this
+   costs nothing in layout: the box is declared up front and fixed, and the
+   image inside it is then free to be the wrong size and move about. */
+.ui-figure--par { aspect-ratio: var(--figure-ratio, 4 / 5); }
+
+.ui-figure--par .ui-figure__par {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* 8% of overflow above and below pays for ±8% of travel. parallax.js uses
+     the same figure; raising one without the other shows the frame edge. */
+  top: -8%;
+  height: 116%;
+  /* translate3d, not translateY: it promotes the wrapper to its own layer so
+     the drift is composited and the image is never re-rastered mid-scroll. */
+  transform: translate3d(0, var(--par, 0px), 0);
+  will-change: transform;
+}
+
+/* The height has to be definite the whole way down, or `height: 100%` on the
+   image silently falls back to auto and the image renders at its own ratio
+   instead of the frame's. The chain is: frame (aspect-ratio, definite) ->
+   wrapper (116% of it) -> picture (100%) -> img (100%). Dropping any link
+   breaks the crop for every image whose ratio is not the frame's. */
+.ui-figure--par picture {
+  display: block;
+  height: 100%;
+}
+
+/* Overrides `.ui-figure img`'s aspect-ratio above — same specificity, so the
+   order inside this file is what settles it. Keep this block last. */
+.ui-figure--par img {
+  height: 100%;
+  width: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  /* Matches the `.ui-figure img` mobile crop, which this frame now owns. */
+  .ui-figure--par { aspect-ratio: 3 / 2; }
+}
+
+/* ---- Editorial caption (ASP-28) ---- */
+
+/* The scrim is on the caption rather than the frame, so it only darkens the
+   strip the text actually occupies and leaves the rest of the photograph
+   alone. Measured over the brightest point of home-positioning: cream on
+   this gradient clears 4.5:1 with room to spare, and still would over pure
+   white, because at the text's height the navy is carrying ~75% of the pixel. */
+.ui-figure__cap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: var(--s-8) var(--s-5) var(--s-4);
+  font-size: var(--t-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-cream);
+  background: linear-gradient(
+    to top,
+    rgba(8, 21, 38, 0.9) 0%,
+    rgba(8, 21, 38, 0.66) 48%,
+    rgba(8, 21, 38, 0) 100%
+  );
+  /* Above the image, below nothing — there is nothing else in the frame. */
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ui-figure__cap-rule {
+  display: block;
+  width: 1.75rem;
+  height: 1px;
+  margin-bottom: var(--s-3);
+  background: var(--c-gold);
+}

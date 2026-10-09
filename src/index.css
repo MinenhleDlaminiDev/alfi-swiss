@@ -288,6 +288,88 @@ html { scroll-behavior: smooth; }
   }
 }
 
+/* ---- .u-stagger: sequence any group's children (ASP-28) ----
+ *
+ * Before this, a Section revealed as one slab: eyebrow, heading, lead and a
+ * four-card grid all arrived on the same frame, which is most of why the page
+ * read as static. The card grids already sequenced themselves; prose did not.
+ *
+ * Opt-in by class rather than by selecting every wrap child, so adding it to
+ * one block cannot quietly change the timing of a page nobody looked at.
+ * Applied by SectionHead to every section head on the site, and by hand where
+ * a column of prose deserves the same treatment.
+ *
+ * Still ONE observed unit per section. These children key off the parent's
+ * `.is-in`; they are not `.u-reveal` elements themselves, which would mean
+ * each one watching its own position from inside an invisible parent.
+ */
+.js-motion .u-reveal .u-stagger > * {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.js-motion .u-reveal.is-in .u-stagger > * {
+  opacity: 1;
+  transform: none;
+  transition: opacity var(--reveal-dur) var(--e-out),
+              transform var(--reveal-dur) var(--e-out);
+}
+
+/* Same 70ms step and same cap of five as the card grids, so a head and the
+   grid beneath it read as one rhythm rather than two. */
+.js-motion .u-reveal.is-in .u-stagger > *:nth-child(2) { transition-delay: 70ms; }
+.js-motion .u-reveal.is-in .u-stagger > *:nth-child(3) { transition-delay: 140ms; }
+.js-motion .u-reveal.is-in .u-stagger > *:nth-child(4) { transition-delay: 210ms; }
+.js-motion .u-reveal.is-in .u-stagger > *:nth-child(n+5) { transition-delay: 280ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js-motion .u-reveal .u-stagger > *,
+  .js-motion .u-reveal.is-in .u-stagger > * {
+    transform: none;
+  }
+  .js-motion .u-reveal.is-in .u-stagger > * { transition-delay: 0ms; }
+}
+
+/* ---- Live figure: the entry settle (ASP-28) ----
+ *
+ * A plain figure scales its FRAME by 1.015 (above). A live figure holds the
+ * frame still and settles the IMAGE from 1.08 instead, which reads as a
+ * photograph coming to rest inside a window rather than a panel zooming.
+ *
+ * The frame must be pinned back to `none` explicitly: the generic rule above
+ * has the same specificity, so leaving it to source order across two
+ * stylesheets would be luck. The drift lives on `.ui-figure__par` and the
+ * settle on the image, one transform each.
+ */
+.js-motion .u-reveal .ui-figure--live,
+.js-motion .u-reveal.is-in .ui-figure--live {
+  transform: none;
+}
+
+.js-motion .u-reveal .ui-figure--live img { transform: scale(1.08); }
+
+.js-motion .u-reveal.is-in .ui-figure--live img {
+  transform: none;
+  /* Slower than the surrounding reveal on purpose — the image is still
+     settling after the text has arrived, which is what stops the section
+     landing as one slab. */
+  transition: transform 900ms var(--e-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No settle and no drift. Scale and parallax are the two things the
+     preference is actually about; the figure still fades in with its
+     section, so the reveal is softened rather than switched off. */
+  .js-motion .u-reveal .ui-figure--live img,
+  .js-motion .u-reveal.is-in .ui-figure--live img {
+    transform: none;
+  }
+  .ui-figure--par .ui-figure__par {
+    transform: none;
+    will-change: auto;
+  }
+}
+
 /* ---- Hero entrance (ASP-24) ----
    A hero is always on screen at load, so its observer fires immediately and
    this plays as an entrance rather than a scroll reveal. The container itself

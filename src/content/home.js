@@ -21,6 +21,10 @@ export const hero = {
 export const credentials = [
   {
     figure: '40+',
+    /* ASP-28: the numeric part counts up on first entry. `figure` stays the
+       truth — this only says how much of it is a number, and the rest ('+')
+       is carried through unchanged. Remove this line and it renders flat. */
+    count: 40,
     text: 'Years of combined experience across private banking, wealth advisory and institutional finance.',
   },
   {
@@ -42,7 +46,15 @@ export const positioning = {
     'translate financial complexity into clear, durable decisions across investments, ' +
     'financing, estate planning and strategic opportunities.',
   link: { label: 'More about the firm', to: '/about' },
-  image: { slug: 'home-positioning', alt: 'Colonnaded stone hall' },
+  /* The caption (ASP-28) is thematic, not a location. The stock photograph is
+     a colonnaded hall of unrecorded place — captioning it "Geneva" would be a
+     claim about a building nobody here has identified, on a client site where
+     every other factual line has been through the client. */
+  image: {
+    slug: 'home-positioning',
+    alt: 'Colonnaded stone hall',
+    caption: 'Independent by structure',
+  },
 };
 
 export const pillars = {

@@ -3,11 +3,13 @@ import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom'
 import Header from '../components/Header/Header.jsx'
 import Footer from '../components/Footer/Footer.jsx'
 import { startReveal, scan, stopReveal } from '../lib/reveal.js'
+import { startParallax, scanParallax, stopParallax } from '../lib/parallax.js'
 
 /* Shared shell for every route (ASP-02, filled in by ASP-04 / ASP-05). */
 export default function RootLayout() {
   useHashScroll()
   useReveal()
+  useParallax()
 
   return (
     <>
@@ -100,6 +102,29 @@ function useReveal() {
   useEffect(() => {
     let frame = requestAnimationFrame(() => {
       frame = requestAnimationFrame(scan)
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [pathname])
+}
+
+/* ASP-28 — in-frame parallax.
+ *
+ * Same lifecycle as useReveal, and for the same reason: one observer and one
+ * scroll listener for the whole document, re-scanned per route. The module
+ * declines to start at all under reduced motion, so there is nothing to guard
+ * here. See src/lib/parallax.js.
+ */
+function useParallax() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    startParallax()
+    return stopParallax
+  }, [])
+
+  useEffect(() => {
+    let frame = requestAnimationFrame(() => {
+      frame = requestAnimationFrame(scanParallax)
     })
     return () => cancelAnimationFrame(frame)
   }, [pathname])

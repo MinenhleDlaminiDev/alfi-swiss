@@ -27,6 +27,31 @@
 
 .hero-bd__img.is-active { opacity: 1; }
 
+/* Slow drift while a slide holds (ASP-28).
+ *
+ * A still photograph behind a full-viewport hero reads as a backdrop. A
+ * photograph that is very slowly growing reads as alive, and the viewer never
+ * consciously notices it moving — 6% over eight seconds is about 0.1px per
+ * frame at the edges.
+ *
+ * An animation rather than a transition, because slide 1 carries `is-active`
+ * on its very first paint: a transition has no previous value to move from
+ * and would simply render at the end state. An animation runs from its own
+ * `from` whenever the class appears, which is true for slide 1 at load and
+ * for each later slide as it takes over.
+ *
+ * `forwards` holds the end state, so a slide that has finished drifting does
+ * not snap back while it is still the one on screen.
+ */
+@keyframes heroDrift {
+  from { transform: scale(1); }
+  to   { transform: scale(1.06); }
+}
+
+.hero-bd__img.is-active {
+  animation: heroDrift 8000ms var(--e-out) forwards;
+}
+
 /* The veil is what makes white type legible over a photograph, and it is
    weighted to the bottom: the image reads at the top, the text sits on
    near-solid navy where it lands.
@@ -51,4 +76,10 @@
      anyway, so this is belt and braces for a preference that changes after
      load. */
   .hero-bd__img { transition: none; }
+
+  /* No drift. A slowly scaling full-viewport image is exactly the kind of
+     background movement the preference is asking us not to run — and unlike
+     a fade there is no reduced version of it worth keeping. The photograph
+     is still there, it is simply still. */
+  .hero-bd__img.is-active { animation: none; }
 }
