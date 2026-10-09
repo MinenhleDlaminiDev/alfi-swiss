@@ -18,13 +18,16 @@ import './HeroBackdrop.css'
  *    hideable; a carousel looping forever with no control fails it. Stopping
  *    by itself satisfies the criterion without putting a control in the hero.
  *
- * 3. Under reduced motion it never advances at all, and only the first image
- *    is ever fetched. That is both the accessible behaviour and, incidentally,
- *    three fewer hero images on the wire.
+ * 3. Reduced motion does NOT stop the rotation (ASP-29). It used to, and that
+ *    was wrong: the crossfade is a pure opacity change, with no travel, scale
+ *    or parallax for it to provoke, and switching the whole feature off meant
+ *    anyone with the preference set — which on Windows is a great many people
+ *    — saw one still photograph and never knew there were four. The thing the
+ *    preference is actually about here is the Ken Burns drift, and that is
+ *    guarded in the stylesheet beside the rule that creates it.
  */
 
 const HOLD_MS = 5200
-const MOTION_OK = '(prefers-reduced-motion: no-preference)'
 
 function srcset(slug, ext) {
   return manifest[slug].widths.map((w) => `/images/${slug}-${w}w.${ext} ${w}w`).join(', ')
@@ -67,7 +70,6 @@ export default function HeroBackdrop({ slides = [] }) {
    * The timeout is a backstop for a first image that errors or never fires. */
   useEffect(() => {
     if (slides.length < 2) return
-    if (!window.matchMedia?.(MOTION_OK).matches) return
 
     const first = document.querySelector('.hero-bd__img')
     let idle = 0

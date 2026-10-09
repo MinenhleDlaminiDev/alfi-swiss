@@ -72,10 +72,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* No crossfade. The first slide is the only one mounted in this case
-     anyway, so this is belt and braces for a preference that changes after
-     load. */
-  .hero-bd__img { transition: none; }
+  /* The crossfade STAYS (ASP-29).
+     It was removed here once, back when reduced motion also stopped the
+     rotation outright and there was nothing to fade between. Now that the
+     slides do advance for everyone, cutting the transition would turn each
+     change into an abrupt swap — a harder visual event than the fade it
+     replaced, and the opposite of what the preference is asking for.
+     Opacity provokes nothing; it is travel, scale and parallax that do. */
 
   /* No drift. A slowly scaling full-viewport image is exactly the kind of
      background movement the preference is asking us not to run — and unlike
