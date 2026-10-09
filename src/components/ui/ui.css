@@ -1,9 +1,23 @@
-/* Deep-linked sections must clear the sticky header. */
-html { scroll-padding-top: calc(var(--header-h) + var(--s-5)); }
+/* Deep-linked sections must clear the sticky header (ASP-22).
+ *
+ * ONE rule, not two. This used to also set `scroll-padding-top` on html with
+ * the same calc, and both take part in the same scroll — so the offset was
+ * applied twice and every anchor landed a full header-plus-gutter below
+ * where it should.
+ *
+ * Measured on /services#investment-advisory: scroll-margin 94px, scroll-
+ * padding 94px, target at 188px. Removing the padding put it at 94px.
+ *
+ * That also explains the original bug report of "110px short": with the
+ * 86px header the offset was 86 + 24 = 110, so the doubling pushed the
+ * target down by exactly that. The number tracked the header, which is why
+ * it moved to 94 when the header was slimmed. It was never a coincidence.
+ *
+ * scroll-margin on the target is the one kept: it is the more targeted of
+ * the two, and it is what scrollIntoView honours in useHashScroll. */
 [id] { scroll-margin-top: calc(var(--header-h) + var(--s-5)); }
 
 @media (max-width: 900px) {
-  html { scroll-padding-top: calc(var(--header-h-sm) + var(--s-4)); }
   [id] { scroll-margin-top: calc(var(--header-h-sm) + var(--s-4)); }
 }
 
