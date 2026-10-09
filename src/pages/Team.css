@@ -1,0 +1,184 @@
+/* Team (ASP-38) */
+
+.team-heading { margin-top: var(--s-4); }
+
+.team-people {
+  display: grid;
+  /* Two profiles, wide enough that the portrait above the text does not look
+     like a stamp. Two partners today; auto-fit means a third needs no change
+     here, it just joins the row. */
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: var(--s-6);
+  margin-top: var(--s-7);
+}
+
+/* The card vocabulary from ASP-31, laid out vertically: portrait on top,
+   text beneath. The Contact version put them side by side, which worked for
+   a one-line role but squeezed a four-line biography into a column half the
+   width of the card. */
+.team-person {
+  --card-lift: -4px;
+  display: flex;
+  flex-direction: column;
+  background: var(--c-paper);
+  border: 1px solid var(--c-rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+  transition: transform var(--d-base) var(--e-out),
+              box-shadow var(--d-base) var(--e-out),
+              border-color var(--d-base) var(--e-out);
+}
+
+.team-person:hover {
+  transform: translateY(var(--card-lift));
+  box-shadow: var(--shadow-3);
+  border-color: rgba(201, 169, 78, 0.45);
+}
+
+/* A fixed ratio so both portraits are cropped identically. The two supplied
+   photographs are framed quite differently — one studio, one cut-out — and
+   without this the cards would sit at different heights and the heads would
+   land at different levels. */
+.team-person__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--c-navy-lift);
+}
+
+.team-person__media picture { display: block; height: 100%; }
+
+.team-person__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Faces sit high in both frames; centring the crop would cut foreheads. */
+  object-position: top center;
+  transition: transform var(--d-slower) var(--e-out);
+}
+
+.team-person:hover .team-person__img { transform: scale(1.04); }
+
+.team-person__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--s-6) var(--s-5) var(--s-5);
+}
+
+.team-person__name { font-size: var(--t-h3); }
+
+.team-person__role {
+  margin-top: var(--s-2);
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  /* 11px is small text and needs 4.5:1. --c-gold-ink is 3.84:1 on paper;
+     --c-gold-deep is 5.35:1 (ASP-33). */
+  color: var(--c-gold-deep);
+}
+
+.team-person__bio {
+  margin-top: var(--s-4);
+  font-size: var(--t-small);
+  line-height: var(--lh-loose);
+  color: var(--c-muted);
+}
+
+/* The biography that has not been approved says so. Measured 5.19:1 on
+   paper. This flag comes off when the client signs the copy off, not
+   before — publishing filler unmarked is worse than publishing it marked. */
+.team-person__flag {
+  color: var(--c-error);
+  font-style: italic;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Movement goes, depth and colour stay. */
+  .team-person { --card-lift: 0px; }
+  .team-person:hover .team-person__img { transform: none; }
+  .team-person__img { transition: none; }
+}
+
+@media (max-width: 560px) {
+  /* A 4/3 portrait at full phone width is most of the screen before the
+     reading starts. */
+  .team-person__media { aspect-ratio: 3 / 2; }
+}
+
+/* ---- Digital card trigger (ASP-39) ----
+   Pushed to the bottom of the body with margin-top: auto, so the buttons
+   line up across cards whose biographies are different lengths. */
+.team-person__cardbtn {
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: var(--s-5);
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  /* Small text, so the deeper gold: 5.35:1 on paper (ASP-33). */
+  color: var(--c-gold-deep);
+  position: relative;
+  transition: color var(--d-fast) var(--e-out);
+}
+
+/* The same resting-plus-wipe underline the text links use, so this reads as
+   part of the same vocabulary rather than a new kind of control. */
+.team-person__cardbtn::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: rgba(201, 169, 78, 0.4);
+}
+.team-person__cardbtn::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--c-gold-deep);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--d-base) var(--e-out);
+}
+
+.team-person__cardbtn:hover::after,
+.team-person__cardbtn:focus-visible::after { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  /* The rule still appears, it just does not grow across. */
+  .team-person__cardbtn::after { transition: none; }
+}
+
+/* ---- .vcf download, inside the card modal (ASP-39) ----
+   Sits under the card rather than on it: the card itself is the client's
+   own design and a button is not part of it. */
+.team-cardfile {
+  display: block;
+  margin-top: var(--s-4);
+  padding: var(--s-4);
+  text-align: center;
+  background: var(--c-navy);
+  color: var(--c-cream);
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-btn);
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  transition: background-color var(--d-fast) var(--e-out);
+}
+
+.team-cardfile:hover { background: var(--c-navy-lift); }
+
+/* The modal sits on a dark backdrop, so the ring follows the hero rule. */
+.team-cardfile:focus-visible { --c-focus: var(--c-gold); }

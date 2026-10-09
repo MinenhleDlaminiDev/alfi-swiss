@@ -9,14 +9,10 @@ export const hero = {
     'or send a note and a partner will respond.',
 };
 
-/* Copy introducing the card on the Contact page (ASP-19). */
-export const cardSection = {
-  eyebrow: 'Digital Card',
-  heading: 'Save our details.',
-  lead:
-    'Scan the code with a phone camera to add Alexander Dimanow to your contacts, ' +
-    'or download the contact file directly.',
-};
+/* `cardSection` was the copy introducing the static card block on this page.
+   Both moved out in ASP-38: the partners to team.js, and the card itself to
+   a modal opened from the partner it belongs to. `card` below stays here,
+   because VCard and scripts/build-vcard.mjs both import it from this file. */
 
 /* Digital business card details (ASP-18).
    This is the single source of truth: scripts/build-vcard.mjs generates both
@@ -53,38 +49,7 @@ export const card = {
   download: 'Download contact file',
 };
 
-export const leadership = {
-  eyebrow: 'Leadership',
-  heading: 'Senior partners, directly involved.',
-  people: [
-    {
-      name: 'Alexander Dimanow',
-      role: 'Managing Partner',
-      /* Portraits supplied by the client (ASP-35). A named partner is never
-         illustrated with stock photography, so there is no fallback: if a
-         slug is missing the card simply renders without a picture. */
-      portrait: 'card-partner-dimanow',
-      bio:
-        'Geneva-based banking executive with more than 40 years of experience in private ' +
-        'banking, wealth advisory and institutional finance. Background spans portfolio ' +
-        'strategy, alternative investments, structured products, credit risk and investment ' +
-        'advisory.',
-      placeholder: false,
-    },
-    {
-      name: 'António Fiuza',
-      role: 'Managing Partner',
-      /* Supplied at 325px wide, which is under the 560w a card wants on a 2x
-         screen, so this one is softer than Dimanow's. Flagged to the client
-         for a larger file; the ladder already declines to upscale it. */
-      portrait: 'card-partner-fiuza',
-      bio:
-        'Biography to be completed with approved background, key roles, areas of expertise ' +
-        'and credentials.',
-      placeholder: true,
-    },
-  ],
-};
+/* leadership moved to src/content/team.js in ASP-38. */
 
 export const form = {
   eyebrow: 'Enquiries',

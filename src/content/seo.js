@@ -27,6 +27,12 @@ export const seo = {
       'Protect capital, seek opportunity, stay disciplined. The four principles and the ' +
       'five-stage client process behind every ALFI Swiss Partners recommendation.',
   },
+  team: {
+    title: 'Team',
+    description:
+      'The senior partners of ALFI Swiss Partners. Every engagement is led by a partner, ' +
+      'with no layer between them and the work.',
+  },
   contact: {
     title: 'Contact',
     description:

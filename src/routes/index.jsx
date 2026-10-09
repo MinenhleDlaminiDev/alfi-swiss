@@ -5,6 +5,7 @@ import About from '../pages/About.jsx'
 import Services from '../pages/Services.jsx'
 import Philosophy from '../pages/Philosophy.jsx'
 import Contact from '../pages/Contact.jsx'
+import Team from '../pages/Team.jsx'
 import NotFound from '../pages/NotFound.jsx'
 import RouteError from '../pages/RouteError.jsx'
 
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
       { path: 'about', element: <About /> },
       { path: 'services', element: <Services /> },
       { path: 'philosophy', element: <Philosophy /> },
+      { path: 'team', element: <Team /> },
       { path: 'contact', element: <Contact /> },
       { path: '*', element: <NotFound /> },
     ],
