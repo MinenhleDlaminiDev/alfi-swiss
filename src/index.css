@@ -274,6 +274,34 @@ html { scroll-behavior: smooth; }
 .js-motion .u-reveal.is-in :is(.ui-cards, .ui-rows, .ui-steps) > *:nth-child(5) { transition-delay: 280ms; }
 .js-motion .u-reveal.is-in :is(.ui-cards, .ui-rows, .ui-steps) > *:nth-child(n+6) { transition-delay: 350ms; }
 
+/* ---- Process steps arrive from the right ----
+ *
+ * A process is the one collection on the site that is a SEQUENCE rather than
+ * a set, so its entrance says so: each stage slides in from the right, one
+ * after another, in the order a client would move through them. Everything
+ * else keeps the shared lift.
+ *
+ * A longer step than the generic 70ms, because the travel takes longer to
+ * read than a lift does and 70ms apart they overlap into one movement. Five
+ * stages at 110ms is just under 0.5s of sequence.
+ *
+ * Both blocks sit BETWEEN the generic ladder above and the reduced-motion
+ * block below, deliberately: they carry the same specificity as the rules
+ * that cancel them, so source order is what makes `reduce` win. Moving them
+ * below that block would silently reinstate the travel for anyone who asked
+ * not to have it. (See ASP-44 for what a one-point specificity gap costs.)
+ */
+.js-motion .u-reveal .ui-steps > * {
+  /* translate3d, not translateX: promotes the step to its own layer so the
+     slide composites instead of repainting five columns of text. */
+  transform: translate3d(2.5rem, 0, 0);
+}
+
+.js-motion .u-reveal.is-in .ui-steps > *:nth-child(2) { transition-delay: 110ms; }
+.js-motion .u-reveal.is-in .ui-steps > *:nth-child(3) { transition-delay: 220ms; }
+.js-motion .u-reveal.is-in .ui-steps > *:nth-child(4) { transition-delay: 330ms; }
+.js-motion .u-reveal.is-in .ui-steps > *:nth-child(n+5) { transition-delay: 440ms; }
+
 /* Figures settle with a hair of scale instead of travel, so they read as a
    photograph coming to rest rather than a panel sliding in. */
 .js-motion .u-reveal .ui-figure {

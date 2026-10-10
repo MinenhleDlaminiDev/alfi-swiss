@@ -352,6 +352,13 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   gap: var(--s-5);
+  /* The steps enter from 2.5rem to the right of where they belong (see
+     index.css), which puts them outside this box until they land. Clipped so
+     that start position cannot widen the page and flash a horizontal
+     scrollbar on a narrow screen. `clip` rather than `hidden`: hidden would
+     make this a scroll container on both axes and break sticky positioning
+     for anything placed inside it later. */
+  overflow-x: clip;
 }
 .ui-step { border-top: 2px solid var(--c-gold); padding-top: var(--s-5); }
 .ui-step__n {
