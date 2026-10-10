@@ -131,8 +131,8 @@
   },
   "card-partner-dimanow": {
     "width": 900,
-    "height": 1125,
-    "aspect": 0.8,
+    "height": 1200,
+    "aspect": 0.75,
     "widths": [
       320,
       560,
@@ -141,8 +141,8 @@
   },
   "card-partner-fiuza": {
     "width": 325,
-    "height": 406,
-    "aspect": 0.8005,
+    "height": 433,
+    "aspect": 0.7506,
     "widths": [
       320
     ]

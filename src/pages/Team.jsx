@@ -124,7 +124,7 @@ function Portrait({ slug, name, role }) {
   const fallback = meta.widths[meta.widths.length - 1]
   /* The card is wider now that the portrait sits above the text rather than
      beside it, so this asks for a bigger file than the Contact version did. */
-  const sizes = '(max-width: 560px) calc(100vw - 3rem), 420px'
+  const sizes = '(max-width: 560px) 230px, 300px'
 
   return (
     <picture>

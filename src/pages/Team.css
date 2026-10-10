@@ -40,10 +40,24 @@
    photographs are framed quite differently — one studio, one cut-out — and
    without this the cards would sit at different heights and the heads would
    land at different levels. */
+/* 3/4 PORTRAIT, not 4/3 landscape (ASP-42).
+   Both supplied photographs are vertical, and forcing a vertical portrait
+   through a landscape hole leaves almost nothing but face — which is why
+   Dimanow read as over-zoomed. The framing was the photographer's; the hole
+   was ours.
+
+   Capped and inset rather than full-bleed, for two reasons: a full-width 3/4
+   portrait on a 560px card runs past 700px tall and swamps the biography,
+   and Fiuza's master is only 325px wide, so a slot wider than this is asking
+   for resolution his file does not have. */
 .team-person__media {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  max-width: 300px;
+  margin: var(--s-5) auto 0;
+  border-radius: var(--radius);
   background: var(--c-navy-lift);
 }
 
@@ -105,7 +119,9 @@
 @media (max-width: 560px) {
   /* A 4/3 portrait at full phone width is most of the screen before the
      reading starts. */
-  .team-person__media { aspect-ratio: 3 / 2; }
+  /* Still portrait on a phone, just smaller — a landscape crop here would
+     reintroduce exactly the close-up this ticket removed. */
+  .team-person__media { max-width: 230px; }
 }
 
 /* ---- Digital card trigger (ASP-39) ----

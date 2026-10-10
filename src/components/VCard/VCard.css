@@ -266,3 +266,76 @@ a.vcard__row:hover .vcard__value { color: var(--vc-gold); }
 /* Colour change only on hover — no movement — so there is nothing here for
    `prefers-reduced-motion` to switch off. If a transform or animation is ever
    added, give it a guard beside the rule, per the convention in index.css. */
+
+/* ---- Staggered entrance (ASP-41) ----
+ *
+ * Each piece of the card arrives in turn as the modal opens. No JavaScript:
+ * the modal only mounts when it is opened, so these animations run on mount.
+ *
+ * Opacity and a few pixels of travel ONLY. Animating height or margin here
+ * would resize the card mid-sequence and shove the modal panel around while
+ * it is still sliding in.
+ *
+ * The rows are listed individually rather than animated as a block, because
+ * the point is that each line of contact detail lands on its own.
+ */
+@keyframes vcardIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.vcard__inner > *,
+.vcard__rows > * {
+  animation: vcardIn 380ms var(--e-out) both;
+}
+
+/* The rows container must not animate as well, or its children inherit a
+   parent that is still fading and the whole group reads as one item. */
+.vcard__rows { animation: none; opacity: 1; }
+
+.vcard__seal      { animation-delay: 40ms; }
+.vcard__wordmark  { animation-delay: 110ms; }
+.vcard__suffix    { animation-delay: 170ms; }
+.vcard__divider   { animation-delay: 230ms; }
+.vcard__name      { animation-delay: 290ms; }
+.vcard__role      { animation-delay: 350ms; }
+
+.vcard__rows > *:nth-child(1) { animation-delay: 420ms; }
+.vcard__rows > *:nth-child(2) { animation-delay: 480ms; }
+.vcard__rows > *:nth-child(3) { animation-delay: 540ms; }
+.vcard__rows > *:nth-child(4) { animation-delay: 600ms; }
+
+/* The QR last but one, and the website after it. 660 + 380 = 1040ms, so the
+   whole card has settled inside about a second — someone who deliberately
+   opened a business card should not be kept waiting for a phone number. */
+.vcard__qrblock { animation-delay: 660ms; }
+.vcard__site    { animation-delay: 720ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* One plain fade for the whole card: no travel, no per-item delay. The
+     pieces still appear, they just stop arriving in procession. Softened,
+     not switched off, per the rule in index.css. */
+  .vcard__inner > *,
+  .vcard__rows > * {
+    animation: none;
+  }
+  .vcard__inner {
+    animation: vcardFade 220ms var(--e-out) both;
+  }
+  @keyframes vcardFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+}
+
+/* A keyboard user who opens the card and tabs straight in must not land on a
+   link that has not faded up yet — the focus ring would be drawn around
+   nothing. Focus cancels the animation outright for that item.
+   Same reasoning as `is-instant` in index.css: arriving by keyboard means it
+   should already be there. */
+.vcard__rows > *:focus,
+.vcard__rows > *:focus-visible,
+.vcard__rows > *:focus-within {
+  animation: none;
+  opacity: 1;
+}
