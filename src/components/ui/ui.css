@@ -50,11 +50,22 @@
 .ui-section--navy h3 { color: var(--c-cream); }
 
 /* ---------------- Section head ---------------- */
-.ui-sechead { max-width: 38rem; }
-.ui-sechead--center { margin-inline: auto; text-align: center; }
+/* The block itself is unconstrained (ASP-46), so the heading runs the full
+   section width. It used to carry `max-width: 38rem`, which is a reasonable
+   measure for a PARAGRAPH and far too narrow for display type at --t-h2 —
+   every section heading on the site wrapped at 608px with the rest of the
+   section empty beside it.
+
+   The measure moved onto the lead, where it belongs. A heading and a
+   paragraph want different line lengths, and one rule on the wrapper could
+   only ever get one of them right. */
+.ui-sechead--center { margin-inline: auto; max-width: 38rem; text-align: center; }
 .ui-sechead__heading { margin-top: var(--s-4); }
 .ui-sechead__lead {
   margin-top: var(--s-4);
+  /* Roughly 70 characters at --t-lead. Body copy does not get wider just
+     because there is room for it. */
+  max-width: 42rem;
   color: var(--c-muted);
   font-size: var(--t-lead);
   line-height: var(--lh-loose);
