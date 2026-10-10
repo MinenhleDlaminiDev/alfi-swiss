@@ -38,13 +38,9 @@ export const principles = {
       text: 'Clear reporting, revisited assumptions and no ambiguity about cost or exposure.',
     },
   ],
-  image: {
-    slug: 'philosophy-principles',
-    alt: 'A tall stone column against an open sky',
-    /* Thematic. The column's location is not recorded, so the caption says
-       what the section is about rather than where the photograph was taken. */
-    caption: 'Principles before products',
-  },
+  /* `image` removed: the standalone colonnade photograph that sat beside
+     these four cards went when the cards gained pictures of their own. The
+     master and its CREDITS row stay in assets/. */
 };
 
 export const process = {

@@ -1,6 +1,6 @@
 import {
   PageHero, Section, SectionHead, Eyebrow, Button,
-  NumberedCards, ProcessSteps, Split, Figure,
+  NumberedCards, ProcessSteps,
 } from '../components/ui/index.jsx'
 import { cta } from '../content/site.js'
 import { hero, principles, process, closing } from '../content/philosophy.js'
@@ -16,23 +16,21 @@ export default function Philosophy() {
 
       <PageHero eyebrow={hero.eyebrow} headingLines={hero.headingLines} lead={hero.lead} />
 
-      {/* Four principles, beside the image */}
+      {/* Four principles.
+          The standalone photograph that used to sit beside these was removed
+          once the cards themselves gained images: one large picture of a
+          colonnade next to four smaller pictures was just the biggest thing
+          on screen, and it illustrated nothing the cards did not. Without it
+          the column constraint goes too, so the four run across the section
+          the way every other card grid on the site does. */}
       <Section tone="paper">
-        <Split>
-          <Figure
-            slug={principles.image.slug}
-            alt={principles.image.alt}
-            caption={principles.image.caption}
-            live
-          />
-          <div>
-            <Eyebrow>{principles.eyebrow}</Eyebrow>
-            <h2 className="svc-detail__heading">{principles.heading}</h2>
-            <div className="phil-grid">
-              <NumberedCards items={principles.items} />
-            </div>
-          </div>
-        </Split>
+        <div className="u-stagger">
+          <Eyebrow>{principles.eyebrow}</Eyebrow>
+          <h2 className="svc-detail__heading">{principles.heading}</h2>
+        </div>
+        <div className="phil-grid">
+          <NumberedCards items={principles.items} />
+        </div>
       </Section>
 
       {/* Five-stage process */}
