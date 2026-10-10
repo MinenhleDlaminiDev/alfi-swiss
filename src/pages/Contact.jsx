@@ -1,4 +1,4 @@
-import { PageHero, Section, Eyebrow, Figure } from '../components/ui/index.jsx'
+import { PageHero, Section, Eyebrow } from '../components/ui/index.jsx'
 import EnquiryForm from '../components/EnquiryForm/EnquiryForm.jsx'
 import { contact, regulatory } from '../content/site.js'
 import { hero, form, office } from '../content/contact.js'
@@ -14,10 +14,17 @@ export default function Contact() {
 
       <PageHero eyebrow={hero.eyebrow} headingLines={hero.headingLines} lead={hero.lead} />
 
-      {/* Enquiry form beside the office details */}
+      {/* Enquiry form beside the office details.
+          u-stagger (ASP-43): three nested levels, on purpose. The outer one
+          sequences the two COLUMNS so the form leads and the office trails;
+          the inner ones sequence each column's own lines. A child of a
+          staggered parent fades inside a fading parent, which is what makes
+          the address read as arriving after its heading rather than with it.
+          This section sits directly under the hero, so its observer fires on
+          load and the whole thing plays as a page-open entrance. */}
       <Section tone="paper">
-        <div className="contact-main">
-          <div>
+        <div className="contact-main u-stagger">
+          <div className="u-stagger">
             <Eyebrow>{form.eyebrow}</Eyebrow>
             <h2 className="contact-heading">{form.heading}</h2>
             <div className="contact-form">
@@ -25,7 +32,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <aside className="contact-aside">
+          <aside className="contact-aside u-stagger">
             <Eyebrow>{office.eyebrow}</Eyebrow>
             <h2 className="contact-heading">{office.heading}</h2>
             <address className="contact-address">
@@ -33,15 +40,7 @@ export default function Contact() {
             </address>
             <a className="contact-email" href={`mailto:${contact.email}`}>{contact.email}</a>
             <p className="contact-reach">{contact.reach}</p>
-            <div className="contact-figure">
-              <Figure
-                slug={office.image.slug}
-                alt={office.image.alt}
-                caption={office.image.caption}
-                ratio="4 / 3"
-                live
-              />
-            </div>
+            {/* The Geneva photograph was here until ASP-43. */}
           </aside>
         </div>
       </Section>

@@ -92,7 +92,10 @@ export default function EnquiryForm() {
   const sending = status === 'sending'
 
   return (
-    <form className="enq" onSubmit={onSubmit} ref={formRef} noValidate>
+    /* u-stagger (ASP-43): the fields and the submit button arrive in sequence
+       with the rest of the contact section. Inert outside a `.u-reveal`
+       ancestor, so the form is unaffected if it is ever used elsewhere. */
+    <form className="enq u-stagger" onSubmit={onSubmit} ref={formRef} noValidate>
       <div className="enq__field">
         <label className="enq__label" htmlFor="enq-name">{copy.fields.name.label}</label>
         <input

@@ -345,6 +345,40 @@ html { scroll-behavior: smooth; }
   .js-motion .u-reveal.is-in .u-stagger > * { transition-delay: 0ms; }
 }
 
+/* Focus cancels the stagger for the item it lands on (ASP-43).
+ *
+ * The same defect ASP-41 found in the V-card, in the other mechanism. The
+ * focusin handler in RootLayout only rescues a group that has not revealed
+ * at all (`.u-reveal:not(.is-in)`); a group that IS revealing leaves its
+ * children mid-transition, and a keyboard user who tabs in during those few
+ * hundred milliseconds gets a focus ring drawn around something they cannot
+ * see. Harmless on a column of prose; not harmless on a form, which is where
+ * ASP-43 first put this on interactive controls.
+ *
+ * `:focus-within` rather than `:focus`, because the thing that takes focus is
+ * usually an input inside the staggered wrapper, not the wrapper itself.
+ *
+ * `transition: none`, and nothing less will do. Two weaker versions were
+ * measured and both still reported opacity 0 at the frame focus landed:
+ *
+ *  - zeroing `transition-delay` alone, and
+ *  - zeroing the delay AND the duration.
+ *
+ * By the time focus arrives the group already carries `.is-in`, so a
+ * transition to opacity 1 is ALREADY RUNNING, sitting out its 210ms delay.
+ * This rule does not change that transition's end value — it was heading to 1
+ * either way — and a running transition keeps the timing it started with.
+ * Removing the property from `transition-property` is what cancels it, and a
+ * cancelled transition snaps to the specified value. The same reason
+ * `.is-instant` exists for a whole group, applied to one item.
+ */
+.js-motion .u-reveal .u-stagger > *:focus-within,
+.js-motion .u-reveal.is-in .u-stagger > *:focus-within {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 /* ---- Live figure: the entry settle (ASP-28) ----
  *
  * A plain figure scales its FRAME by 1.015 (above). A live figure holds the

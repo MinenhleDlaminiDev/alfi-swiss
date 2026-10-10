@@ -73,14 +73,11 @@ export const form = {
   },
 };
 
+/* `image` removed in ASP-43. It was a view of Geneva across the lake sitting
+   under the office address, which is decoration beside the thing people came
+   to this page for. The master and its CREDITS row stay in assets/, so
+   restoring it is a matter of putting this object back. */
 export const office = {
   eyebrow: 'Office',
   heading: 'Geneva.',
-  image: {
-    slug: 'contact-geneva',
-    alt: 'Geneva across the lake, with the Jet d’Eau',
-    /* Safe to name the place here, unlike the other captions: this master IS
-       recorded as Geneva in CREDITS.md. */
-    caption: 'Geneva',
-  },
 };
