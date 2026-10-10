@@ -128,6 +128,12 @@ function Portrait({ slug, name, role }) {
 
   return (
     <picture>
+      {/* AVIF first (ASP-47). This is the fourth <picture> on the site and
+          the one easiest to forget — the partner portraits are built here
+          rather than through Figure, so a format added to the shared
+          components does not reach them. It was found by measuring: /team
+          was still being served WebP after every other page had moved. */}
+      <source type="image/avif" srcSet={srcset('avif')} sizes={sizes} />
       <source type="image/webp" srcSet={srcset('webp')} sizes={sizes} />
       <img
         className="team-person__img"

@@ -162,6 +162,9 @@ function CardImage({ slug }) {
 
   return (
     <picture>
+      {/* AVIF before WebP — the browser takes the first type it knows
+          (ASP-47). A card image drops from ~70KB to ~30KB. */}
+      <source type="image/avif" srcSet={srcset('avif')} sizes={CARD_SIZES} />
       <source type="image/webp" srcSet={srcset('webp')} sizes={CARD_SIZES} />
       <img
         className="ui-card__img"

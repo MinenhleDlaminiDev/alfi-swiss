@@ -53,6 +53,10 @@ RedirectMatch 404 /\.git
 # download button work on iOS.
 <IfModule mod_mime.c>
   AddType text/vcard .vcf
+  # Apache builds older than 2.4.49 do not know AVIF and would serve it as
+  # application/octet-stream, which `nosniff` below then forbids the browser
+  # from correcting — the image would simply not render (ASP-47).
+  AddType image/avif .avif
 </IfModule>
 
 # ---------------------------------------------------------------------------
@@ -77,7 +81,7 @@ RedirectMatch 404 /\.git
   # Images are NOT content-hashed: the pipeline emits stable names like
   # home-positioning-1200w.webp. A replaced photo keeps its filename, so
   # "immutable" would strand visitors on the old one for a year. 30 days.
-  <FilesMatch "\.(webp|jpe?g|png|svg)$">
+  <FilesMatch "\.(avif|webp|jpe?g|png|svg)$">
     Header set Cache-Control "public, max-age=2592000"
   </FilesMatch>
 
@@ -97,4 +101,21 @@ RedirectMatch 404 /\.git
 
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # LCP preload for the home page only (ASP-47), mirroring the Link header in
+  # netlify.toml. It cannot be a <link> in index.html: that file is the SPA
+  # shell for every route, so all six pages were fetching this 362KB
+  # photograph at high priority and five never displayed it.
+  #
+  # A FilesMatch would be no better — every route serves index.html, so it
+  # would match all of them. SetEnvIf tests the REQUESTED path, which is
+  # evaluated before the rewrite, so only "/" is tagged.
+  #
+  # AVIF on purpose: <picture> offers AVIF first, so preloading the WebP
+  # would hand an AVIF-capable browser two copies of the same image.
+  # Must match slides[0] in src/content/home.js.
+  <IfModule mod_setenvif.c>
+    SetEnvIf Request_URI "^/$" ALFI_HOME=1
+    Header set Link "</images/hero-geneva-1800w.avif>; rel=preload; as=image; type=image/avif; imagesrcset=\"/images/hero-geneva-768w.avif 768w, /images/hero-geneva-1200w.avif 1200w, /images/hero-geneva-1800w.avif 1800w, /images/hero-geneva-2560w.avif 2560w, /images/hero-geneva-3200w.avif 3200w\"; imagesizes=100vw; fetchpriority=high" env=ALFI_HOME
+  </IfModule>
 </IfModule>

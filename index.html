@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Inter is self-hosted (ASP-47). The @font-face is in src/index.css.
+         This preload starts the download in parallel with the stylesheet
+         rather than after the browser has parsed it and discovered the
+         @font-face — a font referenced from CSS is otherwise found late.
+         crossorigin is REQUIRED even same-origin: fonts are fetched in CORS
+         mode, and without it the browser downloads the file twice. -->
+    <link rel="preload" href="/fonts/inter-latin-var.woff2" as="font"
+          type="font/woff2" crossorigin />
     <meta name="description" content="ALFI Swiss Partners is an independent wealth advisory firm in Geneva, providing senior-level counsel and introductions to leading private banks." />
     <meta property="og:site_name" content="ALFI Swiss Partners" />
     <meta property="og:type" content="website" />
@@ -18,11 +20,13 @@
     <meta property="og:url" content="https://alfiswisspartners.com" />
     <meta property="og:image" content="https://alfiswisspartners.com/images/home-positioning-1200w.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <!-- LCP: the first hero slide. Must match slides[0] in src/content/home.js. -->
-    <link rel="preload" as="image" type="image/webp"
-          href="/images/hero-geneva-1800w.webp"
-          imagesrcset="/images/hero-geneva-768w.webp 768w, /images/hero-geneva-1200w.webp 1200w, /images/hero-geneva-1800w.webp 1800w, /images/hero-geneva-2560w.webp 2560w, /images/hero-geneva-3200w.webp 3200w"
-          imagesizes="100vw" fetchpriority="high" />
+    <!-- The hero preload used to live here and was moved out in ASP-47.
+         This file is the SPA shell served for EVERY route, so a preload in
+         it made all six pages fetch the home hero at high priority — 362KB
+         on five pages that never render it, 48% of /contact's entire weight.
+         It is now a `Link:` response header scoped to "/" in netlify.toml,
+         which is both earlier than markup and limited to the one page that
+         needs it. The Apache side needs the same header; see public/.htaccess. -->
     <title>ALFI Swiss Partners</title>
     <script>
       /* ASP-24 — set the reveal opt-in BEFORE first paint.

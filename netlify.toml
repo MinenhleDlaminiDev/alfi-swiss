@@ -91,10 +91,25 @@
 
 # index.html must always revalidate, or a visitor keeps booting an old build
 # and never receives the new hashed asset URLs.
+#
+# The Link header is the home page's LCP preload (ASP-47). It used to be a
+# <link rel="preload"> in index.html, but that file is the SPA shell for
+# every route, so all six pages fetched this 362KB photograph at high
+# priority and five of them never showed it.
+#
+# Scoped to "/" so only the home page pays for it, and declared as AVIF on
+# purpose: <picture> offers AVIF first, so that is what a modern browser
+# will choose. Preloading the WebP instead would give an AVIF-capable
+# browser two copies of the same image. Browsers without AVIF ignore this
+# header and fetch their own format normally, with fetchpriority="high"
+# already set on the <img> by HeroBackdrop.
+#
+# Must match slides[0] in src/content/home.js.
 [[headers]]
   for = "/"
   [headers.values]
     Cache-Control = "no-cache, must-revalidate"
+    Link = '''</images/hero-geneva-1800w.avif>; rel=preload; as=image; type=image/avif; imagesrcset="/images/hero-geneva-768w.avif 768w, /images/hero-geneva-1200w.avif 1200w, /images/hero-geneva-1800w.avif 1800w, /images/hero-geneva-2560w.avif 2560w, /images/hero-geneva-3200w.avif 3200w"; imagesizes=100vw; fetchpriority=high'''
 
 [[headers]]
   for = "/index.html"

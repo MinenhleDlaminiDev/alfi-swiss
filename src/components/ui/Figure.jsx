@@ -49,6 +49,12 @@ export default function Figure({
 
   const picture = (
     <picture>
+      {/* Order is the negotiation: the browser takes the FIRST type it
+          understands, so AVIF must precede WebP or no one ever gets it.
+          AVIF is roughly half the bytes at a quality indistinguishable from
+          the WebP beside it (ASP-47); the JPEG on the <img> is the floor for
+          anything that understands neither. */}
+      <source type="image/avif" srcSet={srcset('avif')} sizes={sizes} />
       <source type="image/webp" srcSet={srcset('webp')} sizes={sizes} />
       <img
         src={`/images/${slug}-${fallbackWidth}w.jpg`}

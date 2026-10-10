@@ -45,6 +45,12 @@ function Slide({ slug, alt, active, priority }) {
   if (!meta) return null
   return (
     <picture>
+      {/* AVIF first (ASP-47). This is where it matters most: the first slide
+          is the LCP image on the home page and drops 362KB -> 159KB at
+          1800w. The preload header in netlify.toml names the AVIF for the
+          same reason — preloading the WebP would hand an AVIF-capable
+          browser two copies of the same photograph. */}
+      <source type="image/avif" srcSet={srcset(slug, 'avif')} sizes="100vw" />
       <source type="image/webp" srcSet={srcset(slug, 'webp')} sizes="100vw" />
       <img
         className={'hero-bd__img' + (active ? ' is-active' : '')}

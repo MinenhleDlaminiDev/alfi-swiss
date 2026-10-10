@@ -52,7 +52,19 @@ const widthsFor = (slug) => {
   if (slug.startsWith(CARD_PREFIX)) return CARD_WIDTHS
   return WIDTHS
 }
-const QUALITY = { webp: 76, jpeg: 80 }
+/* AVIF at 45 was chosen by looking, not by rule of thumb (ASP-47). Crops of
+   the hero and a card were compared against the master at 1:1, and 45 is
+   indistinguishable from webp 76 on both while being well under half the
+   size — hero 362KB -> 159KB, card 70KB -> 30KB.
+
+   Its mean absolute error against the master is HIGHER than webp's, which
+   looks alarming in a table and is not a reason to raise it: what AVIF
+   discards at this quality is sensor noise, which the metric counts as
+   signal and the eye does not. The crops are what settled it.
+
+   webp quality stays at 76. Once AVIF ships, webp is itself the fallback,
+   and a fallback should be good rather than cheap. */
+const QUALITY = { avif: 45, webp: 76, jpeg: 80 }
 const FORCE = process.argv.includes('--force')
 
 if (!existsSync(SRC)) {
@@ -86,6 +98,7 @@ if (!FORCE && existsSync(MANIFEST)) {
       slugs.every((slug) =>
         (existing[slug].widths || []).every(
           (w) =>
+            existsSync(path.join(OUT, `${slug}-${w}w.avif`)) &&
             existsSync(path.join(OUT, `${slug}-${w}w.webp`)) &&
             existsSync(path.join(OUT, `${slug}-${w}w.jpg`)),
         ),
@@ -124,14 +137,20 @@ for (const file of masters) {
 
   const sizes = []
   for (const w of widths) {
+    const avif = `${slug}-${w}w.avif`
     const webp = `${slug}-${w}w.webp`
     const jpg = `${slug}-${w}w.jpg`
+    /* Three encodings, narrowest-support first in the <picture> that reads
+       them. AVIF is what almost every visitor actually downloads; webp
+       covers the rest and jpeg is the floor. */
+    const z = await sharp(input).resize({ width: w }).avif({ quality: QUALITY.avif }).toFile(path.join(OUT, avif))
     const a = await sharp(input).resize({ width: w }).webp({ quality: QUALITY.webp }).toFile(path.join(OUT, webp))
     const b = await sharp(input).resize({ width: w }).jpeg({ quality: QUALITY.jpeg, mozjpeg: true }).toFile(path.join(OUT, jpg))
+    written.add(avif)
     written.add(webp)
     written.add(jpg)
-    totalOut += a.size + b.size
-    sizes.push(a.size)
+    totalOut += z.size + a.size + b.size
+    sizes.push(z.size)
   }
 
   manifest[slug] = {
@@ -142,12 +161,12 @@ for (const file of masters) {
   }
 
   const kb = (n) => (n / 1024).toFixed(0) + 'KB'
-  console.log(`${slug.padEnd(32)} ${meta.width}x${meta.height}  webp ${sizes.map(kb).join('/')}`)
+  console.log(`${slug.padEnd(32)} ${meta.width}x${meta.height}  avif ${sizes.map(kb).join('/')}`)
 }
 
 // Remove derivatives from a previous run that are no longer produced.
 for (const f of await readdir(OUT)) {
-  if (/-\d+w\.(webp|jpg)$/.test(f) && !written.has(f)) {
+  if (/-\d+w\.(avif|webp|jpg)$/.test(f) && !written.has(f)) {
     await rm(path.join(OUT, f))
     console.log(`removed stale ${f}`)
   }
