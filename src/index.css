@@ -297,8 +297,15 @@ html { scroll-behavior: smooth; }
     transform: none;
   }
   /* No stagger either: the rhythm only reads with movement, and without it a
-     delay is just a slower page. */
-  .js-motion .u-reveal.is-in :is(.ui-cards, .ui-rows, .ui-steps) > * {
+     delay is just a slower page.
+
+     `:nth-child(n)` matches every element and is here for one reason only:
+     to carry the pseudo-class that the delay rules above carry. Without it
+     this selector is four classes against their four-classes-and-a-pseudo,
+     and it loses — which it did, silently, from ASP-28 until ASP-44. A media
+     query has no weight of its own in the cascade, so wrapping a rule in one
+     does not make it win; that is exactly what made this look correct. */
+  .js-motion .u-reveal.is-in :is(.ui-cards, .ui-rows, .ui-steps) > *:nth-child(n) {
     transition-delay: 0ms;
   }
 }
@@ -342,7 +349,9 @@ html { scroll-behavior: smooth; }
   .js-motion .u-reveal.is-in .u-stagger > * {
     transform: none;
   }
-  .js-motion .u-reveal.is-in .u-stagger > * { transition-delay: 0ms; }
+  /* `:nth-child(n)` to match the delay rules' specificity — see the note in
+     the card-grid block above (ASP-44). */
+  .js-motion .u-reveal.is-in .u-stagger > *:nth-child(n) { transition-delay: 0ms; }
 }
 
 /* Focus cancels the stagger for the item it lands on (ASP-43).
@@ -451,7 +460,10 @@ html { scroll-behavior: smooth; }
   .js-motion .u-reveal--hero.is-in > * {
     transform: none;
   }
-  .js-motion .u-reveal--hero.is-in > * { transition-delay: 0ms; }
+  /* Third instance of the same defect, found only because ASP-44 went
+     looking for the other two. The hero is the first thing on every page,
+     so this was 320ms of nothing at the top of every load. */
+  .js-motion .u-reveal--hero.is-in > *:nth-child(n) { transition-delay: 0ms; }
 }
 
 /* Focus has to clear the reveal's settled `transform: none` for exactly the
