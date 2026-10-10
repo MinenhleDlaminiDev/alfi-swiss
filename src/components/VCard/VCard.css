@@ -176,22 +176,29 @@ a.vcard__row:hover .vcard__value { color: var(--vc-gold); }
   align-items: center;
   gap: 8px;
   margin-top: 19px;
-  /* The symbol plus its frame is 334px, wider than the content column inside
-     the card's 28px padding. Pull the block out so it fits, instead of being
-     clipped by `overflow: hidden` — which would cut through the QR's finder
-     pattern while the page itself showed no overflow at all.
+  /* No negative margin here any more (ASP-40).
+     It existed because the old 334px frame was wider than the 290px content
+     column inside the card's 28px padding, so the block had to be pulled out
+     past that padding or `overflow: hidden` would cut through the QR's finder
+     pattern — while the page itself reported no overflow at all.
 
-     The arithmetic is off the BORDER box: the card's 348px includes its 1px
-     borders, so the content column is 348 - 2 - 56 = 290, and reaching 334
-     needs 22px a side, not 21. At 21 the frame landed at 332, the image's
-     `max-width: 100%` clamped 324 down to 322, and the modules went
-     fractional again — 2px of inset quietly undoing the whole-number rule. */
-  margin-inline: calc(-1 * var(--vc-pad));
+     At 253px the frame fits the column with 37px to spare, so the bleed has
+     nothing left to do, and leaving it would stretch this block wider than
+     the card for no reason.
+
+     Kept for the next person who enlarges the symbol: if the frame ever
+     exceeds the content column again, the arithmetic is off the BORDER box.
+     The card's 348px includes its 1px borders, so the column is
+     348 - 2 - 56 = 290, and reaching 334 needed 22px a side, not 21. At 21
+     the frame landed at 332, `max-width: 100%` clamped the image from 324 to
+     322, and the modules went fractional — 2px of inset quietly undoing the
+     whole-number rule. */
 }
 
 .vcard__qrframe {
   display: block;
-  width: 334px;
+  /* 243 + 2 x 4px padding + 2 x 1px border. Tracks the symbol below. */
+  width: 253px;
   max-width: 100%;
   margin-inline: auto;
   /* A flex item shrinks by default. That pulled the symbol to 316px and 322px
@@ -207,7 +214,7 @@ a.vcard__row:hover .vcard__value { color: var(--vc-gold); }
 .vcard__qr {
   display: block;
   flex: none;
-  /* 324 = 81 modules x exactly 4 CSS px.
+  /* 243 = 81 modules x exactly 3 CSS px (ASP-40, down from 324 = 81 x 4).
      The supplied design rendered this at 112px, which is 1.38 px per module —
      roughly a third of what any decoder can read, so the code could not be
      scanned at all.
@@ -217,9 +224,15 @@ a.vcard__row:hover .vcard__value { color: var(--vc-gold); }
      and a 1x screen capture at 3.68 px/module failed to decode even though the
      same symbol decoded cleanly from the source SVG.
 
+     243 is now the floor, not a waypoint. The next whole step down is
+     81 x 2 = 162px, where each module is two CSS pixels — and on a 1x screen
+     that is two physical pixels, before the camera's own sampling. It was not
+     shipped because a screen decode cannot stand in for a phone held across a
+     desk, which is the only test that matters for a business card.
+
      Change this only in multiples of 81, and re-run the rendered-QR decode
      test afterwards. */
-  width: 324px;
+  width: 243px;
   height: auto;
 }
 
@@ -239,15 +252,15 @@ a.vcard__row:hover .vcard__value { color: var(--vc-gold); }
   color: var(--vc-muted);
 }
 
-/* Below 376px a 324px symbol no longer fits inside the card. Step DOWN TO A
-   WHOLE NUMBER of pixels per module rather than letting it scale to something
-   fractional: 243 = 81 modules x 3px, the floor verified to decode from real
-   rendered pixels. Any new step must also be a multiple of 81. */
+/* The narrow-screen step DOWN to 243px is gone, because 243px is now the
+   size everywhere (ASP-40). It existed only because 324px did not fit inside
+   the card below 376px; at 243 there is nothing left to step down to that is
+   still a whole number of pixels per module.
+
+   The tighter padding is kept — it is what makes room for the symbol on a
+   narrow phone, and removing it would put 243px back up against the edge. */
 @media (max-width: 375px) {
   .vcard__inner { --vc-pad: 18px; padding: 32px var(--vc-pad) 28px; }
-  .vcard__qr { width: 243px; }
-  /* 253px frame against an 18px inset — a smaller bleed, same reason. */
-  .vcard__qrframe { width: 253px; }
 }
 
 /* Colour change only on hover — no movement — so there is nothing here for
