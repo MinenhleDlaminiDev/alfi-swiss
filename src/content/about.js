@@ -68,28 +68,29 @@ export const clients = {
   eyebrow: 'Who We Serve',
   heading: 'Advisory for clients whose financial lives require discretion.',
   note: 'Selective, discreet, reassuring — never mass-market.',
+  /* No `image` on these four, unlike every other card set on the site. They
+     describe PEOPLE, and the abstract architectural photography that works
+     for a principle or a service reads as a stand-in for a client when it
+     sits above "High-net-worth individuals". NumberedCards renders an item
+     without an image as a plain panel, so nothing else has to change. */
   items: [
     {
       n: '01',
-      image: 'card-hnw-individuals',
       title: 'High-net-worth individuals',
       text: 'Portfolio strategy guidance, risk review and long-term wealth planning.',
     },
     {
       n: '02',
-      image: 'card-families',
       title: 'Families and family offices',
       text: 'Intergenerational continuity, governance and specialist coordination.',
     },
     {
       n: '03',
-      image: 'card-business-owners',
       title: 'Business owners',
       text: 'Strategic advice around liquidity, concentration risk and business transitions.',
     },
     {
       n: '04',
-      image: 'card-institutions',
       title: 'Institutions and foundations',
       text: 'Investment governance, risk oversight and advisory support.',
     },

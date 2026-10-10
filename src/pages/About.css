@@ -18,6 +18,58 @@
 
 .about-grid { margin-top: var(--s-7); }
 
+/* ---- "Who we serve": the cards rise in, one at a time ----
+ *
+ * The shared grid entrance lifts every card 10px on a 70ms step, which at
+ * four cards reads as one movement. These travel 2rem on a 110ms step, so
+ * each one arrives after the last has settled — the same rhythm as the
+ * process steps on Philosophy, in the other axis.
+ *
+ * Every rule below is written one level more specific than the shared rule
+ * it replaces, rather than relying on which stylesheet the bundler emits
+ * first. index.css and this file would otherwise be deciding the outcome by
+ * load order, which is luck. The counts, for anyone changing these:
+ *
+ *   shared start   .js-motion .u-reveal .ui-cards > *            (0,3,1)
+ *   ours           + .about-grid--serve                          (0,4,1)
+ *   shared settled .js-motion .u-reveal.is-in … > *              (0,4,1)
+ *   ours           + .about-grid--serve                          (0,5,1)
+ *   shared delays  … > *:nth-child(2)                            (0,5,1)
+ *   ours           + .about-grid--serve                          (0,6,1)
+ */
+.js-motion .u-reveal .about-grid--serve .ui-cards > * {
+  transform: translate3d(0, 2rem, 0);
+}
+
+.js-motion .u-reveal.is-in .about-grid--serve .ui-cards > * {
+  transform: none;
+}
+
+.js-motion .u-reveal.is-in .about-grid--serve .ui-cards > *:nth-child(2) { transition-delay: 110ms; }
+.js-motion .u-reveal.is-in .about-grid--serve .ui-cards > *:nth-child(3) { transition-delay: 220ms; }
+.js-motion .u-reveal.is-in .about-grid--serve .ui-cards > *:nth-child(n+4) { transition-delay: 330ms; }
+
+/* A settled card still has to be allowed to lift on hover — the rule above
+   pins `transform: none` at (0,5,1), which outranks the shared hover at the
+   same count. Exactly the trap documented in index.css for the generic
+   grids; it costs one more rule here for the same reason. */
+.js-motion .u-reveal.is-in .about-grid--serve .ui-cards > .ui-card:hover {
+  transform: translateY(var(--card-lift));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No travel and no waiting. These outrank the rules above, which in turn
+     outrank the shared cancellers in index.css — so the cancelling has to be
+     repeated here or `reduce` would quietly lose on this grid alone. */
+  .js-motion .u-reveal .about-grid--serve .ui-cards > *,
+  .js-motion .u-reveal.is-in .about-grid--serve .ui-cards > * {
+    transform: none;
+  }
+  .js-motion .u-reveal.is-in .about-grid--serve .ui-cards > *:nth-child(n) {
+    transition-delay: 0ms;
+  }
+}
+
 .about-closing { text-align: center; }
 .about-closing__heading { margin-top: var(--s-5); }
 .about-closing .ui-btn { margin-top: var(--s-7); }

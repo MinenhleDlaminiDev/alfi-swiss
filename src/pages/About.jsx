@@ -42,10 +42,14 @@ export default function About() {
         </div>
       </Section>
 
-      {/* Who we serve */}
+      {/* Who we serve.
+          `--serve` scopes a slower, taller entrance to this grid alone: the
+          four cards rise into place one after another rather than lifting
+          together with the shared 70ms step. The pictures came off them in
+          the same pass — see the note in content/about.js. */}
       <Section tone="paper">
         <SectionHead eyebrow={clients.eyebrow} heading={clients.heading} />
-        <div className="about-grid">
+        <div className="about-grid about-grid--serve">
           <NumberedCards items={clients.items} />
         </div>
       </Section>
