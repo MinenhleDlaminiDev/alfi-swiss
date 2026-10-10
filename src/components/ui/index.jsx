@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import Seal from '../Seal.jsx'
 import { useCountUp } from '../../lib/countUp.js'
 import manifest from '../../content/image-manifest.json'
 import './ui.css'
@@ -53,9 +54,22 @@ export function TextLink({ to, children }) {
   return <Link to={to} className="ui-link">{children}</Link>
 }
 
+/* The interior-page hero (ASP-45 added the watermark).
+ *
+ * The seal sits behind the text, cropped by the band's own edge. It is the
+ * same component the header and footer render, so there is one copy of the
+ * geometry on the site; `sweep` is what makes the gold arc travel.
+ *
+ * Decorative in the strict sense: the mark says nothing the page does not
+ * already say in its heading, and the Seal renders `aria-hidden` when it is
+ * given no title. Home does not use this component — its hero is the
+ * photographic one — so the watermark never appears there. */
 export function PageHero({ eyebrow, headingLines = [], lead }) {
   return (
     <section className="ui-pagehero">
+      <div className="ui-pagehero__mark">
+        <Seal size="100%" sweep />
+      </div>
       <div className="wrap u-reveal u-reveal--hero">
         {eyebrow && <Eyebrow tone="on-dark">{eyebrow}</Eyebrow>}
         <h1 className="ui-pagehero__heading">

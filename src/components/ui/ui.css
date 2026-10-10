@@ -148,9 +148,58 @@
 
 /* ---------------- Page hero (inner pages) ---------------- */
 .ui-pagehero {
+  position: relative;
   background: var(--c-navy);
   color: var(--c-on-dark);
   padding-block: clamp(3.375rem, 2.2rem + 4vw, 5.75rem);
+  /* `clip`, not `hidden`: hidden would turn the band into a scroll container
+     on both axes. This crops the watermark at the band's edges, which is the
+     point of it — a logo fully inside the box reads as a stray graphic. */
+  overflow: clip;
+}
+
+/* ---- Seal watermark (ASP-45) ----
+ *
+ * Sized and offset together so the mark always hangs off the right edge
+ * rather than being shrunk to fit inside it. The width is capped against the
+ * viewport as well as in rem, because the constraint that actually matters
+ * is "does it reach the text", and the text column is measured in rem while
+ * the gap to the right of it is measured in viewport.
+ *
+ * Below the layout breakpoint the heading runs the full width and there is
+ * no room to the right of it at all, so the mark is not rendered rather than
+ * squeezed behind the words. Hidden with `display: none` so its animation
+ * stops running too — `visibility: hidden` or `opacity: 0` would keep the
+ * compositor working every frame on the phones least able to afford it.
+ */
+.ui-pagehero__mark {
+  position: absolute;
+  top: 50%;
+  right: clamp(-5rem, -3vw, -2.5rem);
+  translate: 0 -50%;
+  width: min(30rem, 42vw);
+  aspect-ratio: 1;
+  pointer-events: none;
+  /* Its own layer, so the arc's rotation never repaints the hero text. */
+  will-change: transform;
+}
+
+/* Two opacities, not one.
+ *
+ * A single value on the wrapper made the sweep exactly as faint as the mark
+ * it travels over, which is the one thing it must not be — the movement was
+ * invisible. The static geometry stays at watermark strength and the arc is
+ * carried well above it, so what reads is a light passing around a mark
+ * rather than a logo pulsing.
+ *
+ * These override the `opacity="0.4"` presentation attribute on the inner
+ * ring: any CSS declaration outranks a presentation attribute, so the inner
+ * ring is dimmed with the rest rather than sitting proud of them. */
+.ui-pagehero__mark svg > * { opacity: 0.06; }
+.ui-pagehero__mark .seal__sweep { opacity: 0.28; }
+
+@media (max-width: 1100px) {
+  .ui-pagehero__mark { display: none; }
 }
 .ui-pagehero__heading {
   color: var(--c-cream);

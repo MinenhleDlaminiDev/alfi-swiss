@@ -11,6 +11,27 @@
   animation: alfiDraw 1.3s var(--e-out) 0.2s forwards;
 }
 
+/* The travelling arc on the watermark (ASP-45).
+ *
+ * `transform-box: view-box` makes `transform-origin` resolve in the SVG's own
+ * viewBox units, so 66px 66px is the centre of the seal. Without it the
+ * origin would resolve against the element's own bounding box and the arc
+ * would orbit its own edge instead of the centre of the mark.
+ *
+ * Rotation only — no stroke or dash animation — so this composites on the
+ * GPU and costs nothing per frame in layout or paint. 18s is slow enough to
+ * read as drift rather than a spinner; at watermark opacity anything faster
+ * pulls the eye off the heading. */
+.seal__sweep {
+  transform-box: view-box;
+  transform-origin: 66px 66px;
+  animation: alfiSweep 18s linear infinite;
+}
+
+@keyframes alfiSweep {
+  to { transform: rotate(360deg); }
+}
+
 /* Under reduced motion the ring still draws, but quickly.
    The same reasoning as the reveals in index.css: the preference is about
    vestibular triggers — travel, scale, spin, parallax — and a stroke revealing
@@ -25,4 +46,11 @@
     animation-duration: 420ms;
     animation-delay: 0s;
   }
+
+  /* The sweep is removed outright rather than shortened. Unlike the ring,
+     which reveals itself in place, this one travels continuously around the
+     mark — it is exactly the kind of persistent movement in the corner of
+     the eye the preference is asking us to stop. The arc stays drawn where
+     it happens to sit, so the seal is not missing a piece. */
+  .seal__sweep { animation: none; }
 }
