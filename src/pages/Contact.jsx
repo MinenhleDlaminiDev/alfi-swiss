@@ -1,6 +1,6 @@
 import { PageHero, Section, Eyebrow } from '../components/ui/index.jsx'
 import EnquiryForm from '../components/EnquiryForm/EnquiryForm.jsx'
-import { contact, regulatory } from '../content/site.js'
+import { contact } from '../content/site.js'
 import { hero, form, office } from '../content/contact.js'
 import './Contact.css'
 import Seo from '../components/Seo.jsx'
@@ -26,7 +26,13 @@ export default function Contact() {
         <div className="contact-main u-stagger">
           <div className="u-stagger">
             <Eyebrow>{form.eyebrow}</Eyebrow>
-            <h2 className="contact-heading">{form.heading}</h2>
+            {/* 'Send a confidential note.' was removed from view in ASP-48,
+                but kept in the accessibility tree rather than deleted. It is
+                the only heading this column has: without it the enquiry form
+                sits in an unnamed region, and a screen-reader user moving by
+                heading would skip straight from the page title to the office
+                details with no sign the form exists. Hidden, not gone. */}
+            <h2 className="contact-heading u-sr-only">{form.heading}</h2>
             <div className="contact-form">
               <EnquiryForm />
             </div>
@@ -50,13 +56,9 @@ export default function Contact() {
           anyone looks for them, and the card now opens from the partner it
           belongs to rather than floating under both of them. */}
 
-      {/* Regulatory notice — placeholder pending legal sign-off */}
-      <Section tone="paper">
-        <div className="contact-reg">
-          <Eyebrow>Regulatory Notice</Eyebrow>
-          <p className="contact-reg__body">{regulatory}</p>
-        </div>
-      </Section>
+      {/* The regulatory notice section stood here until ASP-48. It was a
+          placeholder awaiting compliance sign-off and the client removed it
+          from this page and the footer together. */}
     </>
   )
 }

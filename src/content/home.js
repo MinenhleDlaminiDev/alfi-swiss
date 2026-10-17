@@ -27,11 +27,13 @@ export const hero = {
 
 export const credentials = [
   {
-    figure: '40+',
+    figure: '60+',
     /* ASP-28: the numeric part counts up on first entry. `figure` stays the
        truth — this only says how much of it is a number, and the rest ('+')
-       is carried through unchanged. Remove this line and it renders flat. */
-    count: 40,
+       is carried through unchanged. Remove this line and it renders flat.
+       Both numbers move together, or the strip counts to one and displays
+       the other. */
+    count: 60,
     text: 'Years of combined experience across private banking, wealth advisory and institutional finance.',
   },
   {
@@ -40,7 +42,7 @@ export const credentials = [
   },
   {
     figure: 'Geneva',
-    text: 'Headquartered in Switzerland, with international meetings across Europe by arrangement.',
+    text: 'Headquartered in Switzerland.',
   },
 ];
 
@@ -91,7 +93,8 @@ export const servicesTeaser = {
   eyebrow: 'Our Services',
   heading: 'A coordinated view of wealth.',
   body:
-    'Clients rarely need isolated products. They need banking relationships, risk and ' +
+    /* Mirrors the Services hero lead, so the two move together (ASP-49). */
+    'Clients rarely need isolated arrangements. They need banking relationships, risk and ' +
     'succession considered together.',
   link: { label: 'View All Services', to: '/services' },
 };

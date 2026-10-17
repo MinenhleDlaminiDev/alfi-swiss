@@ -37,9 +37,16 @@ export default function Home() {
           </h1>
           <div className="home-hero__rule" />
           <p className="home-hero__lead">{hero.lead}</p>
+          {/* One call to action (ASP-48). 'Book a Confidential Consultation'
+              was removed on the client's instruction; the contact route is
+              still reachable from the header, the footer and the closing
+              band at the bottom of this page, so nothing is stranded.
+              It is rendered gold rather than the ghost it used to be: as the
+              only button in the hero it has to carry primary weight, and an
+              outline button alone reads as a secondary action with nothing
+              to be secondary to. */}
           <div className="home-hero__cta">
-            <Button to={cta.primary.to} variant="gold">{cta.primary.label}</Button>
-            <Button to={cta.secondary.to} variant="ghost">{cta.secondary.label}</Button>
+            <Button to={cta.secondary.to} variant="gold">{cta.secondary.label}</Button>
           </div>
         </div>
         <ScrollCue />

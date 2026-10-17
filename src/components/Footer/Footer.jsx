@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
-import { nav, firm, contact, regulatory } from '../../content/site.js'
+import { nav, firm, contact } from '../../content/site.js'
 import Seal from '../Seal.jsx'
 import './Footer.css'
 
-/* Site footer (ASP-05). The regulatory notice is a placeholder pending
-   legal sign-off — see src/content/site.js. */
+/* Site footer (ASP-05). The regulatory notice it used to carry was removed
+   in ASP-48 — see the note where it was defined in src/content/site.js. */
 export default function Footer() {
   return (
     <footer className="ftr">
@@ -37,8 +37,11 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* The regulatory notice was removed here and from the Contact page
+            in ASP-48, on the client's instruction. It was a placeholder
+            awaiting compliance sign-off that never came; the copyright line
+            keeps the legal strip from collapsing to nothing. */}
         <div className="ftr__legal">
-          <p className="ftr__notice">{regulatory}</p>
           <p className="ftr__copy">&copy; {new Date().getFullYear()} {firm.fullName}</p>
         </div>
       </div>

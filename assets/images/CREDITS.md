@@ -42,3 +42,42 @@ Licence terms: https://unsplash.com/license
 
 The two partner portraits were supplied by the client and are not Unsplash
 images. They are the only photographs of identifiable people on the site.
+
+**card-partner-dimanow.jpg is the client's file, untouched.** It is the
+reference the other portrait was matched to, and nothing has been done to
+it. An earlier attempt converted both to monochrome; that was reverted —
+the brief was to leave this one alone.
+
+**card-partner-fiuza.jpg was reworked in ASP-50 to match it.** Both stay in
+colour. What was done, all to Fiuza only:
+
+| Step | Detail |
+| --- | --- |
+| Measured both | Dimanow: crown at 4.5% of frame, chin at 68%, head = 63% of height. Fiuza: crown at y=1, jaw at y=181, head = 42%. |
+| Canvas extended | 12px added above his crown in his own backdrop colour. His head touched the very top edge, so headroom had to be created before he could be moved down. His backdrop is perfectly flat — rgb(236,231,225) at every sample point — so this is blank studio paper, not invented detail. |
+| Re-cropped | 212x283 at 3:4, placing his head at 63% of frame with 4.5% headroom, centred on the head at x=173. Matches Dimanow's framing. |
+| Backdrop replaced | Keyed by flood fill FROM THE BORDER, not a global colour key — his shirt is bright and nearly neutral, and a global key would have dissolved it. Mask dilated before feathering to remove the pale fringe. Replaced with Dimanow's measured gradient, rgb(146,168,186) to rgb(171,190,204). |
+| Graded | Brightness +5%, saturation -4%, slight contrast lift, to match Dimanow's brighter, cooler rendering. |
+| Resampled ONCE | 212x283 to 320x427, Lanczos, light sharpening, 4:4:4 chroma. The master is written at exactly the card ladder's first rung so the build copies it instead of resampling it again. |
+
+An earlier version wrote a 600x800 master, which the build then downscaled
+to 320 and the page displayed at 300 — three resamples, with the sharpening
+applied at a scale nobody ever saw. The face looked smeared. One enlargement,
+at the size actually served, is the whole difference.
+
+The card's portrait box was also reduced from 300px to 240px, for BOTH
+partners, so the pair stays identical. At 300px his crop was a 1.42x
+enlargement and visibly broke up; at 240px it is 1.13x.
+
+**His face was not altered.** No feature reshaped, no skin retouched, no
+AI generation of any kind — none is available here. Everything above is
+cropping, canvas extension into flat backdrop, a background key and a
+global tone adjustment.
+
+**The honest caveat:** the master was 325px wide and the matching crop uses
+212px of it, upscaled. At the 300px card slot it is fine at 1x and soft on
+a high-DPI screen. **A larger original from Fiuza is still the real fix** —
+his file is almost certainly a downscaled copy, and no amount of processing
+adds detail that was never captured.
+
+Originals of both are in git history: `git log --follow` either file.

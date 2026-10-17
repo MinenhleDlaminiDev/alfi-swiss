@@ -44,15 +44,13 @@ RedirectMatch 404 /\.git
 
 
 # ---------------------------------------------------------------------------
-# MIME types (ASP-18)
+# MIME types
 # ---------------------------------------------------------------------------
-# Apache does not know .vcf out of the box, so it is served with no
-# Content-Type. Combined with the `nosniff` header set below, the browser is
-# then forbidden from guessing, and a phone shows the card as plain text
-# instead of offering to add the contact. This single line is what makes the
-# download button work on iOS.
+# `AddType text/vcard .vcf` was removed in ASP-51 with the digital business
+# card. Nothing generates a .vcf any more. The matching block in netlify.toml
+# went in the same change: the two configs are only useful while they
+# predict each other.
 <IfModule mod_mime.c>
-  AddType text/vcard .vcf
   # Apache builds older than 2.4.49 do not know AVIF and would serve it as
   # application/octet-stream, which `nosniff` below then forbids the browser
   # from correcting — the image would simply not render (ASP-47).
@@ -91,13 +89,8 @@ RedirectMatch 404 /\.git
     Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
 
-  # The contact file is not content-hashed and carries details that can change
-  # (a direct line, an address). A day is long enough to be cheap and short
-  # enough that a correction reaches people quickly. Must come after the
-  # image rule above, which would otherwise pin the matching QR SVG for 30 days.
-  <FilesMatch "(\.vcf|-qr\.svg)$">
-    Header set Cache-Control "public, max-age=86400"
-  </FilesMatch>
+  # The .vcf and QR cache tier was removed in ASP-51 with the card that
+  # produced them.
 
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"

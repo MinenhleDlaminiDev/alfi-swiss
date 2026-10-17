@@ -16,7 +16,7 @@ export const principles = {
     {
       n: '01',
       image: 'card-preservation',
-      title: 'Preservation first',
+      title: 'Preservation',
       text: 'Capital preservation precedes return. Downside is assessed before upside.',
     },
     {
@@ -59,20 +59,16 @@ export const process = {
       title: 'Analysis',
       text: 'Evaluate risks, opportunities, liquidity needs and relevant specialist inputs.',
     },
+    /* 'Strategy' removed on the client's instruction (ASP-48). The steps that
+       followed are renumbered so the sequence runs 01-04 with no gap — the
+       `n` values are display text, not indices, so nothing derives them. */
     {
       n: '03',
-      title: 'Strategy',
-      text: 'Define an agreed plan with portfolio, advisory and legacy considerations.',
+      title: 'Implementation',
+      text: 'Coordinate with banking partners to implement decisions.',
     },
     {
       n: '04',
-      title: 'Implementation',
-      text:
-        'Coordinate with banking partners to implement decisions through disciplined ongoing ' +
-        'advisory.',
-    },
-    {
-      n: '05',
       title: 'Review',
       text: 'Report clearly, revisit assumptions and adapt as circumstances change.',
     },

@@ -201,12 +201,19 @@ const CARD_SIZES = '(max-width: 560px) calc(100vw - 3rem), (max-width: 900px) 45
  * being stretched over it with a pseudo-element, so the link text a screen
  * reader announces is the real title and the card is one tab stop, not two.
  */
+/* An item WITHOUT `linkTo` renders as a plain card, not as a link (ASP-49).
+ *
+ * It used to emit `<a href={undefined}>` in that case and keep the
+ * `--link` modifier. An anchor with no href is not focusable and is not
+ * announced as a link, so the card lifted on hover, invited a click and did
+ * nothing — the worst of both. Card 05 became exactly that when its detail
+ * section was removed, which is how this surfaced. */
 export function ServiceRows({ items = [] }) {
   return (
     <div className="ui-cards ui-cards--svc">
-      {items.map((it) => (
-        <article key={it.n} className="ui-card ui-card--link">
-          <a className="ui-card__hit" href={it.linkTo ? `#${it.linkTo}` : undefined}>
+      {items.map((it) => {
+        const inner = (
+          <>
             {it.image && (
               <div className="ui-card__media">
                 <CardImage slug={it.image} />
@@ -217,9 +224,16 @@ export function ServiceRows({ items = [] }) {
               <h3 className="ui-card__title">{it.title}</h3>
               <p className="ui-card__text">{it.text}</p>
             </div>
-          </a>
-        </article>
-      ))}
+          </>
+        )
+        return (
+          <article key={it.n} className={'ui-card' + (it.linkTo ? ' ui-card--link' : '')}>
+            {it.linkTo
+              ? <a className="ui-card__hit" href={`#${it.linkTo}`}>{inner}</a>
+              : <div className="ui-card__hit">{inner}</div>}
+          </article>
+        )
+      })}
     </div>
   )
 }

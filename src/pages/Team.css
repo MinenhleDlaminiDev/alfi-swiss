@@ -55,7 +55,15 @@
   overflow: hidden;
   aspect-ratio: 3 / 4;
   width: 100%;
-  max-width: 300px;
+  /* 240px, not 300px (ASP-50).
+     Fiuza's supplied file is 325px wide, and the crop that matches Dimanow's
+     framing uses 212px of it. In a 300px box that is a 1.42x enlargement and
+     the face visibly breaks up. At 240px it is 1.13x — near native, and the
+     difference on screen is obvious.
+     Applied to BOTH partners so the two cards stay identical, which is the
+     whole point of the exercise. Dimanow has resolution to spare either way.
+     If a larger original ever arrives from Fiuza, this can go back to 300. */
+  max-width: 240px;
   margin: var(--s-5) auto 0;
   border-radius: var(--radius);
   background: var(--c-navy-lift);
@@ -121,80 +129,9 @@
      reading starts. */
   /* Still portrait on a phone, just smaller — a landscape crop here would
      reintroduce exactly the close-up this ticket removed. */
-  .team-person__media { max-width: 230px; }
+  .team-person__media { max-width: 220px; }
 }
 
-/* ---- Digital card trigger (ASP-39) ----
-   Pushed to the bottom of the body with margin-top: auto, so the buttons
-   line up across cards whose biographies are different lengths. */
-.team-person__cardbtn {
-  align-self: flex-start;
-  margin-top: auto;
-  padding-top: var(--s-5);
-  border: 0;
-  background: none;
-  cursor: pointer;
-  font-size: var(--t-eyebrow);
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  /* Small text, so the deeper gold: 5.35:1 on paper (ASP-33). */
-  color: var(--c-gold-deep);
-  position: relative;
-  transition: color var(--d-fast) var(--e-out);
-}
-
-/* The same resting-plus-wipe underline the text links use, so this reads as
-   part of the same vocabulary rather than a new kind of control. */
-.team-person__cardbtn::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -2px;
-  height: 1px;
-  background: rgba(201, 169, 78, 0.4);
-}
-.team-person__cardbtn::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -2px;
-  height: 1px;
-  background: var(--c-gold-deep);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform var(--d-base) var(--e-out);
-}
-
-.team-person__cardbtn:hover::after,
-.team-person__cardbtn:focus-visible::after { transform: scaleX(1); }
-
-@media (prefers-reduced-motion: reduce) {
-  /* The rule still appears, it just does not grow across. */
-  .team-person__cardbtn::after { transition: none; }
-}
-
-/* ---- .vcf download, inside the card modal (ASP-39) ----
-   Sits under the card rather than on it: the card itself is the client's
-   own design and a button is not part of it. */
-.team-cardfile {
-  display: block;
-  margin-top: var(--s-4);
-  padding: var(--s-4);
-  text-align: center;
-  background: var(--c-navy);
-  color: var(--c-cream);
-  font-size: var(--t-eyebrow);
-  font-weight: 600;
-  letter-spacing: var(--ls-btn);
-  text-transform: uppercase;
-  border-radius: var(--radius);
-  transition: background-color var(--d-fast) var(--e-out);
-}
-
-.team-cardfile:hover { background: var(--c-navy-lift); }
-
-/* The modal sits on a dark backdrop, so the ring follows the hero rule. */
-.team-cardfile:focus-visible { --c-focus: var(--c-gold); }
+/* The digital-card trigger and the .vcf download button were styled here
+   until ASP-51, where the client removed the V-card feature. Deleted
+   rather than commented out: the markup they styled is gone too. */

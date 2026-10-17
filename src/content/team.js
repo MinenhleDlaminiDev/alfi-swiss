@@ -28,15 +28,9 @@ export const leadership = {
       bio:
         'Geneva-based banking executive with more than 40 years of experience in private ' +
         'banking, wealth advisory and institutional finance. Background spans portfolio ' +
-        'strategy, alternative investments, structured products, credit risk and investment ' +
+        'strategy, alternative investments, structured solutions, credit risk and investment ' +
         'advisory.',
       placeholder: false,
-      /* Only this partner has a digital card (ASP-39, option (a)). The
-         generator builds one .vcf from the single `card` object in
-         contact.js, and the other partner has no phone, email or card data
-         at all. When the client supplies them, add the flag here and the
-         button appears — the modal takes a person, not a hardcoded card. */
-      hasCard: true,
     },
     {
       name: 'António Fiuza',
@@ -49,7 +43,6 @@ export const leadership = {
         'Biography to be completed with approved background, key roles, areas of expertise ' +
         'and credentials.',
       placeholder: true,
-      hasCard: false,
     },
   ],
 };

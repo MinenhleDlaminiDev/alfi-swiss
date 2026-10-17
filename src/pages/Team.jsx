@@ -1,9 +1,5 @@
-import { useState } from 'react'
 import { PageHero, Section, Eyebrow } from '../components/ui/index.jsx'
-import Modal from '../components/Modal/Modal.jsx'
-import VCard from '../components/VCard/VCard.jsx'
 import manifest from '../content/image-manifest.json'
-import { card } from '../content/contact.js'
 import { hero, leadership } from '../content/team.js'
 import './Team.css'
 import Seo from '../components/Seo.jsx'
@@ -16,11 +12,6 @@ import { seo } from '../content/seo.js'
  * cards stacked vertically so a biography has room to be a biography.
  */
 export default function Team() {
-  /* Holds the person whose card is open, not a boolean. Only one partner has
-     a card today (ASP-39, option (a)), but the dialog is given a person so
-     the second drops in without rework when the client supplies details. */
-  const [cardFor, setCardFor] = useState(null)
-
   return (
     <>
       <Seo title={seo.team.title} description={seo.team.description} />
@@ -46,55 +37,16 @@ export default function Team() {
                   {p.bio}
                   {p.placeholder && <span className="team-person__flag"> (Pending approval)</span>}
                 </p>
-
-                {/* Only the partner who HAS a card gets a button. A button
-                    opening a contact card with no way to make contact would
-                    be worse than no button at all. */}
-                {p.hasCard && (
-                  <button
-                    type="button"
-                    className="team-person__cardbtn"
-                    onClick={() => setCardFor(p)}
-                  >
-                    {/* Named for the person, not a bare "View card": with two
-                        of these on a page, a screen reader listing the
-                        buttons would otherwise read the same label twice. */}
-                    Digital card
-                    <span className="u-sr-only"> for {p.name}</span>
-                  </button>
-                )}
+                {/* The 'Digital card' button stood here until ASP-51, where
+                    the client removed the V-card feature entirely. Both
+                    partners now render the same shape, which is what the
+                    page wanted anyway — only one of them ever had a card. */}
               </div>
             </article>
           ))}
         </div>
       </Section>
 
-      <Modal
-        open={cardFor !== null}
-        onClose={() => setCardFor(null)}
-        title={cardFor ? `the digital card for ${cardFor.name}` : undefined}
-        labelledBy="team-card-title"
-      >
-        {/* The dialog's accessible name. Visually hidden because the card
-            itself already shows the name in its own typography, and
-            repeating it above would look like a mistake. */}
-        <h2 id="team-card-title" className="u-sr-only">
-          {cardFor ? `Digital card for ${cardFor.name}` : ''}
-        </h2>
-        <VCard />
-
-        {/* The .vcf has been generated and served with the right MIME type
-            since ASP-18, and `card.download` has carried its label since
-            then, but nothing was ever linked to it — the old Contact copy
-            promised a download that did not exist. The QR covers a phone;
-            this covers everyone on a desktop.
-
-            Outside <VCard> on purpose: that component is the client's own
-            card design, ported verbatim, and a button is not part of it. */}
-        <a className="team-cardfile" href={`/${card.slug}.vcf`} download>
-          {card.download}
-        </a>
-      </Modal>
     </>
   )
 }
@@ -122,9 +74,10 @@ function Portrait({ slug, name, role }) {
 
   const srcset = (ext) => meta.widths.map((w) => `/images/${slug}-${w}w.${ext} ${w}w`).join(', ')
   const fallback = meta.widths[meta.widths.length - 1]
-  /* The card is wider now that the portrait sits above the text rather than
-     beside it, so this asks for a bigger file than the Contact version did. */
-  const sizes = '(max-width: 560px) 230px, 300px'
+  /* Must track `.team-person__media` in Team.css. If this says 300px while
+     the box renders at 240, the browser reserves the wrong candidate and
+     either wastes bytes or picks a file too small to be sharp. */
+  const sizes = '(max-width: 560px) 220px, 240px'
 
   return (
     <picture>

@@ -27,15 +27,24 @@ export const contact = {
     'Virtual consultations worldwide',
 };
 
-/* Placeholder pending compliance/legal confirmation. Do not publish a final
-   regulatory status, authorisation or licensing statement until approved. */
-export const regulatory =
-  'ALFI Swiss Partners provides independent advisory services and introduces clients to ' +
-  'selected banking partners; it does not hold client assets or provide discretionary ' +
-  'portfolio management.';
+/* `regulatory` was removed in ASP-48. It read:
 
+     'ALFI Swiss Partners provides independent advisory services and
+      introduces clients to selected banking partners; it does not hold
+      client assets or provide discretionary portfolio management.'
+
+   It had been a placeholder awaiting compliance sign-off since ASP-03, and
+   the client removed it from the footer and the Contact page together.
+   Recorded here rather than silently deleted, because a firm of this kind
+   may still be required to carry a status statement — if one is ever
+   approved, this is where it goes. */
+
+/* `primary` ('Book a Confidential Consultation') was removed from the home
+   hero in ASP-48 and deleted here rather than left behind: nothing rendered
+   it any more, and an unused label in the content file is the kind of thing
+   that gets reinstated by accident later. `request` already carries the same
+   destination with its own wording. */
 export const cta = {
-  primary:   { label: 'Book a Confidential Consultation', to: '/contact' },
-  secondary: { label: 'Explore Our Services',             to: '/services' },
-  request:   { label: 'Request a Consultation',           to: '/contact' },
+  secondary: { label: 'Explore Our Services', to: '/services' },
+  request:   { label: 'Request a Consultation', to: '/contact' },
 };

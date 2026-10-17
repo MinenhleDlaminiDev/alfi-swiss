@@ -16,8 +16,7 @@ public/images/*.avif
 public/images/*.webp
 public/images/*.jpg
 
-# Generated vCard artefacts — the source of truth is `card` in
-# src/content/contact.js. Committing these risks a stale copy disagreeing with
-# the content file. Rebuild with: npm run vcard
-public/*.vcf
-public/*-qr.svg
+# The generated vCard artefacts were ignored here until ASP-51 removed the
+# feature. Nothing produces a .vcf or a QR any more, so the rules went with
+# the generator rather than lingering as instructions for a build step that
+# no longer exists.

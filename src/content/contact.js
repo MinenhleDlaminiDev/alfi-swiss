@@ -9,20 +9,23 @@ export const hero = {
     'or send a note and a partner will respond.',
 };
 
-/* `cardSection` was the copy introducing the static card block on this page.
-   Both moved out in ASP-38: the partners to team.js, and the card itself to
-   a modal opened from the partner it belongs to. `card` below stays here,
-   because VCard and scripts/build-vcard.mjs both import it from this file. */
-
-/* Digital business card details (ASP-18).
-   This is the single source of truth: scripts/build-vcard.mjs generates both
-   public/<slug>.vcf and the QR from this object, and <VCard> renders from it.
-   Change a number here and all three follow. Never hard-code these in a
-   component or re-type them into the .vcf by hand.
-
-   Phone numbers are stored in E.164 (`tel`) for the dial links and separately
-   as the spaced form the partner's printed card uses (`display`), because the
-   two are not mechanically derivable from each other across countries. */
+/* RETAINED, NOT RENDERED (ASP-51).
+ *
+ * The digital business card was removed from the site entirely on the
+ * client's instruction — the button, the modal, the QR, the .vcf download
+ * and the generator that built them. Nothing imports this object any more.
+ *
+ * It is kept because it is REAL DATA: a managing partner's two phone
+ * numbers, his direct email and the office address, carefully transcribed
+ * from his printed card and verified against it. Deleting live contact
+ * details to tidy up after a feature removal would throw away the only
+ * accurate copy of them in the codebase, and the client may well want the
+ * card back. If the feature returns, it is rebuilt from here.
+ *
+ * Phone numbers are stored in E.164 (`tel`) for dial links and separately
+ * as the spaced form the partner's printed card uses (`display`), because
+ * the two are not mechanically derivable from each other across countries.
+ */
 export const card = {
   slug: 'alexander-dimanow',
   name: 'Alexander Dimanow',

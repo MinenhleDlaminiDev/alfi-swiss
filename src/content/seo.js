@@ -18,8 +18,12 @@ export const seo = {
   services: {
     title: 'Services',
     description:
+      /* 'coordinated through a selected network of private banks' was
+         dropped in ASP-49 with the same subordination wording on the page
+         itself. The services listed are unchanged — strategic advisory lost
+         its detail section, not the service. */
       'Wealth management, portfolio and investment advisory, alternatives, risk and credit, ' +
-      'and strategic advisory — coordinated through a selected network of private banks.',
+      'and corporate and strategic advisory for private clients, families and entrepreneurs.',
   },
   philosophy: {
     title: 'Investment Philosophy',

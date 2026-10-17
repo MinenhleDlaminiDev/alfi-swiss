@@ -412,6 +412,13 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   gap: var(--s-5);
+  /* An <ol>, so the browser draws its own "1." beside the "01" the step
+     already renders — two numbering systems on the same step (ASP-48). The
+     element stays an <ol> because the order is real and assistive technology
+     should know it; only the visible marker goes. */
+  list-style: none;
+  margin: 0;
+  padding: 0;
   /* The steps enter from 2.5rem to the right of where they belong (see
      index.css), which puts them outside this box until they land. Clipped so
      that start position cannot widen the page and flash a horizontal
