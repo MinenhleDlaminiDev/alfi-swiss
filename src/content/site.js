@@ -22,9 +22,11 @@ export const nav = [
 export const contact = {
   email: 'info@alfiswisspartners.com',
   addressLines: ['36 Boulevard Helvétique', 'CH – 1207 Geneva'],
-  reach:
-    'Geneva headquarters · International meetings across Europe by arrangement · ' +
-    'Virtual consultations worldwide',
+  /* `reach` removed in ASP-53. It read 'Geneva headquarters · International
+     meetings across Europe by arrangement · Virtual consultations
+     worldwide'. The same claim about European meetings had already been
+     taken off the Home credentials strip in ASP-48, so this was the last
+     place it survived. */
 };
 
 /* `regulatory` was removed in ASP-48. It read:

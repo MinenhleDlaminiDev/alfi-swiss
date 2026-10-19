@@ -45,7 +45,11 @@ export default function Contact() {
               {contact.addressLines.map((line) => <span key={line}>{line}</span>)}
             </address>
             <a className="contact-email" href={`mailto:${contact.email}`}>{contact.email}</a>
-            <p className="contact-reach">{contact.reach}</p>
+            {/* The 'Geneva headquarters / International meetings / Virtual
+                consultations' line sat here until ASP-53. The same
+                'international meetings across Europe by arrangement' wording
+                came off the Home credentials strip in ASP-48; this was the
+                last place it appeared. */}
             {/* The Geneva photograph was here until ASP-43. */}
           </aside>
         </div>

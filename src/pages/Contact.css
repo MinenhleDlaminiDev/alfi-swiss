@@ -31,12 +31,7 @@
   padding-bottom: 2px;
 }
 
-.contact-reach {
-  margin-top: var(--s-5);
-  font-size: var(--t-caption);
-  line-height: var(--lh-loose);
-  color: var(--c-muted);
-}
+/* .contact-reach removed in ASP-53 with the paragraph it styled. */
 
 /* .contact-figure removed in ASP-43, with the photograph it framed. */
 
