@@ -31,8 +31,13 @@ export const seo = {
   philosophy: {
     title: 'Investment Philosophy',
     description:
-      'Protect capital, seek opportunity, stay disciplined. The four principles and the ' +
-      'five-stage client process behind every ALFI Swiss Partners recommendation.',
+      /* Rewritten in ASP-59 with the page itself. The old one advertised
+         'four principles' (removed) and a 'five-stage' process (four since
+         ASP-48) — both wrong by the time anyone read them. The title above
+         keeps the term 'Investment Philosophy' for search; no visible copy
+         on the page uses it. */
+      'How ALFI Swiss Partners works: independent judgement from senior Geneva advisers, ' +
+      'and the four stages of a client engagement from first conversation to ongoing review.',
   },
   team: {
     title: 'Team',

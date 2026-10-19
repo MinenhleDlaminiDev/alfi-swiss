@@ -1,83 +1,76 @@
-/* Philosophy (ASP-03). Source: content deck v1, slides 9-10. */
+/* Philosophy (ASP-03). Source: content deck v1, slides 9-10.
+
+   REWRITTEN IN ASP-59. The client asked for this page to stop resembling the
+   reference site the project was benchmarked against, prosperityam.ch. Three
+   phrases were doing that work and are deliberately absent now:
+
+     'stewardship'           — theirs: 'generational stewardship', '20+ YEARS
+                               OF STEWARDSHIP'
+     'purpose'               — their hero headline is 'Investing with purpose'
+     'Investment Philosophy' — the exact title of their third section, and the
+                               eyebrow this page used to open with
+
+   Keep them out. The page title and nav label are still 'Philosophy', and the
+   SEO title still reads 'Investment Philosophy' because that is what the page
+   is about and search needs the term — but no visible copy uses it.
+
+   The four PRINCIPLES that used to sit between the hero and the process were
+   removed outright, with nothing in their place, on the same instruction. The
+   card images went with them (card-preservation, card-diversification,
+   card-risk-opportunity, card-monitoring); the masters stay in assets/images
+   with their CREDITS rows. */
 
 export const hero = {
-  eyebrow: 'Investment Philosophy',
-  headingLines: ['Protect capital. Seek opportunity.', 'Stay disciplined.'],
+  eyebrow: 'How We Work',
+  headingLines: ['We start with the circumstances,', 'not with a model portfolio.'],
   lead:
-    'Investment decisions are grounded in process, not short-term noise. These are the ' +
-    'principles ALFI applies when advising clients and selecting banking partners: capital ' +
-    'preservation, diversification, risk-adjusted returns and transparency.',
-};
-
-export const principles = {
-  eyebrow: 'Our Principles',
-  heading: 'Four principles behind every recommendation.',
-  items: [
-    {
-      n: '01',
-      image: 'card-preservation',
-      title: 'Preservation',
-      text: 'Capital preservation precedes return. Downside is assessed before upside.',
-    },
-    {
-      n: '02',
-      image: 'card-diversification',
-      title: 'Diversification with purpose',
-      text: 'Diversification is deliberate, not incidental — each holding earns its place.',
-    },
-    {
-      n: '03',
-      image: 'card-risk-opportunity',
-      title: 'Risk-adjusted opportunity',
-      text: 'Opportunity is measured against the risk taken to reach it, never in isolation.',
-    },
-    {
-      n: '04',
-      image: 'card-monitoring',
-      title: 'Transparent monitoring',
-      text: 'Clear reporting, revisited assumptions and no ambiguity about cost or exposure.',
-    },
-  ],
-  /* `image` removed: the standalone colonnade photograph that sat beside
-     these four cards went when the cards gained pictures of their own. The
-     master and its CREDITS row stay in assets/. */
+    'Geneva has no shortage of firms with a house view to recommend. ALFI has none. What a ' +
+    'client gets instead is the judgement of people who spent decades inside private banks, ' +
+    'applied to their particular circumstances rather than to a template.',
 };
 
 export const process = {
-  eyebrow: 'Our Process',
-  heading: 'A clear client journey from discovery to ongoing stewardship.',
+  eyebrow: 'How An Engagement Runs',
+  heading: 'Four stages, and the same partner through all of them.',
   lead:
-    'What clients can expect at each stage, and how the advisory relationship evolves over time.',
+    'Nothing is handed to a junior team once the relationship starts. The partner who takes ' +
+    'the first meeting is the one who reviews the file two years later.',
+  /* 'Strategy' was removed on the client's instruction (ASP-48), which is why
+     there are four and not five. The `n` values are display text, not indices,
+     so nothing derives them — renumber by hand if a stage is ever added. */
   steps: [
     {
       n: '01',
-      title: 'Discovery',
-      text: 'Understand objectives, family context, current assets, constraints and priorities.',
+      title: 'The first conversation',
+      text:
+        'Objectives, family circumstances, what is already in place, and what is actually ' +
+        'causing concern.',
     },
     {
       n: '02',
-      title: 'Analysis',
-      text: 'Evaluate risks, opportunities, liquidity needs and relevant specialist inputs.',
+      title: 'The work',
+      text:
+        'Risks, liquidity, costs and exposures examined in detail, with specialists brought ' +
+        'in where a question needs them.',
     },
-    /* 'Strategy' removed on the client's instruction (ASP-48). The steps that
-       followed are renumbered so the sequence runs 01-04 with no gap — the
-       `n` values are display text, not indices, so nothing derives them. */
     {
       n: '03',
-      title: 'Implementation',
-      text: 'Coordinate with banking partners to implement decisions.',
+      title: 'Putting it in place',
+      text:
+        'Decisions carried through with the client’s banks and other advisers, in the order ' +
+        'that makes sense.',
     },
     {
       n: '04',
-      title: 'Review',
-      text: 'Report clearly, revisit assumptions and adapt as circumstances change.',
+      title: 'Staying with it',
+      text:
+        'Assumptions revisited, reporting kept plain, and the approach adjusted when ' +
+        'circumstances change.',
     },
   ],
 };
 
 export const closing = {
   eyebrow: 'Begin a Conversation',
-  heading:
-    'Disciplined investing is not about chasing performance; it is about aligning risk, ' +
-    'opportunity and client purpose.',
+  heading: 'The best decisions are the ones a client understands completely.',
 };
