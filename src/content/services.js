@@ -38,7 +38,10 @@ export const hero = {
   eyebrow: 'Our Services',
   headingLines: [
     'Integrated analysis across investments,',
-    'credit, risk control and legacy planning.',
+    /* 'legacy planning' reworded in ASP-60: 'legacy' is reference-site
+       vocabulary ('building a legacy', 'Preserving values. Building
+       legacies.'). */
+    'credit, risk control and family continuity.',
   ],
   lead:
     'Clients rarely need isolated arrangements. They need a coordinated view of wealth: how ' +

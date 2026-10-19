@@ -13,9 +13,12 @@ export const hero = {
 
 export const story = {
   paragraphs: [
+    /* 'the judgement required for long-term wealth stewardship' was reworded
+       in ASP-60. 'Stewardship' is one of the reference site's signature words
+       ('20+ YEARS OF STEWARDSHIP', 'generational stewardship', 'Stewarded the
+       Swiss way'); ASP-59 took it off Philosophy and this finished the job. */
     'We draw on senior experience across private banking, wealth advisory and institutional ' +
-    'finance, pairing analytical rigour with the judgement required for long-term wealth ' +
-    'stewardship.',
+    'finance, pairing analytical rigour with judgement earned over decades.',
     'As an independent firm, ALFI does not manage portfolios nor give investment advice. ' +
     'Instead, we introduce our clients to a carefully selected network of financial ' +
     'institutions, preserving our objectivity in every recommendation and giving clients ' +
@@ -50,16 +53,26 @@ export const differentiators = {
     {
       n: '02',
       image: 'card-bank-introductions',
-      title: 'Curated bank introductions',
+      /* Was 'Curated bank introductions' / 'We introduce clients to the
+         financial institutions, trust companies or other advisers best
+         suited to their needs and objectives.' The reference site describes
+         the same service in nearly the same words — 'we introduce clients to
+         associated Swiss banks and independent portfolio and asset managers'
+         — and this was the closest substantive overlap the ASP-60 audit
+         found. Reworded rather than removed: it is ALFI's core proposition. */
+      title: 'Access to the right institutions',
       text:
-        'We introduce clients to the financial institutions, trust companies or other ' +
-        'advisers best suited to their needs and objectives.',
+        'Where a bank, trust company or specialist adviser is needed, a partner makes the ' +
+        'introduction personally and explains why that one.',
     },
     {
       n: '03',
       image: 'card-long-term',
       title: 'Long-term perspective',
-      text: 'Success is measured by durable outcomes, client continuity and legacy preservation.',
+      /* 'legacy preservation' reworded in ASP-60 — see the note on `story`. */
+      text:
+        'Success is measured by durable outcomes, client continuity and decisions that ' +
+        'still hold years later.',
     },
   ],
 };

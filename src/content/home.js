@@ -50,7 +50,11 @@ export const positioning = {
   eyebrow: 'A Discreet Partner',
   heading: 'A discreet partner for complex wealth decisions.',
   body:
-    'ALFI Swiss Partners combines the independence of an exclusive family office with the ' +
+    /* 'combines the independence of an exclusive family office with' was
+       rewritten in ASP-60. Family Office is a named service line of the
+       reference site this project was benchmarked against, and ALFI calling
+       itself one also implies managing assets, which the About page denies. */
+    'ALFI Swiss Partners pairs genuine independence with the ' +
     'practical judgement of senior banking professionals. Our role is to help clients ' +
     'translate financial complexity into clear, durable decisions across investments, ' +
     'financing, estate planning and strategic opportunities.',
@@ -72,7 +76,10 @@ export const pillars = {
   items: [
     {
       n: '01', title: 'Independence', image: 'card-independence',
-      text: 'As an independent family office, we find the most adequate advisers for our clients.',
+      /* 'As an independent family office' — see the note on `positioning`. */
+      text:
+        'Independent of any bank or group, so the institution or adviser we point a client ' +
+        'towards is chosen on fit alone.',
     },
     {
       n: '02', title: 'Senior attention', image: 'card-senior-attention',
