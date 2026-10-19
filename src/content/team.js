@@ -8,7 +8,10 @@
 
 export const hero = {
   eyebrow: 'Our Team',
-  headingLines: ['Senior partners,', 'directly involved.'],
+  /* One line since ASP-54. PageHero renders a span per entry and the
+     entrance staggers them, so a trailing empty string here would animate
+     a blank line — keep this array to exactly the lines that have text. */
+  headingLines: ['Senior partners.'],
   lead:
     'Every engagement is led by a partner. The people below are the people you deal ' +
     'with — there is no layer between them and the work.',
@@ -16,7 +19,7 @@ export const hero = {
 
 export const leadership = {
   eyebrow: 'Leadership',
-  heading: 'Senior partners, directly involved.',
+  heading: 'Senior partners.',
   people: [
     {
       name: 'Alexander Dimanow',
