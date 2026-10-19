@@ -51,7 +51,13 @@ export const story = {
 
 export const differentiators = {
   eyebrow: 'Why ALFI Swiss Partners',
-  heading: 'An exclusive structure built around clarity, discretion and senior judgement.',
+  /* ASP-61. This read 'An exclusive structure built around clarity, discretion
+     and senior judgement' — the same heading, word for word, as the Home
+     pillars section. That one kept it: clarity, discretion and senior
+     judgement map onto its four cards (Integrated view, Confidentiality,
+     Senior attention). These three are about independence, so the heading
+     here says that instead. Keep them different. */
+  heading: 'What independence actually changes.',
   items: [
     {
       n: '01',
