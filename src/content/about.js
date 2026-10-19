@@ -19,10 +19,21 @@ export const story = {
        Swiss way'); ASP-59 took it off Philosophy and this finished the job. */
     'We draw on senior experience across private banking, wealth advisory and institutional ' +
     'finance, pairing analytical rigour with judgement earned over decades.',
-    'As an independent firm, ALFI does not manage portfolios nor give investment advice. ' +
-    'Instead, we introduce our clients to a carefully selected network of financial ' +
-    'institutions, preserving our objectivity in every recommendation and giving clients ' +
-    'continuity and direct access to decision makers.',
+    /* ASP-52. This sentence used to read 'ALFI does not manage portfolios nor
+       give investment advice', which contradicted the whole Services page —
+       three cards there are titled Advice. The client settled it on 19 Oct:
+       ALFI DOES advise, so the denial was the thing that was wrong.
+
+       The limit stayed in, deliberately. ASP-48 removed the regulatory notice
+       and ASP-58 removed the 'advisory only; execution and custody remain with
+       the client's own bank' line, so this is now the ONLY statement of scope
+       anywhere on the site. Do not reduce it to 'ALFI advises' — a site that
+       describes advice with no stated limit reads as discretionary management,
+       which is a different regulated activity again. */
+    'As an independent firm, ALFI advises on the decisions in front of a client, but does ' +
+    'not manage portfolios or hold assets. We also introduce our clients to a carefully ' +
+    'selected network of financial institutions, preserving our objectivity in every ' +
+    'recommendation and giving clients continuity and direct access to decision makers.',
   ],
   pullquote: 'An independent, connected and enduring Swiss partner.',
   /* "Swiss" was dropped from the alt text when the landscape masters came in:
