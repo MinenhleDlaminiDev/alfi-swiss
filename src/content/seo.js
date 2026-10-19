@@ -20,10 +20,13 @@ export const seo = {
     description:
       /* 'coordinated through a selected network of private banks' was
          dropped in ASP-49 with the same subordination wording on the page
-         itself. The services listed are unchanged — strategic advisory lost
-         its detail section, not the service. */
-      'Wealth management, portfolio and investment advisory, alternatives, risk and credit, ' +
-      'and corporate and strategic advisory for private clients, families and entrepreneurs.',
+         itself. The list below tracks the four index cards and was last
+         brought into line in ASP-58, when 'alternatives' stopped being a
+         card and 'management'/'advisory' became 'planning'/'advice'. A
+         description that advertises a service the page no longer lists is
+         worse than a short one — re-check it whenever the cards change. */
+      'Wealth planning, portfolio and investment advice, risk and credit, and corporate ' +
+      'and strategic advice for private clients, families and entrepreneurs.',
   },
   philosophy: {
     title: 'Investment Philosophy',

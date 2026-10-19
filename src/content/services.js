@@ -3,10 +3,10 @@
    Anchor ownership: the `details` sections own the DOM ids. The `index` rows
    are links INTO them (`linkTo`), and deliberately carry no id of their own —
    otherwise a deep link like #wealth-management would match two elements.
-   Row 03 points at the investment-advisory section, which covers it. Row 04
-   points at NOTHING by design: its detail section was removed in ASP-49 and
-   the card was kept, so `linkTo` is omitted and the card renders as a plain
-   panel rather than a link to an anchor that is not there.
+   After ASP-58 only row 01 still links anywhere. Rows 02, 03 and 04 point at
+   NOTHING by design: the sections they described have been removed while the
+   cards were kept, so `linkTo` is omitted and each renders as a plain panel
+   rather than a link to an anchor that is not there.
 
    The section ids are the old names (`wealth-management`) while the copy now
    reads 'Wealth Planning' (ASP-57). The id is only a URL fragment, so it was
@@ -23,14 +23,16 @@
    Those phrases were doing a second job, though: they were the site's signal
    that ALFI does not execute, hold or manage client money. ASP-48 removed the
    regulatory notice from the footer and Contact, which was the only other
-   place that was stated. So the subordination is gone and the SCOPE is now
-   stated once, plainly, as a fact about who does what — see the second point
-   under investment-advisory. ALFI advises; the client's own bank executes and
-   custodies. That reads as independence rather than deference, and it keeps
-   the site from implying a regulated activity it does not perform.
+   place that was stated. So ASP-49 restated the SCOPE once, plainly, as a
+   fact about who does what: 'advisory only; execution and custody remain with
+   the client's own bank'.
 
-   If that single line is ever removed, nothing on the site distinguishes an
-   independent adviser from a discretionary manager. */
+   THAT LINE IS NOW GONE TOO. It sat inside the investment-advisory section,
+   which the client removed entirely in ASP-58. Nothing on the site now
+   distinguishes an independent adviser from a discretionary manager, while
+   Services offers 'Investment Advice' and About says ALFI gives none. That is
+   a live question for the client and is tracked on ASP-52 — do not treat the
+   silence as settled. */
 
 export const hero = {
   eyebrow: 'Our Services',
@@ -56,7 +58,6 @@ export const index = [
   },
   {
     n: '02',
-    linkTo: 'investment-advisory',
     title: 'Portfolio & Investment Advice',
     image: 'card-svc-portfolio',
     text:
@@ -71,14 +72,13 @@ export const index = [
      now unused and stays in assets/images with its CREDITS row. */
   {
     n: '03',
-    linkTo: 'investment-advisory',
-    title: 'Risk & Credit Advisory',
+    title: 'Risk & Credit Advice',
     image: 'card-svc-risk',
     /* 'market' removed here, not from a Philosophy principle: the fix list
        said 'the fourth card', and this is the fourth card that contains the
        word. Confirmed with the client before editing. */
     text:
-      'Assessment and advisory on financial and credit risk, including concentration, ' +
+      'Assessment and advice on financial and credit risk, including concentration, ' +
       'leverage and counterparty exposure.',
   },
   {
@@ -86,7 +86,7 @@ export const index = [
        ASP-49 and this card was kept. Pointing it at #strategic-advisory
        would scroll to nothing. */
     n: '04',
-    title: 'Corporate & Strategic Advisory',
+    title: 'Corporate & Strategic Advice',
     /* Was card-svc-strategic, an ornate nineteenth-century ballroom — the
        least modern image on the site, which is what the client objected to.
        This one is a glass tower seen from below, and it came free when the
@@ -100,19 +100,23 @@ export const details = [
   {
     id: 'wealth-management',
     eyebrow: '01 — Wealth Planning',
-    heading: 'Bringing structure to complex financial lives.',
-    body:
-      'A client’s wealth is rarely held in one place or defined by one objective. We help ' +
-      'bring structure to complex financial lives by advising on investments, coordinating ' +
-      'banking relationships, and aligning liquidity needs with long-term family priorities.',
+    heading: 'Bringing complex needs together — coordinating banking relationships and other services.',
+    /* ASP-58: the client struck out everything after the opening sentence, so
+       the body is now that one line. Their replacement heading read 'Bringing
+       complex needs to cordinagimg banking needs and other services'; the
+       grammatical version above was agreed before it went in. */
+    body: 'A client’s wealth is rarely held in one place or defined by one objective.',
     points: [
       'Personal balance-sheet review and planning priorities',
       /* 'Portfolio strategy guidance and risk-profile alignment, delivered
          through partner banks' was removed here on the client's instruction
-         (ASP-49). The risk-profile work it described is still covered by the
-         investment-advisory section below. */
+         (ASP-49). */
       'Banking relationship coordination and consolidated reporting',
-      'Intergenerational wealth transfer considerations',
+      /* 'Intergenerational wealth transfer considerations' was point three
+         until ASP-58, when the client replaced it with the two below. They
+         wrote them as bare titles; they are set in the list's sentence case. */
+      'Wealth structuring',
+      'Intermediation',
     ],
     image: {
       slug: 'services-wealth-management',
@@ -121,41 +125,23 @@ export const details = [
     },
     flip: false,
   },
-  {
-    id: 'investment-advisory',
-    eyebrow: '02 — Investment Advice, Alternatives & Risk',
-    heading: 'Disciplined investing is not about chasing performance.',
-    body:
-      'This work is rigorous rather than promotional. It is how ALFI evaluates opportunities, ' +
-      'advises on allocation, and assesses the risks a client is carrying as conditions ' +
-      'change.',
-    points: [
-      'Strategic asset-allocation guidance and tactical positioning input',
-      /* The one place the site now states the division of responsibility.
-         It replaces four separate 'through partner banks' phrases, and it
-         is the only thing distinguishing an independent adviser from a
-         discretionary manager now that the regulatory notice is gone
-         (ASP-48). Do not remove it without replacing it. */
-      'Liquidity planning and ongoing monitoring — advisory only; execution and custody ' +
-      'remain with the client’s own bank',
-      'Careful assessment of hedge funds, structured solutions and differentiated strategies',
-      'A disciplined view of concentration, volatility, leverage, counterparty and credit exposure',
-    ],
-    image: {
-      slug: 'services-investment-advisory',
-      caption: 'Discipline over performance',
-      alt: 'Windows repeating in a grid across a dark facade',
-    },
-    flip: true,
-  },
-  /* The third detail section, '03 — Strategic Advisory', was removed in
-     ASP-49 on the client's instruction. The service itself is still offered
-     and still appears as index card 05; only the long write-up has gone, so
-     that card no longer links anywhere.
+  /* Two further detail sections have been removed on the client's instruction:
+     '03 — Strategic Advisory' in ASP-49, and '02 — Investment Advice,
+     Alternatives & Risk' in ASP-58. Only the write-ups have gone; the services
+     themselves are still offered and still appear as index cards, which is why
+     cards 02, 03 and 04 now carry no `linkTo`.
 
-     Its master photograph, services-strategic-advisory.jpg, stays in
-     assets/images with its CREDITS row — the section can be restored from
-     git history without re-sourcing the picture. */
+     Both master photographs — services-investment-advisory.jpg and
+     services-strategic-advisory.jpg — stay in assets/images with their CREDITS
+     rows, so either section can be restored from git history without
+     re-sourcing the picture.
+
+     WHAT WENT WITH SECTION 02. It held the site's only statement of scope:
+     'Liquidity planning and ongoing monitoring — advisory only; execution and
+     custody remain with the client's own bank'. ASP-48 had already removed the
+     regulatory notice, so nothing on the site now says ALFI does not execute,
+     hold or manage client money. The removal was confirmed with that
+     consequence on the table; it is recorded on ASP-52 for the client. */
 ];
 
 export const closing = {

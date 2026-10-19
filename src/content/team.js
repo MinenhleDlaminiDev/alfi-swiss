@@ -33,11 +33,13 @@ export const leadership = {
          illustrated with stock photography, so there is no fallback: if a
          slug is missing the card simply renders without a picture. */
       portrait: 'card-partner-dimanow',
+      /* The second sentence — 'Background spans portfolio strategy, alternative
+         investments, structured solutions, credit risk and investment advisory'
+         — was removed in ASP-58. The client is supplying replacement detail, so
+         this biography is expected to grow again rather than stay at one line. */
       bio:
         'Geneva-based banking executive with more than 40 years of experience in private ' +
-        'banking, wealth advisory and institutional finance. Background spans portfolio ' +
-        'strategy, alternative investments, structured solutions, credit risk and investment ' +
-        'advisory.',
+        'banking, wealth advisory and institutional finance.',
       placeholder: false,
     },
     {
