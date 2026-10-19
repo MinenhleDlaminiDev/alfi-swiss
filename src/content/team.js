@@ -12,9 +12,14 @@ export const hero = {
      entrance staggers them, so a trailing empty string here would animate
      a blank line — keep this array to exactly the lines that have text. */
   headingLines: ['Senior partners.'],
+  /* Client-supplied, ASP-55. Set verbatim. */
   lead:
-    'Every engagement is led by a partner. The people below are the people you deal ' +
-    'with — there is no layer between them and the work.',
+    'Our approach is defined by the calibre of our people and the relationships we build. ' +
+    'Every client benefits from direct access to our highly experienced team of senior ' +
+    'professionals, each bringing a depth of expertise, sound judgement and personal ' +
+    'commitment to every engagement. With no unnecessary layers between you and those ' +
+    'entrusted with your work, we deliver a discreet, seamless and highly personalised ' +
+    'experience, underpinned by the highest standards of excellence.',
 };
 
 export const leadership = {
