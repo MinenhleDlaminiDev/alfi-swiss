@@ -1,7 +1,7 @@
 /* Home — gateway page (ASP-03). Source: content deck v1, slides 1-2. */
 
 export const hero = {
-  eyebrow: 'Independent Wealth Advisory Firm',
+  eyebrow: 'Independent Wealth Planning Firm',
   headingLines: ['Navigating Wealth.', 'Preserving Legacies.'],
   /* Hero backdrop (ASP-26 / ASP-27). Order is the rotation order; the first is
      the one that loads eagerly and is preloaded in index.html, so changing it
@@ -21,8 +21,8 @@ export const hero = {
   },
   lead:
     'An independent wealth advisory firm headquartered in Geneva, providing senior-level ' +
-    'strategic counsel and introductions to leading private banks for private clients, ' +
-    'families, entrepreneurs and institutions.',
+    'strategic counsel and introductions for private clients, families, entrepreneurs ' +
+    'and institutions.',
 };
 
 export const credentials = [

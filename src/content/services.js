@@ -3,10 +3,14 @@
    Anchor ownership: the `details` sections own the DOM ids. The `index` rows
    are links INTO them (`linkTo`), and deliberately carry no id of their own —
    otherwise a deep link like #wealth-management would match two elements.
-   Rows 03 and 04 both point at the investment-advisory section, which covers
-   them. Row 05 points at NOTHING by design: its detail section was removed in
-   ASP-49 and the card was kept, so `linkTo` is omitted and the card renders
-   as a plain panel rather than a link to an anchor that is not there.
+   Row 03 points at the investment-advisory section, which covers it. Row 04
+   points at NOTHING by design: its detail section was removed in ASP-49 and
+   the card was kept, so `linkTo` is omitted and the card renders as a plain
+   panel rather than a link to an anchor that is not there.
+
+   The section ids are the old names (`wealth-management`) while the copy now
+   reads 'Wealth Planning' (ASP-57). The id is only a URL fragment, so it was
+   left alone rather than break any link already shared.
 
    ---- On the bank wording (ASP-49) ----
 
@@ -44,7 +48,7 @@ export const index = [
   {
     n: '01',
     linkTo: 'wealth-management',
-    title: 'Wealth Management',
+    title: 'Wealth Planning',
     image: 'card-svc-wealth',
     text:
       'Financial planning, intergenerational wealth transfer and coordination of banking ' +
@@ -53,23 +57,20 @@ export const index = [
   {
     n: '02',
     linkTo: 'investment-advisory',
-    title: 'Portfolio & Investment Advisory',
+    title: 'Portfolio & Investment Advice',
     image: 'card-svc-portfolio',
     text:
-      'Independent advice and introductions to private banks for portfolio strategy aligned ' +
-      'with objectives and risk profile.',
+      'Introductions to private banks for portfolio strategy aligned with objectives and ' +
+      'risk profile.',
   },
+  /* 'Alternatives & Structured Solutions' was card 03 until ASP-57, when the
+     client removed it. The service itself is not gone: the investment-advisory
+     section below still carries 'Careful assessment of hedge funds, structured
+     solutions and differentiated strategies'. Only the card has gone, so the
+     cards below renumbered. Its master photograph, card-svc-alternatives, is
+     now unused and stays in assets/images with its CREDITS row. */
   {
     n: '03',
-    linkTo: 'investment-advisory',
-    title: 'Alternatives & Structured Solutions',
-    image: 'card-svc-alternatives',
-    text:
-      'Independent review of hedge funds, structured solutions and alternative strategies, ' +
-      'accessed through the client’s own banking relationships.',
-  },
-  {
-    n: '04',
     linkTo: 'investment-advisory',
     title: 'Risk & Credit Advisory',
     image: 'card-svc-risk',
@@ -84,7 +85,7 @@ export const index = [
     /* No `linkTo`: the Strategic Advisory detail section was removed in
        ASP-49 and this card was kept. Pointing it at #strategic-advisory
        would scroll to nothing. */
-    n: '05',
+    n: '04',
     title: 'Corporate & Strategic Advisory',
     /* Was card-svc-strategic, an ornate nineteenth-century ballroom — the
        least modern image on the site, which is what the client objected to.
@@ -98,7 +99,7 @@ export const index = [
 export const details = [
   {
     id: 'wealth-management',
-    eyebrow: '01 — Wealth Management',
+    eyebrow: '01 — Wealth Planning',
     heading: 'Bringing structure to complex financial lives.',
     body:
       'A client’s wealth is rarely held in one place or defined by one objective. We help ' +
@@ -122,7 +123,7 @@ export const details = [
   },
   {
     id: 'investment-advisory',
-    eyebrow: '02 — Investment Advisory, Alternatives & Risk',
+    eyebrow: '02 — Investment Advice, Alternatives & Risk',
     heading: 'Disciplined investing is not about chasing performance.',
     body:
       'This work is rigorous rather than promotional. It is how ALFI evaluates opportunities, ' +
