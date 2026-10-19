@@ -5,8 +5,10 @@ export const hero = {
   eyebrow: 'Leadership & Contact',
   headingLines: ['Senior-led relationships,', 'conducted in confidence.'],
   lead:
-    'Every engagement begins with a confidential discovery conversation. Reach us directly, ' +
-    'or send a note and a partner will respond.',
+    'We invite you to begin a conversation grounded in discretion, personal attention and ' +
+    'mutual understanding. Whether you choose to connect with us directly or submit a ' +
+    'confidential enquiry, a member of our team will respond personally, ensuring your ' +
+    'request receives the care, consideration and attention it deserves.',
 };
 
 /* RETAINED, NOT RENDERED (ASP-51).
