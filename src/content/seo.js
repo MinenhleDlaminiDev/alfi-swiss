@@ -6,8 +6,11 @@ export const seo = {
   home: {
     title: null, // home uses the bare firm name
     description:
-      'ALFI Swiss Partners is an independent wealth advisory firm in Geneva, providing ' +
-      'senior-level counsel and introductions to leading private banks.',
+      /* ASP-63: 'wealth advisory firm' -> 'wealth planning firm', and
+         'introductions to leading private banks' -> 'introductions worldwide'.
+         Keep this matching the Home hero, which is what it describes. */
+      'ALFI Swiss Partners is an independent wealth planning firm in Geneva, providing ' +
+      'senior-level counsel and introductions worldwide.',
   },
   about: {
     title: 'About',

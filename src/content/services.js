@@ -63,8 +63,12 @@ export const index = [
     n: '02',
     title: 'Portfolio & Investment Advice',
     image: 'card-svc-portfolio',
+    /* ASP-62: 'private banks' out, 'banking needs' in, on the client's
+       instruction. Their note read 'Remove private banks to banking needs',
+       which does not parse as a straight swap, so this is the grammatical
+       version of it — the same rule agreed for the ASP-58 heading. */
     text:
-      'Introductions to private banks for portfolio strategy aligned with objectives and ' +
+      'Introductions for banking needs and portfolio strategy aligned with objectives and ' +
       'risk profile.',
   },
   /* 'Alternatives & Structured Solutions' was card 03 until ASP-57, when the

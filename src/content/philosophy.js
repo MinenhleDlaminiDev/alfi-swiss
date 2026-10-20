@@ -24,9 +24,12 @@ export const hero = {
   eyebrow: 'How We Work',
   headingLines: ['We start with the circumstances,', 'not with a model portfolio.'],
   lead:
+    /* 'decades inside private banks' -> 'decades on the other side of the
+       table' (ASP-63). It still says where the partners came from without
+       naming private banks, which the site no longer does anywhere. */
     'Geneva has no shortage of firms with a house view to recommend. ALFI has none. What a ' +
-    'client gets instead is the judgement of people who spent decades inside private banks, ' +
-    'applied to their particular circumstances rather than to a template.',
+    'client gets instead is the judgement of people who spent decades on the other side of ' +
+    'the table, applied to their particular circumstances rather than to a template.',
 };
 
 export const process = {

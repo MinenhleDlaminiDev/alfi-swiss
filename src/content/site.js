@@ -4,9 +4,14 @@ export const firm = {
   name: 'ALFI',
   suffix: 'Swiss Partners',
   fullName: 'ALFI Swiss Partners',
-  tagline: 'Independent Wealth Advisory Firm',
+  /* 'Wealth Advisory' -> 'Wealth Planning' in ASP-63. ASP-57 renamed the Home
+     hero eyebrow on the client's instruction and left everything else, so the
+     site described itself two ways on one screen. The blurb is the footer, on
+     every page — change these two together with the Home lead and the Home
+     search description, or the split comes straight back. */
+  tagline: 'Independent Wealth Planning Firm',
   blurb:
-    'An independent wealth advisory firm headquartered in Geneva, serving private clients, ' +
+    'An independent wealth planning firm headquartered in Geneva, serving private clients, ' +
     'families, entrepreneurs and institutions.',
 };
 

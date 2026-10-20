@@ -96,7 +96,10 @@ export const differentiators = {
 
 export const clients = {
   eyebrow: 'Who We Serve',
-  heading: 'Advisory for clients whose financial lives require discretion.',
+  /* 'Advisory' -> 'Advice' (ASP-62), finishing the run started on the Services
+     cards in ASP-57 and ASP-58. This was the last visible 'Advisory' heading
+     on the site. */
+  heading: 'Advice for clients whose financial lives require discretion.',
   note: 'Selective, discreet, reassuring — never mass-market.',
   /* No `image` on these four, unlike every other card set on the site. They
      describe PEOPLE, and the abstract architectural photography that works
@@ -122,7 +125,8 @@ export const clients = {
     {
       n: '04',
       title: 'Institutions and foundations',
-      text: 'Investment governance, risk oversight and advisory support.',
+      /* 'advisory support' -> 'ongoing support' (ASP-63). */
+      text: 'Investment governance, risk oversight and ongoing support.',
     },
   ],
 };

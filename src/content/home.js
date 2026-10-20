@@ -20,7 +20,9 @@ export const hero = {
     play: 'Play background images',
   },
   lead:
-    'An independent wealth advisory firm headquartered in Geneva, providing senior-level ' +
+    /* 'wealth advisory firm' -> 'wealth planning firm' in ASP-63, so the lead
+       agrees with the eyebrow above it. See the note in site.js. */
+    'An independent wealth planning firm headquartered in Geneva, providing senior-level ' +
     'strategic counsel and introductions for private clients, families, entrepreneurs ' +
     'and institutions.',
 };
@@ -38,7 +40,9 @@ export const credentials = [
   },
   {
     figure: 'Direct',
-    text: 'Senior-partner access and curated introductions to leading private banks around the globe.',
+    /* 'to leading private banks' removed in ASP-63 — the fourth instruction to
+       take the phrase off a page. The site does not say 'private banks'. */
+    text: 'Senior-partner access and curated introductions around the globe.',
   },
   {
     figure: 'Geneva',
