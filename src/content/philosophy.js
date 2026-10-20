@@ -34,13 +34,18 @@ export const hero = {
 
 export const process = {
   eyebrow: 'How An Engagement Runs',
-  heading: 'Four stages, and the same partner through all of them.',
+  heading: 'Three stages, and the same partner through all of them.',
   lead:
     'Nothing is handed to a junior team once the relationship starts. The partner who takes ' +
     'the first meeting is the one who reviews the file two years later.',
-  /* 'Strategy' was removed on the client's instruction (ASP-48), which is why
-     there are four and not five. The `n` values are display text, not indices,
-     so nothing derives them — renumber by hand if a stage is ever added. */
+  /* Two stages have been removed on the client's instruction: 'Strategy' in
+     ASP-48, and 'The work' in ASP-64 — the latter because it described
+     examining risks, liquidity, costs and exposures, and they asked the site
+     to shy away from advisory and investment language.
+
+     The `n` values are display text, not indices, so nothing derives them.
+     Renumber by hand if a stage is added or removed, AND update the section
+     heading above, which states the count. */
   steps: [
     {
       n: '01',
@@ -51,20 +56,13 @@ export const process = {
     },
     {
       n: '02',
-      title: 'The work',
-      text:
-        'Risks, liquidity, costs and exposures examined in detail, with specialists brought ' +
-        'in where a question needs them.',
-    },
-    {
-      n: '03',
       title: 'Putting it in place',
       text:
         'Decisions carried through with the client’s banks and other advisers, in the order ' +
         'that makes sense.',
     },
     {
-      n: '04',
+      n: '03',
       title: 'Staying with it',
       text:
         'Assumptions revisited, reporting kept plain, and the approach adjusted when ' +
