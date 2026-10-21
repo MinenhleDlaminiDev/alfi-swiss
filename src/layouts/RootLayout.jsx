@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom'
 import Header from '../components/Header/Header.jsx'
 import Footer from '../components/Footer/Footer.jsx'
+import WhatsApp from '../components/WhatsApp/WhatsApp.jsx'
 import { startReveal, scan, stopReveal } from '../lib/reveal.js'
 import { startParallax, scanParallax, stopParallax } from '../lib/parallax.js'
 
@@ -19,6 +20,10 @@ export default function RootLayout() {
         <Outlet />
       </main>
       <Footer />
+      {/* Last in the DOM so it comes last in the tab order — a button that
+          floats over everything should not interrupt the page's own reading
+          order on the way down (ASP-66). */}
+      <WhatsApp />
       {/* Resets scroll on navigation and restores it on back/forward. */}
       <ScrollRestoration />
     </>

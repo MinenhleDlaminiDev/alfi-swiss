@@ -27,6 +27,19 @@ export const nav = [
 export const contact = {
   email: 'info@alfiswisspartners.com',
   addressLines: ['36 Boulevard Helvétique', 'CH – 1207 Geneva'],
+  /* The floating WhatsApp button (ASP-66). `tel` is E.164 without the plus,
+     which is the form wa.me takes; `display` is how a person reads it.
+     Do not derive one from the other — spacing conventions differ by country.
+
+     UNVERIFIED AT TIME OF WRITING. 022 is a Geneva LANDLINE prefix, and
+     wa.me only resolves for a number actually registered on WhatsApp — on a
+     landline that means a WhatsApp Business account verified by voice call.
+     If it is not registered, tapping the button opens WhatsApp saying
+     'The phone number shared via url is invalid.' Confirm before production. */
+  whatsapp: {
+    tel: '41227078281',
+    display: '+41 22 707 8281',
+  },
   /* `reach` removed in ASP-53. It read 'Geneva headquarters · International
      meetings across Europe by arrangement · Virtual consultations
      worldwide'. The same claim about European meetings had already been

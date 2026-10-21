@@ -1,0 +1,89 @@
+/* Floating WhatsApp button (ASP-66).
+
+   Bottom LEFT, as specified. It is the only `position: fixed` element on the
+   site — check that is still true before adding another, or they will stack. */
+
+.wa {
+  /* Official WhatsApp green. Kept literal rather than tokenised: it is a
+     third party's brand colour, not part of the ALFI palette, and putting it
+     in the token file would invite someone to reuse it for something else. */
+  --wa-green: #25d366;
+  --wa-green-dark: #1da851;
+
+  position: fixed;
+  left: var(--s-5);
+  bottom: var(--s-5);
+  z-index: 60;
+
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+
+  background: var(--wa-green);
+  color: #fff;
+  /* White on #25d366 is 2.4:1, short of the 3:1 non-text minimum on its own.
+     The ring carries the shape against both cream and navy page backgrounds,
+     and the glyph reads against the ring rather than against the page. */
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 6px 20px rgba(10, 22, 40, 0.28);
+
+  transition:
+    background-color 200ms var(--e-out),
+    transform 200ms var(--e-out),
+    box-shadow 200ms var(--e-out);
+}
+
+.wa__glyph {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.wa:hover {
+  background: var(--wa-green-dark);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 10px 26px rgba(10, 22, 40, 0.34);
+}
+
+.wa:active {
+  transform: translateY(0);
+}
+
+/* The site-wide ring is gold, which disappears against green. White, with the
+   dark hairline from the shadow behind it, clears 3:1 on this surface. */
+.wa:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 560px) {
+  .wa {
+    left: var(--s-4);
+    bottom: var(--s-4);
+    /* 3rem is 48px — still above the 44px minimum touch target. */
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .wa__glyph {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The colour change stays: it is feedback, not movement. Only the lift goes. */
+  .wa,
+  .wa:hover,
+  .wa:active {
+    transform: none;
+  }
+
+  .wa {
+    transition: background-color 200ms linear;
+  }
+}
