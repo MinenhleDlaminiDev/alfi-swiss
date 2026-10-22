@@ -89,7 +89,12 @@
  */
 .hero-bd__toggle {
   position: absolute;
-  right: var(--wrap-pad);
+  /* Moved to the LEFT in ASP-66. The floating WhatsApp button is fixed to the
+     bottom right on every page, and on Home it sat straight on top of this
+     one. They swapped rather than one of them being nudged: two round
+     controls a few pixels apart in the same corner read as a pair, which
+     they are not. */
+  left: var(--wrap-pad);
   bottom: var(--s-6);
   z-index: 2;
 
@@ -125,7 +130,7 @@
 @media (max-width: 900px) {
   .hero-bd__toggle {
     bottom: var(--s-5);
-    right: var(--s-5);
+    left: var(--s-5);
   }
 }
 

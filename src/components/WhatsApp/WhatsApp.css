@@ -1,17 +1,45 @@
 /* Floating WhatsApp button (ASP-66).
 
-   Bottom LEFT, as specified. It is the only `position: fixed` element on the
-   site — check that is still true before adding another, or they will stack. */
+   Bottom RIGHT. It is the only `position: fixed` element on the site — check
+   that is still true before adding another, or they will stack.
+
+   It started on the left and moved right. The hero's pause control went the
+   other way at the same time (see HeroBackdrop.css): on Home the two were
+   landing in the same corner, and two round controls side by side read as a
+   pair of related buttons, which they are not. Keep them in opposite corners
+   if either one ever moves again.
+
+   ---- On the finish ----
+
+   The first version was a flat green disc, which the client found plain. The
+   WhatsApp MARK itself is not ours to restyle — recognition is the entire
+   reason the button exists, and altering the glyph's shape or hue would cost
+   that and breach WhatsApp's brand terms. So everything here works on the
+   container instead:
+
+     · a radial gradient, lit from the upper left like the rest of the site's
+       photography, with #25d366 held as the mid-tone so the colour still
+       reads as WhatsApp at a glance
+     · a specular inset highlight along the top edge, which is what stops a
+       circle looking like a sticker
+     · three stacked shadows — a hairline for the edge, a tight contact
+       shadow, and a wide soft one — rather than a single blurred drop
+     · a gold hairline ring held off the edge, the one piece of ALFI in it
+
+   The gold ring is the part doing the work: it ties a third party's green to
+   this palette without touching the green. */
 
 .wa {
-  /* Official WhatsApp green. Kept literal rather than tokenised: it is a
-     third party's brand colour, not part of the ALFI palette, and putting it
-     in the token file would invite someone to reuse it for something else. */
+  /* Official WhatsApp green and two shades of it for the gradient. Kept
+     literal rather than tokenised: it is a third party's brand colour, not
+     part of the ALFI palette, and putting it in the token file would invite
+     someone to reuse it for something else. */
   --wa-green: #25d366;
-  --wa-green-dark: #1da851;
+  --wa-green-lift: #42e287;
+  --wa-green-base: #16a94d;
 
   position: fixed;
-  left: var(--s-5);
+  right: var(--s-5);
   bottom: var(--s-5);
   z-index: 60;
 
@@ -21,48 +49,86 @@
   height: 3.5rem;
   border-radius: 50%;
 
-  background: var(--wa-green);
+  background:
+    radial-gradient(
+      125% 125% at 30% 18%,
+      var(--wa-green-lift) 0%,
+      var(--wa-green) 46%,
+      var(--wa-green-base) 100%
+    );
   color: #fff;
+
   /* White on #25d366 is 2.4:1, short of the 3:1 non-text minimum on its own.
-     The ring carries the shape against both cream and navy page backgrounds,
-     and the glyph reads against the ring rather than against the page. */
+     The hairline and the contact shadow give the disc a defined edge against
+     both the cream and navy page surfaces, so the glyph reads against the
+     disc rather than against the page. */
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.08),
-    0 6px 20px rgba(10, 22, 40, 0.28);
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    inset 0 -1px 0 rgba(10, 22, 40, 0.14),
+    0 0 0 1px rgba(10, 22, 40, 0.10),
+    0 2px 4px rgba(10, 22, 40, 0.18),
+    0 14px 30px -8px rgba(10, 22, 40, 0.40);
 
   transition:
-    background-color 200ms var(--e-out),
-    transform 200ms var(--e-out),
-    box-shadow 200ms var(--e-out);
+    transform 220ms var(--e-out),
+    box-shadow 220ms var(--e-out),
+    filter 220ms var(--e-out);
+}
+
+/* The gold ring. Held off the disc so it reads as a setting around the mark
+   rather than a border on it. `inset` is animated, not `width` or `padding`,
+   so nothing reflows. */
+.wa::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1px solid var(--c-gold);
+  opacity: 0.45;
+  transition:
+    opacity 220ms var(--e-out),
+    inset 220ms var(--e-out);
 }
 
 .wa__glyph {
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 1.6875rem;
+  height: 1.6875rem;
+  /* The mark's own drop shadow, very slight — it separates the white from the
+     lighter top of the gradient, where contrast is at its weakest. */
+  filter: drop-shadow(0 1px 1px rgba(10, 22, 40, 0.22));
 }
 
 .wa:hover {
-  background: var(--wa-green-dark);
   transform: translateY(-2px);
+  filter: saturate(1.06);
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.08),
-    0 10px 26px rgba(10, 22, 40, 0.34);
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(10, 22, 40, 0.14),
+    0 0 0 1px rgba(10, 22, 40, 0.10),
+    0 4px 8px rgba(10, 22, 40, 0.20),
+    0 20px 38px -10px rgba(10, 22, 40, 0.46);
+}
+
+.wa:hover::before {
+  inset: -7px;
+  opacity: 0.9;
 }
 
 .wa:active {
   transform: translateY(0);
 }
 
-/* The site-wide ring is gold, which disappears against green. White, with the
-   dark hairline from the shadow behind it, clears 3:1 on this surface. */
+/* The site-wide ring is gold, which all but disappears against the gold ring
+   above and the green below it. White, with the dark hairline behind it,
+   clears 3:1 on this surface. */
 .wa:focus-visible {
   outline: 2px solid #fff;
-  outline-offset: 3px;
+  outline-offset: 5px;
 }
 
 @media (max-width: 560px) {
   .wa {
-    left: var(--s-4);
+    right: var(--s-4);
     bottom: var(--s-4);
     /* 3rem is 48px — still above the 44px minimum touch target. */
     width: 3rem;
@@ -73,17 +139,26 @@
     width: 1.5rem;
     height: 1.5rem;
   }
+
+  .wa::before { inset: -4px; }
+  .wa:hover::before { inset: -6px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* The colour change stays: it is feedback, not movement. Only the lift goes. */
+  /* The gradient, the shadows and the gold ring all stay — none of them move.
+     Only the lift and the ring's travel go; the ring still brightens, because
+     that is feedback rather than movement. */
   .wa,
   .wa:hover,
   .wa:active {
     transform: none;
   }
 
-  .wa {
-    transition: background-color 200ms linear;
+  .wa { transition: box-shadow 220ms linear, filter 220ms linear; }
+  .wa::before { transition: opacity 220ms linear; }
+  .wa:hover::before { inset: -5px; }
+
+  @media (max-width: 560px) {
+    .wa:hover::before { inset: -4px; }
   }
 }
