@@ -19,6 +19,31 @@
 
 
 # ---------------------------------------------------------------------------
+# Enquiry endpoint (ASP-67)
+# ---------------------------------------------------------------------------
+# MUST stay above the SPA catch-all. Netlify applies the FIRST matching
+# redirect, so with /* first this would be served index.html and the form
+# would post to the HTML shell and parse the response as JSON.
+#
+# Apache reaches the same endpoint through a rewrite to /api/enquiry.php in
+# public/.htaccess. Netlify cannot run that PHP file and Apache cannot run
+# the function, which is why both exist.
+[[redirects]]
+  from = "/api/enquiry"
+  to = "/.netlify/functions/enquiry"
+  status = 200
+
+# The PHP twin ships inside dist/ because it lives in public/. On Netlify it
+# is dead weight at best and a readable source file at worst, so it is never
+# served: anything else under /api/ is refused rather than falling through to
+# the catch-all below and returning the HTML shell with a 200.
+[[redirects]]
+  from = "/api/*"
+  to = "/index.html"
+  status = 404
+
+
+# ---------------------------------------------------------------------------
 # Single-page application routing
 # ---------------------------------------------------------------------------
 # /about, /services, /philosophy and /contact have no file on disk. Without

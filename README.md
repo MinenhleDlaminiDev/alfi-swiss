@@ -10,15 +10,28 @@ cp .env.example .env   # then fill in your EmailJS credentials
 npm run dev
 ```
 
-## EmailJS
+## The enquiry form
 
-The contact form sends via [EmailJS](https://www.emailjs.com/). Set these in `.env`:
+The contact form posts JSON to `/api/enquiry`, which forwards it to
+[Resend](https://resend.com). The key is a server secret, so the send happens
+on the host rather than in the browser.
 
-- `VITE_EMAILJS_PUBLIC_KEY` — Account → General → Public Key
-- `VITE_EMAILJS_SERVICE_ID` — Email Services → your service ID
-- `VITE_EMAILJS_TEMPLATE_ID` — Email Templates → your template ID
+The two hosts run different code for the same route, because neither can run
+the other's:
 
-Your EmailJS template should reference `{{name}}`, `{{email}}`, and `{{message}}`.
+| Host | Endpoint | Route |
+| --- | --- | --- |
+| Netlify (UAT) | `netlify/functions/enquiry.mjs` | redirect in `netlify.toml` |
+| Infomaniak (production) | `public/api/enquiry.php` | rewrite in `public/.htaccess` |
+
+They must stay behaviourally identical — same payload, same status codes, same
+JSON. Change one, change the other.
+
+Configuration is `RESEND_API_KEY`, `ENQUIRY_TO` and `ENQUIRY_FROM`. See
+`.env.example` for where each host reads them from. **No `VITE_` prefix**:
+that would inline them into the browser bundle.
+
+Nothing is needed to run the site locally — only the send path uses these.
 
 ## Scripts
 

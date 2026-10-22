@@ -65,3 +65,14 @@
   line-height: var(--lh-body);
   color: var(--c-muted);
 }
+
+/* Honeypot (ASP-67). Off-screen rather than display:none or visibility:hidden
+   — some bots skip fields hidden those two ways, which is the whole point of
+   the field. It stays in the layout at zero size so nothing reflows. */
+.enq__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

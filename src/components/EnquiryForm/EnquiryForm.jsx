@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
-import emailjs from '@emailjs/browser'
 import { form as copy } from '../../content/contact.js'
 import './EnquiryForm.css'
 
-const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
-const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+/* Same-origin endpoint, served by a Netlify function on UAT and by
+   api/enquiry.php on Apache in production (ASP-67). The client does not know
+   or care which; it posts JSON and reads {ok:true} or {error}.
+
+   This replaced EmailJS, which was called straight from the browser with a
+   public key. Resend's key is a server secret, so the send had to move off
+   the client — there is no configuration that makes it safe to ship. */
+const ENDPOINT = '/api/enquiry'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -17,15 +21,6 @@ export default function EnquiryForm() {
   const [fieldErrors, setFieldErrors] = useState({})
   const formRef = useRef(null)
   const statusRef = useRef(null)
-
-  useEffect(() => {
-    if (!PUBLIC_KEY) return
-    try {
-      emailjs.init({ publicKey: PUBLIC_KEY })
-    } catch {
-      /* init is best-effort; send() surfaces any real failure */
-    }
-  }, [])
 
   // Move focus to the status message so it is announced, not just rendered
   useEffect(() => {
@@ -39,7 +34,7 @@ export default function EnquiryForm() {
     return errors
   }
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault()
     if (status === 'sending') return
 
@@ -48,6 +43,10 @@ export default function EnquiryForm() {
       name: f.name.value,
       email: f.email.value,
       message: f.message.value,
+      /* The honeypot. Empty for every human; a bot that fills every input
+         fills this one too. The server answers 200 and sends nothing, so
+         whatever submitted it cannot tell that it was caught. */
+      company: f.company.value,
     }
 
     const errors = validate(values)
@@ -60,24 +59,22 @@ export default function EnquiryForm() {
       return
     }
 
-    if (!PUBLIC_KEY || !SERVICE_ID || !TEMPLATE_ID) {
-      console.error('EmailJS environment variables are missing.')
-      setStatus('error')
-      return
-    }
-
     setStatus('sending')
-    emailjs
-      .send(SERVICE_ID, TEMPLATE_ID, {
-        name: values.name,
-        email: values.email,
-        message: values.message || '(no message)',
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
       })
-      .then(() => setStatus('sent'))
-      .catch((err) => {
-        console.error('EmailJS send failed:', err)
-        setStatus('error')
-      })
+      /* A non-2xx is a failure even though fetch resolves — fetch only
+         rejects on a network error, so checking res.ok is what separates
+         "sent" from "the server refused it". */
+      if (!res.ok) throw new Error(`enquiry endpoint returned ${res.status}`)
+      setStatus('sent')
+    } catch (err) {
+      console.error('Enquiry send failed:', err)
+      setStatus('error')
+    }
   }
 
   if (status === 'sent') {
@@ -123,6 +120,19 @@ export default function EnquiryForm() {
         <textarea
           id="enq-message" name="message" rows="4"
           placeholder={copy.fields.message.placeholder}
+        />
+      </div>
+
+      {/* Honeypot (ASP-67). Hidden from sighted users by CSS, from assistive
+          technology by aria-hidden, and from the keyboard by tabIndex -1, so
+          nobody can fill it by accident. autoComplete="off" keeps a browser
+          from helpfully populating it. Named "company" because a bot looks
+          for plausible names; "honeypot" would be skipped. */}
+      <div className="enq__trap" aria-hidden="true">
+        <label htmlFor="enq-company">Company</label>
+        <input
+          id="enq-company" name="company" type="text"
+          tabIndex={-1} autoComplete="off" defaultValue=""
         />
       </div>
 

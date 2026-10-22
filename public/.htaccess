@@ -32,6 +32,13 @@ RedirectMatch 404 /\.git
   # .well-known is exempt: Let's Encrypt uses it for certificate renewal.
   RewriteRule (^|/)\.(?!well-known/) - [F,L]
 
+  # The enquiry endpoint (ASP-67). The -f guard below does not cover this:
+  # /api/enquiry has no extension and is not a file on disk, so without this
+  # line the catch-all hands the form the HTML shell and the browser tries to
+  # parse it as JSON. The matching route on Netlify is a redirect in
+  # netlify.toml, placed above its own catch-all for the same reason.
+  RewriteRule ^api/enquiry/?$ /api/enquiry.php [L]
+
   # Never rewrite a request that maps to a real file or directory, or
   # /images/*, /assets/* and /favicon.svg would all return the HTML shell.
   RewriteCond %{REQUEST_FILENAME} -f [OR]
