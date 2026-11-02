@@ -44,6 +44,18 @@ Licence terms: https://unsplash.com/license
 | card-svc-alternatives.jpg | Services 03 - Alternatives & Structured Solutions | Abstract view of the Kunstmuseum, Bonn | `photo-1593466486574-71b38f2ff423` |
 | card-svc-risk.jpg | About value 04 - Personal commitment | A bridge, black & white | `photo-1714474597969-8395a0793a28` |
 | card-svc-strategic.jpg | Services 05 - Corporate & Strategic Advisory | Interior of the Stroganov Palace | `photo-1577887546572-144f62fceb9e` |
+| card-serve-entrepreneurs.jpg | Who We Serve 01 - Entrepreneurs | A black and white crane under a cloudy sky | `photo-1592395699868-81e39aa28881` |
+| card-serve-generations.jpg | Who We Serve 02 - Families across generations | Stone courtyard with arched walkways and crenellated walls | `photo-1758833641452-027b0af7f4bf` |
+| card-serve-international.jpg | Who We Serve 03 - International families | Harbour building and sailboats at dusk, reflected in the water | `photo-1761687790312-e3f49cffc4d7` |
+
+<!-- The three card-serve- images were added in ASP-80. Each was checked on
+     its own Unsplash page and carries "Free to use under the Unsplash
+     License" — none is an Unsplash+ image, which may not be used here. They
+     were sourced because every other card- slug in the manifest was already
+     in use; no photograph appears twice on the site. All three show place
+     rather than people: the cards sit under headings naming a kind of client,
+     and a person in the picture would read as a claim about who that client
+     is. -->
 
 The two partner portraits were supplied by the client and are not Unsplash
 images. They are the only photographs of identifiable people on the site.

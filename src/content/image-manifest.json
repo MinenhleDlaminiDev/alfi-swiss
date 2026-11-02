@@ -177,6 +177,36 @@
       720
     ]
   },
+  "card-serve-entrepreneurs": {
+    "width": 1600,
+    "height": 1067,
+    "aspect": 1.4995,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-serve-generations": {
+    "width": 1600,
+    "height": 1005,
+    "aspect": 1.592,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-serve-international": {
+    "width": 1600,
+    "height": 1067,
+    "aspect": 1.4995,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
   "card-svc-alternatives": {
     "width": 1440,
     "height": 960,

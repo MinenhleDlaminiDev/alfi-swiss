@@ -128,18 +128,22 @@ export default function Header() {
           </span>
         </NavLink>
 
-        {/* The menu and the conversation button are ONE right-hand group
-            (ASP-69). `.hdr__inner` is space-between, so adding the button as
-            a fourth flex child would have pushed the menu into the middle of
-            the header — a layout change nobody asked for. Grouped, the menu
-            stays where it was and the button sits at its right end, which is
-            what the client's diagram asks for. */}
-        <div className="hdr__right">
-          <nav className="hdr__nav" aria-label="Primary">{renderLinks()}</nav>
-          <Button to={cta.request.to} variant="gold" className="hdr__cta">
-            {cta.request.label}
-          </Button>
-        </div>
+        {/* THE RIGHT-HAND GROUP IS GONE (ASP-80). ASP-69 wrapped the menu and
+            the button in `.hdr__right` so the button would sit at the menu's
+            right end, and the comment here said pushing the menu into the
+            middle of the header was "a layout change nobody asked for". It
+            is asked for now: with seven items the grouped row read as one
+            packed block.
+
+            The three are direct children of `.hdr__inner` instead, which at
+            desktop is a three-column grid — brand, centred menu, button. The
+            toggle is a fourth child and is display:none there, so it takes no
+            grid cell; below 1101px the grid reverts to the flex row and the
+            menu and button hide themselves. */}
+        <nav className="hdr__nav" aria-label="Primary">{renderLinks()}</nav>
+        <Button to={cta.request.to} variant="gold" className="hdr__cta">
+          {cta.request.label}
+        </Button>
 
         <button
           ref={toggleRef}

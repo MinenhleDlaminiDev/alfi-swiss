@@ -177,31 +177,48 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Everything above becomes a plain fade, in step, with no travel and no
-     stagger. The rule appears at full width instead of drawing; the lines
-     appear in place instead of rising. */
-  .js-motion .home-hero__inner.u-reveal--hero.is-in > *:nth-child(1),
-  .js-motion .home-hero__inner.u-reveal--hero.is-in > *:nth-child(4),
-  .js-motion .home-hero__inner.u-reveal--hero.is-in > *:nth-child(5) {
-    transition-delay: 0ms;
-  }
+  /* TRAVEL GOES, THE CHOREOGRAPHY STAYS (ASP-80).
+   *
+   * This block used to zero every delay in the sequence as well, so the most
+   * considered entrance on the site became one 240ms flash with six elements
+   * landing on the same frame — at the top of the page, on first load. The
+   * order and the spacing are not movement; they are the whole reason the
+   * entrance reads as deliberate. What goes is the rising, the mask and the
+   * scaleX draw, which is what the preference is about.
+   *
+   * The nth-child delays above are therefore left alone: 0ms, 470ms, 550ms
+   * still stand under `reduce`.
+   */
 
+  /* The lines appear in place, still 90ms apart. `--line-delay` is untouched,
+     so only the rise is cancelled — and the fade is lengthened, because a
+     fade on its own needs longer than one chasing a 640ms rise. The
+     `transition-delay` has to be restated: the shorthand above it resets
+     that longhand to 0s, which would silently flatten the stagger. */
   .js-motion .home-hero__inner.u-reveal--hero .home-hero__line-in,
   .js-motion .home-hero__inner.u-reveal--hero.is-in .home-hero__line-in {
     transform: none;
   }
   .js-motion .home-hero__inner.u-reveal--hero.is-in .home-hero__line-in {
-    transition: opacity 240ms var(--e-out);
-    transition-delay: 0ms;
+    transition: opacity 600ms var(--e-out);
+    transition-delay: var(--line-delay, 0ms);
   }
 
-  .js-motion .home-hero__inner.u-reveal--hero .home-hero__rule,
-  .js-motion .home-hero__inner.u-reveal--hero.is-in .home-hero__rule {
+  /* The rule FADES in at its place in the sequence rather than drawing.
+     It sits at full opacity at rest, so once the scaleX is cancelled there is
+     nothing left for it to animate — which is why this used to be
+     `transition: none` and the rule simply appeared. Giving it an opacity to
+     travel instead keeps it at 390ms, between the heading and the lead, with
+     nothing moving. */
+  .js-motion .home-hero__inner.u-reveal--hero .home-hero__rule {
+    opacity: 0;
     transform: none;
   }
   .js-motion .home-hero__inner.u-reveal--hero.is-in .home-hero__rule {
-    transition: none;
-    transition-delay: 0ms;
+    opacity: 1;
+    transform: none;
+    transition: opacity 560ms var(--e-out);
+    transition-delay: 390ms;
   }
 }
 

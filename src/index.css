@@ -255,8 +255,13 @@ html { scroll-behavior: smooth; }
   }
   .js-motion .u-reveal.is-in {
     transform: none;
-    /* Shorter, because without the travel there is nothing to ease. */
-    --reveal-dur: 240ms;
+    /* LONGER than the 520ms used with travel, not shorter (ASP-80).
+       It was 240ms, on the reasoning that without the travel there is
+       nothing left to ease. In practice a quarter-second cross-fade does not
+       register as an entrance at all; it reads as the page having loaded
+       oddly. A fade carries less information than a fade plus movement, so
+       it needs MORE time to be legible, not less. */
+    --reveal-dur: 600ms;
   }
 }
 
@@ -327,10 +332,28 @@ html { scroll-behavior: smooth; }
   transform: translate3d(2.5rem, 0, 0);
 }
 
-.js-motion .u-reveal.is-in .ui-steps > *:nth-child(2) { transition-delay: 110ms; }
-.js-motion .u-reveal.is-in .ui-steps > *:nth-child(3) { transition-delay: 220ms; }
-.js-motion .u-reveal.is-in .ui-steps > *:nth-child(4) { transition-delay: 330ms; }
-.js-motion .u-reveal.is-in .ui-steps > *:nth-child(n+5) { transition-delay: 440ms; }
+/* The steps run SLOWER than anything else on the site (ASP-80).
+ *
+ * Set on `.ui-steps` rather than on its children: custom properties inherit,
+ * so the one declaration feeds both the opacity and the transform
+ * transitions the children already carry, and no new child rule is needed.
+ *
+ * Five stages 110ms apart had finished arriving inside a second, which is
+ * quicker than anyone can watch five things happen in order — the report was
+ * that they could not be seen at all. At 180ms apart and 760ms each, the
+ * last stage begins as the fourth is still settling and the sequence runs
+ * about 1.5s. Slow for a card grid, right for a process: this is the one
+ * collection on the site that is meant to be read in order.
+ *
+ * Applies in BOTH motion modes. Under `reduce` the travel is still cancelled
+ * below; what is left is five fades in sequence, which is the point.
+ */
+.js-motion .u-reveal .ui-steps { --reveal-dur: var(--d-steps); }
+
+.js-motion .u-reveal.is-in .ui-steps > *:nth-child(2) { transition-delay: 180ms; }
+.js-motion .u-reveal.is-in .ui-steps > *:nth-child(3) { transition-delay: 360ms; }
+.js-motion .u-reveal.is-in .ui-steps > *:nth-child(4) { transition-delay: 540ms; }
+.js-motion .u-reveal.is-in .ui-steps > *:nth-child(n+5) { transition-delay: 720ms; }
 
 /* Figures settle with a hair of scale instead of travel, so they read as a
    photograph coming to rest rather than a panel sliding in. */
@@ -354,18 +377,23 @@ html { scroll-behavior: smooth; }
   .js-motion .u-reveal.is-in .ui-figure {
     transform: none;
   }
-  /* No stagger either: the rhythm only reads with movement, and without it a
-     delay is just a slower page.
+  /* THE STAGGER STAYS (ASP-80).
+     It was cancelled here, on the reasoning that "the rhythm only reads with
+     movement, and without it a delay is just a slower page". That was wrong,
+     and it is most of why the site looked as though its animations had
+     stopped: with no stagger and a 240ms fade, a whole row of cards arrived
+     on one frame.
 
-     `:nth-child(n)` matches every element and is here for one reason only:
-     to carry the pseudo-class that the delay rules above carry. Without it
-     this selector is four classes against their four-classes-and-a-pseudo,
-     and it loses — which it did, silently, from ASP-28 until ASP-44. A media
-     query has no weight of its own in the cascade, so wrapping a rule in one
-     does not make it win; that is exactly what made this look correct. */
-  .js-motion .u-reveal.is-in :is(.ui-cards, .ui-rows, .ui-steps) > *:nth-child(n) {
-    transition-delay: 0ms;
-  }
+     A stagger is timing, not travel. The preference is about vestibular
+     triggers — travel, scale, spin, parallax — and a sequence of fades holds
+     none of them. The cards now arrive one after another with nothing
+     moving, which is what the preference actually asks for.
+
+     If a delay rule ever does need cancelling here again, it must carry
+     `:nth-child(n)` to match the specificity of the delay rules above.
+     Without it the canceller is four classes against their four and a
+     pseudo, and it loses silently — that cost ASP-28 to ASP-44 to find. A
+     media query carries no weight of its own in the cascade. */
 }
 
 /* ---- .u-stagger: sequence any group's children (ASP-28) ----
@@ -407,9 +435,10 @@ html { scroll-behavior: smooth; }
   .js-motion .u-reveal.is-in .u-stagger > * {
     transform: none;
   }
-  /* `:nth-child(n)` to match the delay rules' specificity — see the note in
-     the card-grid block above (ASP-44). */
-  .js-motion .u-reveal.is-in .u-stagger > *:nth-child(n) { transition-delay: 0ms; }
+  /* The stagger stays here too (ASP-80) — see the note in the card-grid
+     block above for why. SectionHead applies `.u-stagger` to every section
+     head on the site, so cancelling it flattened the eyebrow, the heading
+     and the lead onto a single frame on every section of every page. */
 }
 
 /* Focus cancels the stagger for the item it lands on (ASP-43).
@@ -518,10 +547,10 @@ html { scroll-behavior: smooth; }
   .js-motion .u-reveal--hero.is-in > * {
     transform: none;
   }
-  /* Third instance of the same defect, found only because ASP-44 went
-     looking for the other two. The hero is the first thing on every page,
-     so this was 320ms of nothing at the top of every load. */
-  .js-motion .u-reveal--hero.is-in > *:nth-child(n) { transition-delay: 0ms; }
+  /* The hero stagger stays as well (ASP-80). This is the first thing on
+     every page, and cancelling it meant the heading, the gold rule, the lead
+     and the buttons all landed together — the single clearest reason the
+     site read as static to anyone with the preference set. */
 }
 
 /* Focus has to clear the reveal's settled `transform: none` for exactly the

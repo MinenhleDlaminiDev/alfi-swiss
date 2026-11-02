@@ -43,15 +43,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* No travel and no waiting. These outrank the rules above, which in turn
-     outrank the shared cancellers in index.css — so the cancelling has to be
-     repeated here or `reduce` would quietly lose on this grid alone. */
+  /* No travel, but the WAITING STAYS (ASP-80). The transform cancellers are
+     repeated here because the rules above outrank the shared ones in
+     index.css, so `reduce` would quietly lose on this grid alone otherwise.
+     The delay canceller was repeated for the same reason and has now gone:
+     one profile arriving after another is the whole point of this grid, and
+     a sequence of fades triggers nothing the preference is about. */
   .js-motion .u-reveal .serve-grid--serve .ui-cards > *,
   .js-motion .u-reveal.is-in .serve-grid--serve .ui-cards > * {
     transform: none;
-  }
-  .js-motion .u-reveal.is-in .serve-grid--serve .ui-cards > *:nth-child(n) {
-    transition-delay: 0ms;
   }
 }
 

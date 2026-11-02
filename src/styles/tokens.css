@@ -97,6 +97,7 @@
   --d-fast: 180ms;    /* colour and border changes */
   --d-base: 320ms;    /* a surface lifting or settling */
   --d-slower: 520ms;  /* an image easing inside a surface that is already moving */
+  --d-steps:  760ms;  /* a process stage arriving in sequence (ASP-80) */
 
   /* The stagger is the point. When a card lifts in --d-base and the image
      inside it zooms over --d-slower, the two settle at different moments and

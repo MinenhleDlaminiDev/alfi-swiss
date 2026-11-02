@@ -13,11 +13,22 @@
  * the count: the brief writes them in the second person, so a reader places
  * themselves in one rather than being sorted into a category.
  *
- * No images on these cards, carried over from the About decision. They
- * describe PEOPLE, and the abstract architectural photography that works for
- * a principle or a service reads as a stand-in for a client when it sits
- * above 'Entrepreneurs'. NumberedCards renders an item with no image as a
- * plain panel, so nothing else has to change.
+ * THE CARDS HAVE PHOTOGRAPHS NOW (ASP-80), reversing the decision carried
+ * over from About. That decision was ours, not the client's: the cards
+ * describe PEOPLE, and abstract architectural photography reads as a stand-in
+ * for a client when it sits above a heading like 'Entrepreneurs'. The page
+ * was judged too plain without them and the reversal was asked for directly.
+ *
+ * The reasoning is still worth keeping, because it shaped what was chosen.
+ * All three photographs are PLACE AND CIRCUMSTANCE, never a person: a crane
+ * for something being built, a courtyard that has stood for centuries for
+ * continuity, a harbour for moving between countries. No identifiable person
+ * appears in any of them, and the two partner portraits remain the only
+ * photographs of people on the site.
+ *
+ * All three are new masters, taken in ASP-80 because every card- slug in
+ * image-manifest.json was already in use — verified with a script, not a
+ * grep. Licences and photo IDs are in assets/images/CREDITS.md.
  */
 
 export const hero = {
@@ -38,6 +49,7 @@ export const profiles = {
   items: [
     {
       n: '01',
+      image: 'card-serve-entrepreneurs',
       title: 'Entrepreneurs',
       text:
         'You have built a successful business and are preparing for, or have completed, a ' +
@@ -46,6 +58,7 @@ export const profiles = {
     },
     {
       n: '02',
+      image: 'card-serve-generations',
       title: 'Families across generations',
       text:
         'Your wealth spans several family members, assets and countries. You want continuity, ' +
@@ -53,6 +66,7 @@ export const profiles = {
     },
     {
       n: '03',
+      image: 'card-serve-international',
       title: 'International families',
       text:
         'You live, invest or plan to settle in more than one country. You need advice that ' +
