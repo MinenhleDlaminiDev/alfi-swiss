@@ -59,16 +59,52 @@
 }
 
 /* ---- Desktop nav ---- */
-.hdr__nav { display: flex; gap: var(--s-7); }
+/* Gap narrowed from --s-7 in ASP-69. The header's `.wrap` caps its contents
+   at 1100px however wide the screen is, so a bigger monitor buys the menu
+   nothing — and at --s-7, six items plus the button measured 1100px exactly,
+   filling the measure with nothing to spare. */
+.hdr__nav { display: flex; gap: var(--s-6); }
+
+/* ASP-69 — the menu and the conversation button as one right-hand group.
+   The gap is a step wider than the gap BETWEEN menu items, so the button
+   reads as a separate thing rather than as the last link in the list. */
+.hdr__right {
+  display: flex;
+  align-items: center;
+  gap: var(--s-7);
+}
+
+/* The page CTAs are 17px/30px padding, built for a section, and nearly fill
+   the 70px header band. This is the same button at header scale. Keep the
+   font size at or above the menu's 0.71875rem — anything smaller and the
+   primary action is the smallest text in the header. */
+.hdr__cta {
+  padding: 0.6875rem 1.125rem;
+  font-size: 0.71875rem;
+  letter-spacing: 0.12em;
+  /* Without this the label breaks after 'ARRANGE A' and the button is two
+     lines and 62px tall inside a 70px header. Measured, not guessed. */
+  white-space: nowrap;
+}
 
 .hdr__link {
   position: relative;
   font-size: 0.71875rem;
-  letter-spacing: 0.22em;
+  /* 0.22em until ASP-69. At 11.5px, each 0.01em is about 0.115px per
+     character, and the six labels run to 49 characters — so the tracking
+     alone was costing the menu some 45px. The size is unchanged; only the
+     spacing between letters is tighter. */
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--c-on-dark-50);
   padding-block: var(--s-2);
   transition: color var(--d-fast) var(--e-out);
+  /* ASP-69 gave two items a second word, and flex shrank them until 'ABOUT
+     ALFI' and 'OUR APPROACH' broke across two lines. Worth knowing: this is
+     invisible to a height check, because .hdr__nav stretches every link to
+     the tallest one — all six still measure 54px while two of them wrap.
+     Count the line boxes with Range.getClientRects, not the height. */
+  white-space: nowrap;
 }
 .hdr__link:hover { color: var(--c-cream); }
 .hdr__link.is-active { color: var(--c-cream); }
@@ -138,15 +174,45 @@
 .hdr__panelnav .hdr__link.is-active::after { content: none; }
 .hdr__panelnav .hdr__link.is-active { color: var(--c-gold); }
 
-@media (max-width: 900px) {
+/* No top padding: .hdr__panelnav already ends with --s-6 beneath its last
+   link, and doubling it leaves the button floating. */
+.hdr__panelcta { padding: 0 var(--wrap-pad) var(--s-6); }
+.hdr__panelcta .ui-btn { display: block; width: 100%; }
+
+/* THE MENU SWITCHES TO THE PANEL AT 1100px, NOT THE SITE'S 900px (ASP-69).
+ *
+ * Six menu items and the conversation button need about 1040px of header
+ * before anything is cramped — measured at 1024px wide, where the row ran
+ * 34px past the viewport, and at 910px, where it ran 145px past. Six items
+ * plus a 245px button simply do not fit a 900px screen; tightening the gaps
+ * enough to make them fit left the type cramped and still overflowed.
+ *
+ * So this one breakpoint is deliberately decoupled from the `md` 900px used
+ * elsewhere on the site. The rest of Header.css, the Footer and the figures
+ * still switch at 900. If a menu item is ever added or removed, re-measure:
+ * `document.documentElement.scrollWidth` against `clientWidth` at 1101px.
+ *
+ * MOBILE_QUERY in Header.jsx must match the max-width below, or the panel
+ * can be left open with no visible way to close it. */
+@media (max-width: 1100px) {
   .hdr__nav { display: none; }
+  /* Hidden in its own right, not left to .hdr__right — the group stays in the
+     flex row, and would otherwise hold the button beside the toggle. */
+  .hdr__cta { display: none; }
   .hdr__toggle { display: block; }
   .hdr__panel.is-open { display: block; }
 }
 
-@media (min-width: 901px) {
+@media (min-width: 1101px) {
   .hdr__inner { min-height: var(--header-h); }
   .hdr__panel { display: none !important; }
+}
+
+/* Just above the switch the wrap padding has shrunk too, so the measure is
+   tighter than at full width. One more step off the gaps buys the slack. */
+@media (min-width: 1101px) and (max-width: 1280px) {
+  .hdr__nav { gap: var(--s-5); }
+  .hdr__right { gap: var(--s-6); }
 }
 
 /* Zero-height marker in normal flow directly above the sticky header.

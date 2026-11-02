@@ -226,11 +226,19 @@ export function ServiceRows({ items = [] }) {
             </div>
           </>
         )
+        /* Three ways a card can behave, and only one of them is a real
+           destination at a time. `to` is a route (ASP-70, when the service
+           pillars became pages of their own); `linkTo` is the older in-page
+           anchor; neither means a plain panel. The `--link` modifier follows
+           whichever applies, so a card never lifts on hover unless there is
+           somewhere to go. */
+        const to = it.to || null
+        const anchor = !to && it.linkTo ? `#${it.linkTo}` : null
         return (
-          <article key={it.n} className={'ui-card' + (it.linkTo ? ' ui-card--link' : '')}>
-            {it.linkTo
-              ? <a className="ui-card__hit" href={`#${it.linkTo}`}>{inner}</a>
-              : <div className="ui-card__hit">{inner}</div>}
+          <article key={it.n} className={'ui-card' + (to || anchor ? ' ui-card--link' : '')}>
+            {to && <Link className="ui-card__hit" to={to}>{inner}</Link>}
+            {anchor && <a className="ui-card__hit" href={anchor}>{inner}</a>}
+            {!to && !anchor && <div className="ui-card__hit">{inner}</div>}
           </article>
         )
       })}

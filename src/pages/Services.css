@@ -2,12 +2,9 @@
 
 .svc-index { margin-top: var(--s-6); }
 
-.svc-detail__heading { margin-top: var(--s-4); }
-.svc-detail__body {
-  margin-top: var(--s-5);
-  color: var(--c-muted);
-  line-height: var(--lh-loose);
-}
+/* `.svc-detail__heading` and `.svc-detail__body` removed in ASP-70 with the
+   in-page write-ups they styled. Each pillar is its own page now; its styles
+   are in ServicePillar.css. */
 
 .svc-closing { text-align: center; }
 .svc-closing__heading { margin-top: var(--s-5); }

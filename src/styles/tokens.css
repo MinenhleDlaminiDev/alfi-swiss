@@ -122,5 +122,5 @@
 /* Breakpoints are documented here for reference; CSS custom properties
    cannot be used in media queries, so these values are repeated literally:
      sm  <= 560px
-     md  <= 900px   (mobile nav switches here)
+     md  <= 900px   (the header menu switches at 1100px — see Header.css)
      lg  <= 1200px                                            */

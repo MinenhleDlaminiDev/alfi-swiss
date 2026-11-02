@@ -104,9 +104,12 @@ export const servicesTeaser = {
   eyebrow: 'Our Services',
   heading: 'A coordinated view of wealth.',
   body:
-    /* Mirrors the Services hero lead, so the two move together (ASP-49). */
-    'Clients rarely need isolated arrangements. They need banking relationships, risk and ' +
-    'succession considered together.',
+    /* Mirrors the Services hero lead, so the two move together (ASP-49).
+       Rewritten in ASP-70 when that lead became the client's own overview
+       intro — the old wording named risk and succession as the services,
+       and neither is a published pillar now. */
+    'We design the structure, assemble the right team of specialists, and make sure ' +
+    'everyone delivers.',
   link: { label: 'View All Services', to: '/services' },
 };
 

@@ -9,7 +9,42 @@
 
 .contact-heading { margin-top: var(--s-4); }
 
-.contact-form { margin-top: var(--s-6); }
+/* `.contact-form` removed in ASP-68 with the form it spaced. */
+
+.contact-body {
+  margin-top: var(--s-4);
+  max-width: 34rem;
+  font-size: var(--t-small);
+  line-height: var(--lh-loose);
+  color: var(--c-muted);
+}
+
+/* The one thing this page exists for, so it is set a step above the detail
+   around it rather than as another small link. `.contact-email` below is the
+   small treatment, still used nowhere since the address lost its copy of the
+   address line — kept because the aside may want it back. */
+.contact-primary {
+  display: inline-block;
+  margin-top: var(--s-5);
+  font-size: var(--t-lead);
+  color: var(--c-gold-deep);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 3px;
+}
+
+/* Deliberately not WhatsApp green. The floating button carries the mark and
+   the colour; a second green thing on the same screen competes with it. */
+.contact-wa {
+  display: block;
+  width: fit-content;
+  margin-top: var(--s-4);
+  font-size: var(--t-small);
+  color: var(--c-muted);
+  border-bottom: 1px solid var(--c-rule);
+  padding-bottom: 2px;
+  transition: color var(--d-fast) var(--e-out);
+}
+.contact-wa:hover { color: var(--c-gold-deep); }
 
 .contact-aside { }
 
@@ -38,52 +73,19 @@
 /* ---- The entrance (ASP-43) ----
  *
  * `.contact-main` staggers its two columns, and each column staggers its own
- * lines. The enquiry form is the third child of the left column, so by the
- * time its own fields would start they are racing the heading two rows above
- * them. These four rules give the form's children a base offset so they
- * follow that heading instead.
+ * lines. That still happens; it needs no rules here.
  *
- * Specificity: the generic delays in index.css carry four classes and a
- * pseudo-class. Adding `.enq` makes five and a pseudo-class, so these win
- * outright rather than relying on the order two stylesheets happen to load
- * in — which would be luck, not a decision.
+ * REMOVED IN ASP-68: eight rules that existed only for the enquiry form.
+ * They gave `.enq`'s children a base delay so the fields followed the
+ * heading two rows above them instead of racing it, plus a `:focus-within`
+ * guard so tabbing into the form mid-entrance did not draw a focus ring
+ * around an input at opacity 0 (the ASP-41 defect), plus the reduced-motion
+ * cancel for both. Every one of them was keyed on `.enq`, which nothing
+ * renders any more. The generic guard they were overriding still lives in
+ * index.css and still covers the links that replaced the form.
  */
-.js-motion .u-reveal.is-in .enq.u-stagger > *:nth-child(1) { transition-delay: 210ms; }
-.js-motion .u-reveal.is-in .enq.u-stagger > *:nth-child(2) { transition-delay: 280ms; }
-.js-motion .u-reveal.is-in .enq.u-stagger > *:nth-child(3) { transition-delay: 350ms; }
-.js-motion .u-reveal.is-in .enq.u-stagger > *:nth-child(n+4) { transition-delay: 420ms; }
 
-/* A field the keyboard has reached is shown NOW (the ASP-41 defect).
- *
- * Tabbing in during the entrance would otherwise draw a focus ring around an
- * input at opacity 0 — worst here of anywhere on the site, because a form is
- * exactly where someone arrives by keyboard and arrives fast. The generic
- * guard lives in index.css; this one has to repeat it because the delays
- * above outrank it.
- *
- * `:nth-child(n)` is doing nothing but matching the specificity of those
- * delay rules (five classes plus a pseudo-class, in both). Same file, later
- * line, so this wins without !important.
- */
-.js-motion .u-reveal .enq.u-stagger > *:nth-child(n):focus-within,
-.js-motion .u-reveal.is-in .enq.u-stagger > *:nth-child(n):focus-within {
-  opacity: 1;
-  transform: none;
-  /* `transition: none`, not a zeroed delay — see the note on the generic
-     guard in index.css. A transition already running towards opacity 1 keeps
-     its original delay unless the property is dropped, so cancelling it is
-     the only thing that makes the field visible on the frame focus lands. */
-  transition: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  /* The rhythm only reads with movement. Without it a delay is just a page
-     that takes longer to appear, so the offset goes too. `:nth-child(n)`
-     again, to outrank the delays rather than sit a point below them. */
-  .js-motion .u-reveal.is-in .enq.u-stagger > *:nth-child(n) { transition-delay: 0ms; }
-}
-
-/* Leadership and the digital card moved to Team.css in ASP-38. */
+/* Leadership and the digital card moved to Partners.css in ASP-38. */
 
 /* ---- Regulatory ---- */
 .contact-reg { max-width: 50rem; }

@@ -1,3 +1,15 @@
+/* RETAINED, NOT RENDERED (ASP-68).
+ *
+ * The client had the message form removed from the Contact page. Nothing
+ * imports this component any more, so Vite never includes it in the bundle —
+ * it costs the built site nothing, and it is kept because the client has
+ * reversed a removal before.
+ *
+ * IT WILL NOT COMPILE AS IT STANDS. The `form` object it reads below is
+ * commented out in src/content/contact.js, so restoring this component means
+ * uncommenting that too, along with one of the two send endpoints and its
+ * route. Each of those files says what to do.
+ */
 import { useEffect, useRef, useState } from 'react'
 import { form as copy } from '../../content/contact.js'
 import './EnquiryForm.css'

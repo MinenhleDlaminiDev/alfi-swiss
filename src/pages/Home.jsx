@@ -7,7 +7,7 @@ import {
 } from '../components/ui/index.jsx'
 import { cta } from '../content/site.js'
 import { hero, credentials, positioning, pillars, servicesTeaser, closing } from '../content/home.js'
-import { index as serviceIndex } from '../content/services.js'
+import { pillars as serviceIndex } from '../content/services.js'
 import './Home.css'
 import Seo from '../components/Seo.jsx'
 import { seo } from '../content/seo.js'
@@ -102,17 +102,22 @@ export default function Home() {
           <ul className="home-teaser__list">
             {serviceIndex.map((s) => (
               <li key={s.n}>
-                <Link to={`/services#${s.linkTo}`}>
+                {/* A real page, not a fragment (ASP-70). This was
+                    `/services#${s.linkTo}`, and three of the four entries
+                    had no `linkTo` at all, so Home shipped three links to
+                    /services#undefined. The pillars are pages now and every
+                    one of them carries a slug. */}
+                <Link to={`/services/${s.slug}`}>
                   <span className="home-teaser__n">{s.n}</span>
                   <span className="home-teaser__label">
                     {s.title}
-                    {/* The description is already written for the Services
-                        page; showing it here on hover or focus (ASP-28) costs
-                        no new copy and turns a bare list into a preview. The
-                        grid-rows collapse, not `height`, is what lets it
-                        animate from nothing to its natural height. */}
+                    {/* The pillar's own one-line promise, shown on hover or
+                        focus (ASP-28). It costs no new copy and turns a bare
+                        list into a preview. The grid-rows collapse, not
+                        `height`, is what lets it animate from nothing to its
+                        natural height. */}
                     <span className="home-teaser__more">
-                      <span className="home-teaser__more-in">{s.text}</span>
+                      <span className="home-teaser__more-in">{s.promise}</span>
                     </span>
                   </span>
                   <span className="home-teaser__arrow" aria-hidden="true">&#8594;</span>

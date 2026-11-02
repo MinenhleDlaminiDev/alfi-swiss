@@ -2,8 +2,8 @@ import {
   PageHero, Section, SectionHead, Eyebrow, Button, ProcessSteps,
 } from '../components/ui/index.jsx'
 import { cta } from '../content/site.js'
-import { hero, process, closing } from '../content/philosophy.js'
-import './Philosophy.css'
+import { hero, process, closing } from '../content/approach.js'
+import './OurApproach.css'
 import Seo from '../components/Seo.jsx'
 import { seo } from '../content/seo.js'
 
@@ -11,13 +11,13 @@ import { seo } from '../content/seo.js'
 export default function Philosophy() {
   return (
     <>
-      <Seo title={seo.philosophy.title} description={seo.philosophy.description} />
+      <Seo title={seo.ourApproach.title} description={seo.ourApproach.description} />
 
       <PageHero eyebrow={hero.eyebrow} headingLines={hero.headingLines} lead={hero.lead} />
 
       {/* The four principles that used to sit here were removed in ASP-59 on
           the client's instruction, with nothing in their place — see the note
-          at the top of content/philosophy.js. The process section below was
+          at the top of content/approach.js. The process section below was
           `cream` because it followed a `paper` one; with the paper section
           gone it is the first band after the hero, and `paper` is the tone
           every other page opens on. */}

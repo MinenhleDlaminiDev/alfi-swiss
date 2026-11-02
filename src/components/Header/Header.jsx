@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { nav, firm } from '../../content/site.js'
+import { nav, firm, cta } from '../../content/site.js'
+import { Button } from '../ui/index.jsx'
 import Seal from '../Seal.jsx'
 import './Header.css'
 
 /* Breakpoint at which the mobile menu stops existing. Must match the
-   `max-width: 900px` query in Header.css. */
-const MOBILE_QUERY = '(max-width: 900px)'
+   `max-width: 1100px` query in Header.css — raised from 900px in ASP-69,
+   where six menu items plus the conversation button stopped fitting. */
+const MOBILE_QUERY = '(max-width: 1100px)'
 
 /* Sticky site header with mobile menu (ASP-04).
    The menu traps focus while open, closes on Escape, on navigation, and when
@@ -126,7 +128,18 @@ export default function Header() {
           </span>
         </NavLink>
 
-        <nav className="hdr__nav" aria-label="Primary">{renderLinks()}</nav>
+        {/* The menu and the conversation button are ONE right-hand group
+            (ASP-69). `.hdr__inner` is space-between, so adding the button as
+            a fourth flex child would have pushed the menu into the middle of
+            the header — a layout change nobody asked for. Grouped, the menu
+            stays where it was and the button sits at its right end, which is
+            what the client's diagram asks for. */}
+        <div className="hdr__right">
+          <nav className="hdr__nav" aria-label="Primary">{renderLinks()}</nav>
+          <Button to={cta.request.to} variant="gold" className="hdr__cta">
+            {cta.request.label}
+          </Button>
+        </div>
 
         <button
           ref={toggleRef}
@@ -152,6 +165,17 @@ export default function Header() {
         {/* onClick closes even when the tapped link is the current route,
             which would not re-run the pathname effect. */}
         <nav className="hdr__panelnav" aria-label="Mobile">{renderLinks(close)}</nav>
+        {/* The button repeats here because the header copy is hidden below
+            1100px. It needs no change to the focus trap: the trap collects
+            `a[href]` from inside the panel, this renders as an anchor, and it
+            comes last in the DOM — so it becomes the wrap point, which is
+            where a primary action belongs. `onClick` closes the panel even
+            when the destination is the current route, matching the links. */}
+        <div className="hdr__panelcta">
+          <Button to={cta.request.to} variant="gold" onClick={close}>
+            {cta.request.label}
+          </Button>
+        </div>
       </div>
       </header>
     </>

@@ -15,13 +15,29 @@ export const firm = {
     'families, entrepreneurs and institutions.',
 };
 
+/* The menu, restructured in ASP-69 to the diagram in the client's answers
+   document (2 Nov). Header.jsx and Footer.jsx both map over this array and
+   neither keeps a list of its own, so one edit here changes both.
+
+   Two of the seven pages the diagram shows are not here yet:
+
+     Who We Serve  — a new page, built in ASP-72. The item joins this array
+                     with the page, not before it: a menu link to a route
+                     that does not exist is worse than a short menu.
+     Insights      — drawn with a dashed border and keyed 'Optional at
+                     launch' in their own diagram, and they confirmed it
+                     needs content from the partners first.
+
+   Home stays at the user's instruction. The diagram puts it above the seven
+   rather than inside them, reached from the brand mark, but keeping it means
+   the menu lands on exactly seven items once Who We Serve arrives. */
 export const nav = [
-  { label: 'Home',       to: '/' },
-  { label: 'About',      to: '/about' },
-  { label: 'Services',   to: '/services' },
-  { label: 'Philosophy', to: '/philosophy' },
-  { label: 'Team',       to: '/team' },
-  { label: 'Contact',    to: '/contact' },
+  { label: 'Home',         to: '/' },
+  { label: 'About ALFI',   to: '/about' },
+  { label: 'Services',     to: '/services' },
+  { label: 'Our Approach', to: '/our-approach' },
+  { label: 'Partners',     to: '/partners' },
+  { label: 'Contact',      to: '/contact' },
 ];
 
 export const contact = {
@@ -64,7 +80,12 @@ export const contact = {
    it any more, and an unused label in the content file is the kind of thing
    that gets reinstated by accident later. `request` already carries the same
    destination with its own wording. */
+/* `request` was 'Request a Consultation' until ASP-69. The client named
+   'Arrange a conversation' for the header button only, but Home, About,
+   Services and Our Approach all render this same object, so keeping the old
+   wording on those four would have put two names for one action on the site —
+   twice on the same screen on three of those pages. One label, one action. */
 export const cta = {
   secondary: { label: 'Explore Our Services', to: '/services' },
-  request:   { label: 'Request a Consultation', to: '/contact' },
+  request:   { label: 'Arrange a Conversation', to: '/contact' },
 };

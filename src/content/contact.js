@@ -5,10 +5,13 @@ export const hero = {
   eyebrow: 'Leadership & Contact',
   headingLines: ['Senior-led relationships,', 'conducted in confidence.'],
   lead:
+    /* 'or submit a confidential enquiry' until ASP-68. The enquiry form is
+       gone, so there is nothing to submit; the rest of the client's wording
+       is untouched. */
     'We invite you to begin a conversation grounded in discretion, personal attention and ' +
-    'mutual understanding. Whether you choose to connect with us directly or submit a ' +
-    'confidential enquiry, a member of our team will respond personally, ensuring your ' +
-    'request receives the care, consideration and attention it deserves.',
+    'mutual understanding. Whether you write to us directly or send a message on ' +
+    'WhatsApp, a member of our team will respond personally, ensuring your request ' +
+    'receives the care, consideration and attention it deserves.',
 };
 
 /* RETAINED, NOT RENDERED (ASP-51).
@@ -54,29 +57,56 @@ export const card = {
   download: 'Download contact file',
 };
 
-/* leadership moved to src/content/team.js in ASP-38. */
+/* leadership moved to src/content/partners.js in ASP-38. */
 
-export const form = {
+/* What replaced the form (ASP-68). The client's answers document settled the
+   brief's own contradiction about the message box against it:
+
+     'Message form must be removed. Just the email add and the WhatsApp
+      widget should remain.'
+
+   So this column is now the two ways to make contact. The WhatsApp link is
+   an ordinary text link, deliberately NOT in WhatsApp green — the floating
+   button already carries the brand mark, and a second green thing on the
+   page would compete with it rather than support it. */
+export const direct = {
   eyebrow: 'Enquiries',
-  heading: 'Send a confidential note.',
-  fields: {
-    name: { label: 'Full name', placeholder: 'Full name', required: true },
-    email: { label: 'Email address', placeholder: 'Email address', required: true },
-    message: { label: 'Message', placeholder: 'How can we help? (optional)', required: false },
-  },
-  submit: 'Request a Consultation',
-  submitting: 'Sending…',
-  success: {
-    title: 'Thank you',
-    body: 'We have received your details and will reach out shortly.',
-  },
-  error:
-    'Something went wrong sending your message. Please try again, or email us directly.',
-  validation: {
-    name: 'Please enter your name.',
-    email: 'Please enter a valid email address.',
-  },
+  heading: 'Reach us directly.',
+  body:
+    'Write to us and a partner will respond personally. If a message is easier, the ' +
+    'same people answer on WhatsApp.',
+  whatsappLabel: 'Message us on WhatsApp',
 };
+
+/* COMMENTED OUT, NOT DELETED (ASP-68), at the user's instruction: the client
+ * has reversed a removal before, and this is the whole form in one object.
+ *
+ * It is NOT dead weight in the bundle — nothing imports it, so Vite drops it
+ * either way. The same goes for src/components/EnquiryForm/, which still
+ * exists on disk and is no longer rendered by anything.
+ *
+ * export const form = {
+ *   eyebrow: 'Enquiries',
+ *   heading: 'Send a confidential note.',
+ *   fields: {
+ *     name: { label: 'Full name', placeholder: 'Full name', required: true },
+ *     email: { label: 'Email address', placeholder: 'Email address', required: true },
+ *     message: { label: 'Message', placeholder: 'How can we help? (optional)', required: false },
+ *   },
+ *   submit: 'Arrange a Conversation',
+ *   submitting: 'Sending…',
+ *   success: {
+ *     title: 'Thank you',
+ *     body: 'We have received your details and will reach out shortly.',
+ *   },
+ *   error:
+ *     'Something went wrong sending your message. Please try again, or email us directly.',
+ *   validation: {
+ *     name: 'Please enter your name.',
+ *     email: 'Please enter a valid email address.',
+ *   },
+ * };
+ */
 
 /* `image` removed in ASP-43. It was a view of Geneva across the lake sitting
    under the office address, which is decoration beside the thing people came

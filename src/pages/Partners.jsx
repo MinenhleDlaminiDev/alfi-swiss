@@ -1,7 +1,7 @@
 import { PageHero, Section, Eyebrow } from '../components/ui/index.jsx'
 import manifest from '../content/image-manifest.json'
-import { hero, leadership } from '../content/team.js'
-import './Team.css'
+import { hero, leadership } from '../content/partners.js'
+import './Partners.css'
 import Seo from '../components/Seo.jsx'
 import { seo } from '../content/seo.js'
 
@@ -14,7 +14,7 @@ import { seo } from '../content/seo.js'
 export default function Team() {
   return (
     <>
-      <Seo title={seo.team.title} description={seo.team.description} />
+      <Seo title={seo.partners.title} description={seo.partners.description} />
 
       <PageHero eyebrow={hero.eyebrow} headingLines={hero.headingLines} lead={hero.lead} />
 
@@ -74,7 +74,7 @@ function Portrait({ slug, name, role }) {
 
   const srcset = (ext) => meta.widths.map((w) => `/images/${slug}-${w}w.${ext} ${w}w`).join(', ')
   const fallback = meta.widths[meta.widths.length - 1]
-  /* Must track `.team-person__media` in Team.css. If this says 300px while
+  /* Must track `.team-person__media` in Partners.css. If this says 300px while
      the box renders at 240, the browser reserves the wrong candidate and
      either wastes bytes or picks a file too small to be sharp. */
   const sizes = '(max-width: 560px) 220px, 240px'

@@ -1,17 +1,20 @@
-import {
-  PageHero, Section, Eyebrow, Button,
-  ServiceRows, Split, Figure, Bullets,
-} from '../components/ui/index.jsx'
+import { PageHero, Section, Eyebrow, Button, ServiceRows } from '../components/ui/index.jsx'
 import { cta } from '../content/site.js'
-import { hero, index, details, closing } from '../content/services.js'
+import { hero, pillars, closing } from '../content/services.js'
 import './Services.css'
 import Seo from '../components/Seo.jsx'
 import { seo } from '../content/seo.js'
 
-/* Services (ASP-09). Deck slides 5-8.
-
-   The `details` sections own the anchor ids; the index rows link into them,
-   so `anchors` is left false on ServiceRows to avoid duplicate ids. */
+/* Services overview (ASP-09, rebuilt in ASP-70).
+ *
+ * This page is now an index and nothing else. Until ASP-70 it carried the
+ * service write-ups inline as `details` sections, with the cards above
+ * linking down to anchors; the client's brief asks for a subpage per pillar,
+ * so the write-ups moved to ServicePillar.jsx and the anchors went with them.
+ *
+ * Each card therefore carries `to`, a real route, rather than `linkTo`, an
+ * in-page fragment. Every card is a link now — there are no panels here that
+ * look clickable and are not. */
 export default function Services() {
   return (
     <>
@@ -19,36 +22,22 @@ export default function Services() {
 
       <PageHero eyebrow={hero.eyebrow} headingLines={hero.headingLines} lead={hero.lead} />
 
-      {/* Index of the five service areas */}
       <Section tone="paper">
         <div className="svc-index">
-          <ServiceRows items={index} />
+          <ServiceRows
+            items={pillars.map((p) => ({
+              n: p.n,
+              title: p.title,
+              image: p.image,
+              /* The card shows the pillar's promise. It is one line by
+                 design — the brief specifies a one-line promise per pillar —
+                 so it needs no separate summary written for the card. */
+              text: p.promise,
+              to: `/services/${p.slug}`,
+            }))}
+          />
         </div>
       </Section>
-
-      {/* Detail sections, alternating sides */}
-      {details.map((d, i) => (
-        <Section key={d.id} id={d.id} tone={i % 2 === 0 ? 'cream' : 'paper'}>
-          <Split flip={d.flip}>
-            {d.image && (
-              <Figure
-                slug={d.image.slug}
-                alt={d.image.alt}
-                caption={d.image.caption}
-                live
-              />
-            )}
-            {/* u-stagger (ASP-34): eyebrow, heading, body and the bullet
-                list arrive in sequence rather than as one slab. */}
-            <div className="u-stagger">
-              <Eyebrow>{d.eyebrow}</Eyebrow>
-              <h2 className="svc-detail__heading">{d.heading}</h2>
-              <p className="svc-detail__body">{d.body}</p>
-              <Bullets items={d.points} />
-            </div>
-          </Split>
-        </Section>
-      ))}
 
       {/* Closing */}
       <section className="ui-section ui-section--navy svc-closing">
