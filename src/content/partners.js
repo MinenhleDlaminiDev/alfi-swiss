@@ -64,7 +64,13 @@ export const hero = {
 
 export const leadership = {
   eyebrow: 'Leadership',
-  heading: 'Senior partners.',
+  /* CHANGED IN ASP-79. This said 'Senior partners.' — word for word the hero
+     heading about 400px above it. ASP-54 shortened both lines to the client's
+     wording in separate passes, each in isolation, and nobody put the two side
+     by side. The hero keeps those words: it is the page h1 and the client
+     supplied the paragraph under it. This heading now says what the section
+     below it actually shows. */
+  heading: 'Who you will be working with.',
   /* `bio` is an ARRAY now (ASP-76). It was a single string while the copy was
      one placeholder line each; the supplied biographies are two paragraphs
      apiece, and running them together would make a wall of text out of a

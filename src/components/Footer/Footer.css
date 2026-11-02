@@ -77,7 +77,9 @@
   line-height: var(--lh-body);
   color: rgba(244, 239, 227, 0.34);
 }
-.ftr__notice { max-width: 45rem; }
+/* .ftr__notice removed in ASP-79. It set the width of the regulatory notice
+   that ASP-48 deleted from the footer, and no markup has carried the class
+   since. */
 .ftr__copy { white-space: nowrap; }
 
 @media (max-width: 900px) {

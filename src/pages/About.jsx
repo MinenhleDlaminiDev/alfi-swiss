@@ -77,8 +77,15 @@ export default function About() {
       <section className="ui-section ui-section--navy about-closing">
         <div className="wrap">
           <Eyebrow tone="dim">Begin a Conversation</Eyebrow>
+          {/* CHANGED IN ASP-79. This read 'Senior-led relationships, conducted
+              in confidence.', which is also the Contact page's h1 — one
+              sentence doing two different jobs on two pages. Contact keeps it,
+              because there it is the main heading. This band is a closing call
+              to action, so its line stays on this page's own subject and leads
+              into the two links under it. Home's matching band carries the
+              brief's own line and is untouched. */}
           <h2 className="about-closing__heading">
-            Senior-led relationships, conducted in confidence.
+            Independence is easier to judge in person.
           </h2>
           <Button to={cta.request.to} variant="gold">{cta.request.label}</Button>
           <p className="about-closing__alt">

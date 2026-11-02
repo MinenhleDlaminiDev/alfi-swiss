@@ -87,14 +87,14 @@
 
 /* Leadership and the digital card moved to Partners.css in ASP-38. */
 
-/* ---- Regulatory ---- */
-.contact-reg { max-width: 50rem; }
-.contact-reg__body {
-  margin-top: var(--s-4);
-  font-size: var(--t-caption);
-  line-height: var(--lh-loose);
-  color: var(--c-muted);
-}
+/* ---- Regulatory ----
+ *
+ * REMOVED IN ASP-79: `.contact-reg` and `.contact-reg__body`. They styled the
+ * regulatory notice ASP-48 deleted from this page, and nothing has rendered
+ * either class since. Do not reinstate them to put a notice back — the only
+ * statement of scope on the site now lives in About's 'What we do not do'
+ * band, which is the client's own paragraph.
+ */
 
 @media (max-width: 900px) {
   .contact-main { grid-template-columns: 1fr; }
