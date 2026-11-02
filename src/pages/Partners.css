@@ -109,13 +109,38 @@
   color: var(--c-muted);
 }
 
-/* The biography that has not been approved says so. Measured 5.19:1 on
-   paper. This flag comes off when the client signs the copy off, not
-   before — publishing filler unmarked is worse than publishing it marked. */
-.team-person__flag {
-  color: var(--c-error);
-  font-style: italic;
+/* Languages (ASP-76). Set apart from the biography above it with a rule
+   rather than more whitespace: it is a different kind of information — a
+   fact list, not prose — and on a card this size extra space alone does not
+   read as a separation. */
+.team-person__langs {
+  margin-top: var(--s-5);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--c-rule);
+  font-size: var(--t-small);
+  line-height: var(--lh-loose);
+  color: var(--c-muted);
 }
+
+.team-person__langlabel {
+  display: block;
+  margin-bottom: var(--s-2);
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  /* Same colour as the role line above, and for the same reason: 11px is
+     small text and needs 4.5:1. --c-gold-deep is 5.35:1 on paper (ASP-33),
+     where --c-gold-ink is only 3.84:1. */
+  color: var(--c-gold-deep);
+}
+
+/* `.team-person__flag` was removed in ASP-76. It rendered ' (Pending
+   approval)' in --c-error italic after an unapproved biography, measured
+   5.19:1 on paper. Both biographies are now the client's own approved copy,
+   so nothing on this page is awaiting sign-off and the flag has nothing to
+   mark. If a third partner is ever added before their copy arrives, bring it
+   back rather than publishing filler unmarked. */
 
 @media (prefers-reduced-motion: reduce) {
   /* Movement goes, depth and colour stay. */

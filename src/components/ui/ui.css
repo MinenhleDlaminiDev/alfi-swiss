@@ -552,10 +552,17 @@
  * here in a way it is not on the Home pillars, and `cursor: pointer` is
  * correct rather than a promise it cannot keep.
  */
-/* 18rem, not 16: at 16rem five cards lay out 4 + 1 and the orphan on the
-   second row reads as a mistake. 18rem forces three across, so five becomes
-   3 + 2, which looks deliberate. */
-.ui-cards--svc { grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+/* The right minimum depends on how many cards there are, so it has changed
+   with the count and will again.
+
+   At four and five pillars it was 18rem: 16rem fitted four across and left
+   five laying out 4 + 1, and an orphan on the second row reads as a mistake,
+   while 18rem forced three across for a deliberate-looking 3 + 2.
+
+   ASP-76 published all seven, and at 18rem seven lays out 3 + 3 + 1 — the
+   same orphan, one row further down. 16rem fits four across, so seven
+   becomes 4 + 3. Re-measure if a pillar is ever added or removed. */
+.ui-cards--svc { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
 
 .ui-card--link { cursor: pointer; }
 

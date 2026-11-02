@@ -33,10 +33,27 @@ export default function Team() {
               <div className="team-person__body">
                 <h3 className="team-person__name">{p.name}</h3>
                 <p className="team-person__role">{p.role}</p>
-                <p className="team-person__bio">
-                  {p.bio}
-                  {p.placeholder && <span className="team-person__flag"> (Pending approval)</span>}
-                </p>
+                {/* Two paragraphs each since ASP-76, when the client supplied
+                    the real biographies. The '(Pending approval)' flag that
+                    used to follow Fiúza's placeholder line went with them —
+                    there is nothing left on this page awaiting sign-off. */}
+                {p.bio.map((para, i) => (
+                  <p key={i} className="team-person__bio">{para}</p>
+                ))}
+                {p.languages && (
+                  <p className="team-person__langs">
+                    {/* Labelled, because a bare list of languages under a
+                        biography could be read as nationalities or as markets
+                        covered. The brief asks for the languages each partner
+                        speaks, and this says that is what they are. */}
+                    <span className="team-person__langlabel">Languages</span>
+                    {/* The space is deliberate. The label is display:block so
+                        it costs nothing on screen, but without it the text
+                        layer reads 'LanguagesSpanish, German…' — which is
+                        what a screen reader may announce. */}
+                    {' '}{p.languages}
+                  </p>
+                )}
                 {/* The 'Digital card' button stood here until ASP-51, where
                     the client removed the V-card feature entirely. Both
                     partners now render the same shape, which is what the

@@ -110,8 +110,13 @@ export default function Home() {
               {servicesTeaser.link.label}
             </Button>
           </div>
+          {/* Four tiles, not seven (ASP-76). The brief gives the Home page
+              four service tiles and Services all seven, and names which four;
+              `onHome` in content/services.js is that list. Filtered rather
+              than sliced, so reordering the array cannot quietly change which
+              four appear here. */}
           <ul className="home-teaser__list">
-            {serviceIndex.map((s) => (
+            {serviceIndex.filter((s) => s.onHome).map((s) => (
               <li key={s.n}>
                 {/* A real page, not a fragment (ASP-70). This was
                     `/services#${s.linkTo}`, and three of the four entries

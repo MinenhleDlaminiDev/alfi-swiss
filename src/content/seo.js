@@ -33,15 +33,16 @@ export const seo = {
   services: {
     title: 'Services',
     description:
-      /* Tracks the four published pillars. This has now been wrong twice for
-         the same reason — it kept advertising services the page had stopped
-         listing — so re-check it whenever a pillar is added or removed, and
-         remember that three more are written and awaiting sign-off.
+      /* Tracks the published pillars, all seven of them since ASP-76. This
+         has been wrong twice for the same reason — it kept advertising
+         services the page had stopped listing — so re-check it whenever a
+         pillar is added or removed. Seven will not fit in 160 characters, so
+         it names the four the Home page leads with and sums up the rest.
 
-         It no longer says 'investment advice': the client's brief states
-         that ALFI gives none (ASP-70). */
-      'Wealth structuring, provider selection and oversight, projects and project ' +
-      'finance, and bespoke concierge for entrepreneurs and international families.',
+         It does not say 'investment advice': the client's brief states that
+         ALFI gives none (ASP-70). */
+      'Wealth structuring, provider selection and oversight, succession and family ' +
+      'governance, projects and project finance, plus mobility and concierge support.',
   },
 
   /* One entry per published service pillar, keyed by the slug in
@@ -61,6 +62,24 @@ export const seo = {
       description:
         'We shortlist, select and negotiate with the banks and advisers who serve you — ' +
         'fees, service levels and credit terms — then hold them to account on your behalf.',
+    },
+    'succession-governance': {
+      title: 'Succession & Family Governance',
+      description:
+        'Succession and estate planning, family charters and councils, preparing the next ' +
+        'generation, and philanthropy — coordinated with legal and tax advisers.',
+    },
+    entrepreneurs: {
+      title: 'Entrepreneurs & Business Owners',
+      description:
+        'Preparing owners and families before a sale, IPO or handover, coordinating M&A ' +
+        'advisers, and separating business wealth from private wealth.',
+    },
+    'international-mobility': {
+      title: 'International Mobility & Residency',
+      description:
+        'Residency, relocation and citizenship advice, including relocation to ' +
+        'Switzerland, with tax and legal planning before and after a move.',
     },
     projects: {
       title: 'Projects & Project Finance',

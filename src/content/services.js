@@ -26,16 +26,45 @@
  * is that the brief wins. So those three titles are gone. If anyone asks why
  * the Advice cards disappeared, that is the answer.
  *
- * ---- FOUR PUBLISHED, THREE HELD ----
+ * ---- ALL SEVEN ARE PUBLISHED NOW (ASP-76) ----
  *
- * The brief marks three pillars as suggestions borrowed from peer family
- * offices that 'need the partners' approval before publication'. The answers
- * document names them: Succession & Family Governance, Entrepreneurs &
- * Business Owners, International Mobility & Residency. Not approved means not
- * published, so they are not here at all — not as stubs, not in the index.
- * Their copy is written and waiting on ASP-70 in Notion.
+ * The brief marked three pillars as suggestions borrowed from peer family
+ * offices that 'need the partners' approval before publication', and the
+ * answers document named them: Succession & Family Governance, Entrepreneurs
+ * & Business Owners, International Mobility & Residency. They were held back
+ * from ASP-70 entirely — not as stubs, not in the index.
  *
- * The same rule removed one bullet from Provider Selection below.
+ * On 2 Nov the founders supplied the client-facing copy for all three in
+ * 'Website - Profiles of AF & AD.docx'. Writing the copy is the approval the
+ * brief asked for, so they are in. Their promise and bullets come from the
+ * brief; the 'How it helps you' paragraph on each is from that document,
+ * which is the only place it exists.
+ *
+ * ONE PROPOSED ITEM IS STILL OUT: the fifth bullet on Provider Selection,
+ * which the brief marks '[Proposed]' in its own text. The founders approved
+ * three PILLARS, not that bullet, and nobody has asked them about it. See the
+ * note on that pillar below.
+ *
+ * ---- NUMBERING FOLLOWS THE BRIEF, SLUGS DO NOT CHANGE ----
+ *
+ * `n` runs 01 to 07 in the brief's order, which is also the order the
+ * founders used when they wrote the three new paragraphs ('3.', '4.', '6.').
+ * That renumbered two existing pillars — Projects moved from 03 to 05 and
+ * Concierge from 04 to 07 — but their slugs are untouched, so every URL that
+ * has ever been shared still resolves. Keep it that way: `n` is display text,
+ * the slug is the contract.
+ *
+ * ---- FOUR OF THE SEVEN APPEAR ON HOME ----
+ *
+ * `onHome` marks them. The brief is explicit that the Home page carries four
+ * service tiles while Services holds seven, and it names the four: Wealth
+ * Structuring, Provider Selection & Oversight, Succession & Family Governance
+ * and Projects & Project Finance. Bespoke Concierge was on Home only because
+ * it was one of the four that existed; it comes off now, and stays on
+ * Services.
+ *
+ * A flag rather than a slice of four, because a slice silently picks whatever
+ * happens to be first if this array is ever reordered.
  *
  * ---- PILLARS ARE PAGES NOW ----
  *
@@ -53,6 +82,13 @@
  * All reused from the existing set in assets/images, on the user's
  * instruction — no new sourcing, no new licence checks. Each pillar uses a
  * picture nothing else on the site uses, so no photograph appears twice.
+ *
+ * ASP-76 took the last six that were free. Three of them are card masters
+ * used as the wide `figure` on the new subpages, which is fine — Figure
+ * imposes its own frame ratio and crops to it — but it means there are only
+ * four unused slugs left in the manifest. A new section needing photography
+ * now needs new photography, with the licence check that comes with it. See
+ * [card-system-and-images].
  */
 
 export const hero = {
@@ -69,15 +105,16 @@ export const hero = {
     'everyone delivers — so you can focus on your business, your family and your life.',
 };
 
-/* The four published pillars. This single array drives the index on /services,
-   the four subpages, and the teaser list on Home — one definition, so the
-   three cannot drift apart.
+/* All seven pillars. This single array drives the index on /services, the
+   seven subpages, and the teaser list on Home — one definition, so the three
+   cannot drift apart. Home shows only the four marked `onHome`.
 
    `image` is the card photograph; `figure` is the wide one on the subpage. */
 export const pillars = [
   {
     n: '01',
     slug: 'wealth-structuring',
+    onHome: true,
     title: 'Wealth Structuring',
     promise:
       'A clear, robust structure for your assets, built around your family and your ' +
@@ -102,6 +139,7 @@ export const pillars = [
   {
     n: '02',
     slug: 'provider-selection',
+    onHome: true,
     title: 'Provider Selection & Oversight',
     promise: 'The right banks and advisers, on the right terms, held to account.',
     image: 'card-institutions',
@@ -112,9 +150,13 @@ export const pillars = [
     },
     /* The brief has a fifth bullet here that it marks '[Proposed]' in its own
        text: 'Monitor providers on your behalf: consolidated reporting across
-       banks, fee and cost reviews, performance and service reviews.' Same
-       rule as the three held pillars — proposed means unpublished. It goes in
-       when they are signed off. */
+       banks, fee and cost reviews, performance and service reviews.'
+
+       STILL OUT as of ASP-76. The three held pillars were signed off when the
+       founders wrote their copy, but this bullet was never put to them — it
+       was not one of the three they were asked about. Adding it on the
+       strength of their answer to a different question would be us deciding
+       what service they offer. Ask, then add. */
     points: [
       'Define your requirements and draw up a shortlist of banks, lawyers, tax advisers, trust companies, real-estate advisers and private-equity firms.',
       'Run a structured selection process: due diligence, proposals, interviews, comparison.',
@@ -128,7 +170,63 @@ export const pillars = [
   },
   {
     n: '03',
+    slug: 'succession-governance',
+    onHome: true,
+    title: 'Succession & Family Governance',
+    promise: 'Keeping wealth and family together across generations.',
+    image: 'card-families',
+    figure: {
+      slug: 'card-preservation',
+      caption: 'One generation to the next',
+      alt: 'A stone colonnade receding into shadow',
+    },
+    points: [
+      'Succession and estate planning, coordinated with legal and tax advisers.',
+      'Family charters, family councils and decision-making frameworks.',
+      'Preparing and educating the next generation.',
+      'Philanthropy: setting up foundations and shaping a giving strategy.',
+      'Mediation support and coordination when tensions or disputes arise.',
+    ],
+    /* From the profiles document, 2 Nov. The brief gave this pillar no
+       'How it helps you' paragraph at all. */
+    helps:
+      'Wealth that lasts across generations needs more than a will. We help families plan ' +
+      'how assets, responsibilities and decision-making will pass from one generation to ' +
+      'the next, and put in place the structures that keep everyone aligned, from family ' +
+      'charters and councils to clear roles for the next generation. Working with trusted ' +
+      'legal and tax partners, we make sure your intentions are documented, understood ' +
+      'and carried out.',
+  },
+  {
+    n: '04',
+    slug: 'entrepreneurs',
+    title: 'Entrepreneurs & Business Owners',
+    promise: 'Turning business success into lasting family wealth.',
+    image: 'card-svc-strategic',
+    figure: {
+      slug: 'card-svc-portfolio',
+      caption: 'The business and the family, considered together',
+      alt: 'A glass facade reflecting the building opposite',
+    },
+    points: [
+      'Preparing the owner and the family before a sale, IPO or transfer of the business.',
+      'Coordinating M&A advisers, lawyers and tax specialists.',
+      'Structuring and placing sale proceeds with selected institutions.',
+      'Governance of the family business and separation of business and private wealth.',
+    ],
+    /* From the profiles document, 2 Nov. */
+    helps:
+      'For founders and business owners, personal and company wealth are often deeply ' +
+      'intertwined. We help you see the full picture, from structuring your holdings and ' +
+      'planning for liquidity to preparing for a sale, a handover or the next venture. ' +
+      'Whether you are growing, exiting or reinvesting, we coordinate the right ' +
+      'specialists so your business decisions and your family’s long-term interests work ' +
+      'together.',
+  },
+  {
+    n: '05',
     slug: 'projects',
+    onHome: true,
     title: 'Projects & Project Finance',
     promise: 'Senior hands-on support for complex projects.',
     image: 'card-business-owners',
@@ -151,7 +249,31 @@ export const pillars = [
       'building a team of your own.',
   },
   {
-    n: '04',
+    n: '06',
+    slug: 'international-mobility',
+    title: 'International Mobility & Residency',
+    promise: 'Moving your life across borders, smoothly.',
+    image: 'card-hnw-individuals',
+    figure: {
+      slug: 'card-diversification',
+      caption: 'Several countries, one plan',
+      alt: 'An arched passage opening onto daylight',
+    },
+    points: [
+      'Coordinating advice on residency, relocation and citizenship, including relocation to Switzerland.',
+      'Tax and legal planning before and after a move, through our specialist network.',
+      'Practical support: banking, property, schooling and healthcare access.',
+    ],
+    /* From the profiles document, 2 Nov. */
+    helps:
+      'Moving between countries, or living across several, raises questions about ' +
+      'residency, tax, property and family logistics. We help you and your family plan ' +
+      'relocations and cross-border lives with clarity, coordinating with specialists in ' +
+      'each jurisdiction to handle residency options, compliance and practical ' +
+      'arrangements. The aim is simple: a move that feels considered, not complicated.',
+  },
+  {
+    n: '07',
     slug: 'concierge',
     title: 'Bespoke Concierge',
     /* The brief gave this pillar only a paragraph and a note to 'keep this
