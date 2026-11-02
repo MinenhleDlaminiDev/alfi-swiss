@@ -48,7 +48,7 @@
 
    Capped and inset rather than full-bleed, for two reasons: a full-width 3/4
    portrait on a 560px card runs past 700px tall and swamps the biography,
-   and Fiuza's master is only 325px wide, so a slot wider than this is asking
+   and Fiúza's master is only 325px wide, so a slot wider than this is asking
    for resolution his file does not have. */
 .team-person__media {
   position: relative;
@@ -56,13 +56,13 @@
   aspect-ratio: 3 / 4;
   width: 100%;
   /* 240px, not 300px (ASP-50).
-     Fiuza's supplied file is 325px wide, and the crop that matches Dimanow's
+     Fiúza's supplied file is 325px wide, and the crop that matches Dimanow's
      framing uses 212px of it. In a 300px box that is a 1.42x enlargement and
      the face visibly breaks up. At 240px it is 1.13x — near native, and the
      difference on screen is obvious.
      Applied to BOTH partners so the two cards stay identical, which is the
      whole point of the exercise. Dimanow has resolution to spare either way.
-     If a larger original ever arrives from Fiuza, this can go back to 300. */
+     If a larger original ever arrives from Fiúza, this can go back to 300. */
   max-width: 240px;
   margin: var(--s-5) auto 0;
   border-radius: var(--radius);

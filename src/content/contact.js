@@ -36,7 +36,14 @@ export const card = {
   name: 'Alexander Dimanow',
   firstName: 'Alexander',
   lastName: 'Dimanow',
-  role: 'Founding Partner',
+  /* 'Managing Partner' again as of ASP-78, matching content/partners.js.
+     ASP-72 set this to 'Founding Partner' from the brief; ASP-76 then took
+     the titles from the partners' own biographies and changed partners.js
+     without changing this, so the two content files disagreed. Nothing
+     renders this — the v-card that did was removed in ASP-51 — but a content
+     file that contradicts another is what gets copied into something that
+     does render. */
+  role: 'Managing Partner',
   org: 'ALFI Swiss Partners',
   phones: [
     { kind: 'cell', label: 'M', display: '+41 79 208 72 96', tel: '+41792087296' },

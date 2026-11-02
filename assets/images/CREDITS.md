@@ -33,7 +33,12 @@ Licence terms: https://unsplash.com/license
 | card-risk-opportunity.jpg | Philosophy - Risk-adjusted opportunity | A concrete structure, black & white | `photo-1559763194-521eef49b386` |
 | card-monitoring.jpg | Philosophy - Transparent monitoring | A glass facade | `photo-1523477593243-78bbf626fd3b` |
 | card-partner-dimanow.jpg | Contact - Alexander Dimanow | Portrait supplied by the client | `n/a - client supplied` |
-| card-partner-fiuza.jpg | Contact - Antonio Fiuza | Portrait supplied by the client | `n/a - client supplied` |
+| card-partner-fiuza.jpg | Contact - António Fiúza | Portrait supplied by the client | `n/a - client supplied` |
+<!-- The FILENAME keeps the unaccented spelling on purpose (ASP-78). The
+     partner's name on the site is António Fiúza, from the client's profiles
+     document, but a slug is not user-visible and renaming it would mean
+     regenerating every size in the ladder plus image-manifest.json to change
+     a string nobody reads. Same for `card-partner-dimanow`. -->
 | card-svc-wealth.jpg | Services 01 - Wealth Management | A large room with arched ceilings | `photo-1661621201294-3bebf30d4d24` |
 | card-svc-portfolio.jpg | Services 02 - Portfolio & Investment Advisory | A stacked stone wall | `photo-1784528780206-6a0545dec6fd` |
 | card-svc-alternatives.jpg | Services 03 - Alternatives & Structured Solutions | Abstract view of the Kunstmuseum, Bonn | `photo-1593466486574-71b38f2ff423` |
@@ -49,11 +54,11 @@ it. An earlier attempt converted both to monochrome; that was reverted —
 the brief was to leave this one alone.
 
 **card-partner-fiuza.jpg was reworked in ASP-50 to match it.** Both stay in
-colour. What was done, all to Fiuza only:
+colour. What was done, all to Fiúza only:
 
 | Step | Detail |
 | --- | --- |
-| Measured both | Dimanow: crown at 4.5% of frame, chin at 68%, head = 63% of height. Fiuza: crown at y=1, jaw at y=181, head = 42%. |
+| Measured both | Dimanow: crown at 4.5% of frame, chin at 68%, head = 63% of height. Fiúza: crown at y=1, jaw at y=181, head = 42%. |
 | Canvas extended | 12px added above his crown in his own backdrop colour. His head touched the very top edge, so headroom had to be created before he could be moved down. His backdrop is perfectly flat — rgb(236,231,225) at every sample point — so this is blank studio paper, not invented detail. |
 | Re-cropped | 212x283 at 3:4, placing his head at 63% of frame with 4.5% headroom, centred on the head at x=173. Matches Dimanow's framing. |
 | Backdrop replaced | Keyed by flood fill FROM THE BORDER, not a global colour key — his shirt is bright and nearly neutral, and a global key would have dissolved it. Mask dilated before feathering to remove the pale fringe. Replaced with Dimanow's measured gradient, rgb(146,168,186) to rgb(171,190,204). |
@@ -76,7 +81,7 @@ global tone adjustment.
 
 **The honest caveat:** the master was 325px wide and the matching crop uses
 212px of it, upscaled. At the 300px card slot it is fine at 1x and soft on
-a high-DPI screen. **A larger original from Fiuza is still the real fix** —
+a high-DPI screen. **A larger original from Fiúza is still the real fix** —
 his file is almost certainly a downscaled copy, and no amount of processing
 adds detail that was never captured.
 

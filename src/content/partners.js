@@ -32,11 +32,18 @@
  * partners'. That stays true: it describes who founded the firm, not what
  * title either of them holds.
  *
- * Still with the client: whether the birth years should be published at all
- * (both paragraphs open 'Born in 1960'), and whether the surname carries an
- * accent — this document writes Fiúza and heads the profile 'António FIÚZA DE
- * OLIVEIRA', while the site has said Fiuza since ASP-35. Both left as
- * supplied until they answer.
+ * THE SURNAME CARRIES AN ACCENT (ASP-78, the user's instruction): António
+ * Fiúza, as the profiles document writes it in prose. The site had said
+ * Fiuza since ASP-35, and once ASP-76 published his biography verbatim the
+ * page showed both spellings at once — the heading unaccented, his first
+ * paragraph accented. The prose form wins over the document's capitalised
+ * heading, 'ANTÓNIO FIÚZA DE OLIVEIRA', because a name field is a name in a
+ * sentence; 'de Oliveira' is there to add if the firm ever wants the full
+ * legal name. The image slug `card-partner-fiuza` is deliberately unchanged —
+ * see the note in CREDITS.md.
+ *
+ * Still with the client: whether the birth years should be published at all.
+ * Both paragraphs open 'Born in 1960', left as supplied until they answer.
  */
 
 export const hero = {
@@ -87,7 +94,7 @@ export const leadership = {
       languages: 'Spanish, German, French, English, Portuguese and Italian',
     },
     {
-      name: 'António Fiuza',
+      name: 'António Fiúza',
       role: 'General Partner',
       /* Supplied at 325px wide, which is under the 560w a card wants on a 2x
          screen, so this one is softer than Dimanow's. Flagged to the client
