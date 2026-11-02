@@ -66,6 +66,21 @@ export const story = {
  * Long-term perspective. Two of their images are reused below; the third,
  * `card-bank-introductions`, moved to the Home page in ASP-71.
  *
+ * ASP-77 changed three of the five photographs. ASP-72 had given this section
+ * pictures that were already in use elsewhere — two on Home and one on the
+ * Services index — against the standing rule in services.js that no
+ * photograph appears twice. Each comment below records what it replaced.
+ *
+ * Two of the three replacements are black and white, which is a mix inside
+ * one card row, but not a new one: the Services index already sets
+ * `card-business-owners` beside colour cards. Checked on the page.
+ *
+ * THERE ARE NO CARD PHOTOGRAPHS LEFT. These three took the last slugs in the
+ * manifest with a card-size ladder (320/560/720). One image is still unused,
+ * `philosophy-principles`, but its ladder is 480/768/1200 — a figure, not a
+ * card. A new card now needs new photography and a fresh licence check; see
+ * [card-system-and-images] and [images-and-hero].
+ *
  * FIVE CARDS, so the grid needs the 18rem minmax — at the shared 15rem four
  * fit across and the fifth is orphaned on a row of its own. Same fix and the
  * same number as `.home-pillars` and `.ui-cards--svc`.
@@ -88,7 +103,10 @@ export const values = {
     },
     {
       n: '02',
-      image: 'card-confidentiality',
+      /* `card-confidentiality` until ASP-77 — it was already Home's
+         'Personal' card, and services.js carries a standing rule that no
+         photograph appears twice. */
+      image: 'card-risk-opportunity',
       title: 'Discretion',
       text: 'Confidentiality is the foundation of every relationship we have.',
     },
@@ -100,13 +118,18 @@ export const values = {
     },
     {
       n: '04',
-      image: 'card-senior-attention',
+      /* `card-senior-attention` until ASP-77 — it was already Home's
+         'Experienced' card. */
+      image: 'card-svc-risk',
       title: 'Personal commitment',
       text: 'Each client works directly with a founding partner.',
     },
     {
       n: '05',
-      image: 'card-institutions',
+      /* `card-institutions` until ASP-77, and this was the worst of the three
+         duplicates: the same bank facade carried a SERVICE card on the
+         Services index and a VALUE card here, two clicks apart. */
+      image: 'card-monitoring',
       title: 'Global perspective, Swiss standards',
       text: 'We advise across jurisdictions with Swiss rigour and precision.',
     },

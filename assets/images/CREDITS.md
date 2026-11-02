@@ -30,8 +30,8 @@ Licence terms: https://unsplash.com/license
 | card-institutions.jpg | About - Institutions and foundations | A bank building facade | `photo-1553801613-9b225d58f429` |
 | card-preservation.jpg | Philosophy - Preservation first | The wall of an ancient fortress | `photo-1662360366368-f818a244403c` |
 | card-diversification.jpg | Philosophy - Diversification with purpose | Patterned tiles, Lisbon | `photo-1669967282608-2917ed5c4d05` |
-| card-risk-opportunity.jpg | Philosophy - Risk-adjusted opportunity | A concrete structure, black & white | `photo-1559763194-521eef49b386` |
-| card-monitoring.jpg | Philosophy - Transparent monitoring | A glass facade | `photo-1523477593243-78bbf626fd3b` |
+| card-risk-opportunity.jpg | About value 02 - Discretion | A concrete structure, black & white | `photo-1559763194-521eef49b386` |
+| card-monitoring.jpg | About value 05 - Global perspective | A glass facade | `photo-1523477593243-78bbf626fd3b` |
 | card-partner-dimanow.jpg | Contact - Alexander Dimanow | Portrait supplied by the client | `n/a - client supplied` |
 | card-partner-fiuza.jpg | Contact - António Fiúza | Portrait supplied by the client | `n/a - client supplied` |
 <!-- The FILENAME keeps the unaccented spelling on purpose (ASP-78). The
@@ -42,7 +42,7 @@ Licence terms: https://unsplash.com/license
 | card-svc-wealth.jpg | Services 01 - Wealth Management | A large room with arched ceilings | `photo-1661621201294-3bebf30d4d24` |
 | card-svc-portfolio.jpg | Services 02 - Portfolio & Investment Advisory | A stacked stone wall | `photo-1784528780206-6a0545dec6fd` |
 | card-svc-alternatives.jpg | Services 03 - Alternatives & Structured Solutions | Abstract view of the Kunstmuseum, Bonn | `photo-1593466486574-71b38f2ff423` |
-| card-svc-risk.jpg | Services 04 - Risk & Credit Advisory | A bridge, black & white | `photo-1714474597969-8395a0793a28` |
+| card-svc-risk.jpg | About value 04 - Personal commitment | A bridge, black & white | `photo-1714474597969-8395a0793a28` |
 | card-svc-strategic.jpg | Services 05 - Corporate & Strategic Advisory | Interior of the Stroganov Palace | `photo-1577887546572-144f62fceb9e` |
 
 The two partner portraits were supplied by the client and are not Unsplash
