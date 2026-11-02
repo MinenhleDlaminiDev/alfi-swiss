@@ -28,7 +28,7 @@ export const leadership = {
   people: [
     {
       name: 'Alexander Dimanow',
-      role: 'Managing Partner',
+      role: 'Founding Partner',
       /* Portraits supplied by the client (ASP-35). A named partner is never
          illustrated with stock photography, so there is no fallback: if a
          slug is missing the card simply renders without a picture. */
@@ -44,7 +44,7 @@ export const leadership = {
     },
     {
       name: 'António Fiuza',
-      role: 'Managing Partner',
+      role: 'Founding Partner',
       /* Supplied at 325px wide, which is under the 560w a card wants on a 2x
          screen, so this one is softer than Dimanow's. Flagged to the client
          for a larger file; the ladder already declines to upscale it. */

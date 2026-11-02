@@ -19,22 +19,29 @@ export const firm = {
    document (2 Nov). Header.jsx and Footer.jsx both map over this array and
    neither keeps a list of its own, so one edit here changes both.
 
-   Two of the seven pages the diagram shows are not here yet:
+   Who We Serve joined the menu in ASP-72, with the page — a menu link to a
+   route that does not exist is worse than a short menu. It sits after
+   Services, where the client's diagram puts it.
 
-     Who We Serve  — a new page, built in ASP-72. The item joins this array
-                     with the page, not before it: a menu link to a route
-                     that does not exist is worse than a short menu.
-     Insights      — drawn with a dashed border and keyed 'Optional at
-                     launch' in their own diagram, and they confirmed it
-                     needs content from the partners first.
+   Only Insights is still missing, and deliberately: their diagram draws it
+   with a dashed border and keys it 'Optional at launch', and they confirmed
+   it needs content from the partners first.
 
    Home stays at the user's instruction. The diagram puts it above the seven
    rather than inside them, reached from the brand mark, but keeping it means
-   the menu lands on exactly seven items once Who We Serve arrives. */
+   the menu reads as exactly seven items.
+
+   THE MENU IS NOW FULL. ASP-69 raised the header's own breakpoint to 1100px
+   and tightened its letter-spacing and gaps to fit six items, which left
+   roughly 38px of slack at full width; ASP-72 spent it. Adding an eighth item
+   means re-measuring the header, and the measurement has to count LINE BOXES
+   (`Range.getClientRects().length`), not element heights — the nav is a flex
+   row, so a wrapped label is exactly as tall as an unwrapped one. */
 export const nav = [
   { label: 'Home',         to: '/' },
   { label: 'About ALFI',   to: '/about' },
   { label: 'Services',     to: '/services' },
+  { label: 'Who We Serve', to: '/who-we-serve' },
   { label: 'Our Approach', to: '/our-approach' },
   { label: 'Partners',     to: '/partners' },
   { label: 'Contact',      to: '/contact' },

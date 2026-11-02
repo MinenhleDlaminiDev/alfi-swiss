@@ -32,41 +32,70 @@ export const hero = {
     'the table, applied to their particular circumstances rather than to a template.',
 };
 
+/* The process (ASP-72). The client's brief sets out five steps and supplies
+ * the wording for each; this is theirs, verbatim.
+ *
+ * THIS REVERSES ASP-64, which is worth knowing before anyone "fixes" it.
+ * Two stages were taken off this page on the client's own instruction —
+ * 'Strategy' in ASP-48, and 'The work' in ASP-64. The second went because it
+ * described examining risks, liquidity, costs and exposures, and they asked
+ * the site to shy away from advisory and investment language.
+ *
+ * Step 02 below says "we map your current structures, providers and costs,
+ * and identify gaps, risks and opportunities" — that same language, put back
+ * by the founders themselves in the November brief. The brief beats the live
+ * site on the user's standing instruction, so it stays.
+ *
+ * The `n` values are display text, not indices, so nothing derives them.
+ * Renumber by hand if a step is added or removed, AND update the section
+ * heading, which states the count, AND the search description in
+ * content/seo.js, which states it too. That description has now been wrong
+ * three times running for exactly this reason.
+ */
 export const process = {
   eyebrow: 'How An Engagement Runs',
-  heading: 'Three stages, and the same partner through all of them.',
+  heading: 'Five steps, and the same partner through all of them.',
+  /* The brief's intro, verbatim. It replaces the October lead, which made the
+     same point about continuity in different words — kept in the heading
+     above, so nothing is lost. */
   lead:
-    'Nothing is handed to a junior team once the relationship starts. The partner who takes ' +
-    'the first meeting is the one who reviews the file two years later.',
-  /* Two stages have been removed on the client's instruction: 'Strategy' in
-     ASP-48, and 'The work' in ASP-64 — the latter because it described
-     examining risks, liquidity, costs and exposures, and they asked the site
-     to shy away from advisory and investment language.
-
-     The `n` values are display text, not indices, so nothing derives them.
-     Renumber by hand if a stage is added or removed, AND update the section
-     heading above, which states the count. */
+    'Every engagement starts with listening. Our process is simple, transparent and led by a ' +
+    'senior partner from start to finish.',
   steps: [
     {
       n: '01',
-      title: 'The first conversation',
+      title: 'Confidential conversation',
       text:
-        'Objectives, family circumstances, what is already in place, and what is actually ' +
-        'causing concern.',
+        'We meet to understand your family, your assets and your priorities. No commitment, ' +
+        'no cost.',
     },
     {
       n: '02',
-      title: 'Putting it in place',
+      title: 'Analysis',
       text:
-        'Decisions carried through with the client’s banks and other advisers, in the order ' +
-        'that makes sense.',
+        'We map your current structures, providers and costs, and identify gaps, risks and ' +
+        'opportunities.',
     },
     {
       n: '03',
-      title: 'Staying with it',
+      title: 'Recommendations',
       text:
-        'Assumptions revisited, reporting kept plain, and the approach adjusted when ' +
-        'circumstances change.',
+        'We present a clear plan: the structure we propose and the providers we recommend, ' +
+        'with the reasons for each choice.',
+    },
+    {
+      n: '04',
+      title: 'Implementation',
+      text:
+        'We coordinate lawyers, tax advisers, banks and other specialists, and manage the ' +
+        'process to completion.',
+    },
+    {
+      n: '05',
+      title: 'Ongoing oversight',
+      text:
+        'We review structures and providers regularly and adapt the plan as your family and ' +
+        'circumstances evolve.',
     },
   ],
 };

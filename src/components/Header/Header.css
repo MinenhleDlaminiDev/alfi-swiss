@@ -59,11 +59,16 @@
 }
 
 /* ---- Desktop nav ---- */
-/* Gap narrowed from --s-7 in ASP-69. The header's `.wrap` caps its contents
-   at 1100px however wide the screen is, so a bigger monitor buys the menu
-   nothing — and at --s-7, six items plus the button measured 1100px exactly,
-   filling the measure with nothing to spare. */
-.hdr__nav { display: flex; gap: var(--s-6); }
+/* Gap narrowed from --s-7 to --s-6 in ASP-69, and to --s-5 in ASP-72 when
+   'Who We Serve' made it seven items. The header's `.wrap` caps its contents
+   however wide the screen is, so a bigger monitor buys the menu nothing —
+   at --s-7 six items plus the button measured the full cap exactly, and at
+   --s-6 seven items overflowed it.
+
+   Six gaps, so each step down the scale is worth 48px to the row. That is
+   where the space for the seventh item came from; the letter-spacing below
+   was left alone, having already been tightened once in ASP-69. */
+.hdr__nav { display: flex; gap: var(--s-5); }
 
 /* ASP-69 — the menu and the conversation button as one right-hand group.
    The gap is a step wider than the gap BETWEEN menu items, so the button
@@ -209,10 +214,17 @@
 }
 
 /* Just above the switch the wrap padding has shrunk too, so the measure is
-   tighter than at full width. One more step off the gaps buys the slack. */
+   tighter than at full width. One more step off the gaps buys the slack.
+ *
+ * This band is the binding case for the whole menu, and worth understanding
+ * before anyone widens anything here. Chrome matches `min-width` against the
+ * viewport INCLUDING the scrollbar, while the content box excludes it — so at
+ * a 1101px viewport the desktop menu appears with only about 1086px of room.
+ * Seven items at the gaps above need 1114px. Measured in ASP-72: 28px over,
+ * fixed by taking both gaps one further step down, which is worth 56px. */
 @media (min-width: 1101px) and (max-width: 1280px) {
-  .hdr__nav { gap: var(--s-5); }
-  .hdr__right { gap: var(--s-6); }
+  .hdr__nav { gap: var(--s-4); }
+  .hdr__right { gap: var(--s-5); }
 }
 
 /* Zero-height marker in normal flow directly above the sticky header.

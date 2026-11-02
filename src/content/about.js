@@ -1,6 +1,25 @@
-/* About (ASP-03). Source: content deck v1, slides 3, 4 and 11.
-   Deck typos corrected: 'financial constitutions' to 'financial institutions';
-   'ifrom' to 'from'; 'the internal pressures of large large' to 'of large institutions'. */
+/* About (ASP-03).
+ *
+ * REWRITTEN IN ASP-72 from the client's content brief, `ASP-Website CR.docx`
+ * (29 Oct 2026). The brief gives this page four sections and draft copy for
+ * each: our story, our philosophy and values, how we are remunerated, and
+ * what we do not do, then a link to Partners and Contact. Every string below
+ * is theirs, verbatim, except the section headings they do not supply.
+ *
+ * THIS PAGE REVERSES ASP-52. On 19 October the client settled a contradiction
+ * the other way round: About had said 'ALFI does not manage portfolios nor
+ * give investment advice' while three Services cards were titled Advice, and
+ * they ruled that ALFI DOES advise. The brief reverses that ruling in the
+ * founders' own words — see `scope` below. The user's standing instruction is
+ * that the brief beats the live site, because the founders are not happy with
+ * the October content.
+ *
+ * The tension that creates is theirs, knowingly. Our audit asked how the
+ * denial sits with the Projects pillar, which offers advice on project
+ * finance and on sourcing lenders and co-investors. Their answer: "Let's
+ * leave as is they are okay with it." Do not soften either side to make them
+ * agree.
+ */
 
 export const hero = {
   eyebrow: 'About Us',
@@ -12,29 +31,20 @@ export const hero = {
 };
 
 export const story = {
+  /* The brief's 'Our story', verbatim and as one paragraph. It replaces two
+     October paragraphs: the 'senior experience across private banking' opener
+     and the ASP-52 sentence that began 'As an independent firm, ALFI advises
+     on the decisions in front of a client'. That second one is now contained
+     in `scope`, stated the way the founders want it. */
   paragraphs: [
-    /* 'the judgement required for long-term wealth stewardship' was reworded
-       in ASP-60. 'Stewardship' is one of the reference site's signature words
-       ('20+ YEARS OF STEWARDSHIP', 'generational stewardship', 'Stewarded the
-       Swiss way'); ASP-59 took it off Philosophy and this finished the job. */
-    'We draw on senior experience across private banking, wealth advisory and institutional ' +
-    'finance, pairing analytical rigour with judgement earned over decades.',
-    /* ASP-52. This sentence used to read 'ALFI does not manage portfolios nor
-       give investment advice', which contradicted the whole Services page —
-       three cards there are titled Advice. The client settled it on 19 Oct:
-       ALFI DOES advise, so the denial was the thing that was wrong.
-
-       The limit stayed in, deliberately. ASP-48 removed the regulatory notice
-       and ASP-58 removed the 'advisory only; execution and custody remain with
-       the client's own bank' line, so this is now the ONLY statement of scope
-       anywhere on the site. Do not reduce it to 'ALFI advises' — a site that
-       describes advice with no stated limit reads as discretionary management,
-       which is a different regulated activity again. */
-    'As an independent firm, ALFI advises on the decisions in front of a client, but does ' +
-    'not manage portfolios or hold assets. We also introduce our clients to a carefully ' +
-    'selected network of financial institutions, preserving our objectivity in every ' +
-    'recommendation and giving clients continuity and direct access to decision makers.',
+    'ALFI Swiss Partners was founded by two senior private bankers who spent more than four ' +
+    'decades each advising international families at leading Swiss banks. Over those years we ' +
+    'saw how often families were served by advisers whose interests were not fully aligned ' +
+    'with their own. We created ALFI to offer the opposite: experienced, independent advice ' +
+    'that works solely for the family.',
   ],
+  /* Kept. The brief supplies no pull quote and does not ask for this one to
+     go, and it still reads as a summary of the paragraph above it. */
   pullquote: 'An independent, connected and enduring Swiss partner.',
   /* "Swiss" was dropped from the alt text when the landscape masters came in:
      the new photograph's location is not recorded, and the old one named a
@@ -49,84 +59,100 @@ export const story = {
   },
 };
 
-export const differentiators = {
+/* The brief's 'Our philosophy' — five values, replacing the three
+ * `differentiators` cards that stood here.
+ *
+ * Those three were Independent advice, Access to the right institutions and
+ * Long-term perspective. Two of their images are reused below; the third,
+ * `card-bank-introductions`, moved to the Home page in ASP-71.
+ *
+ * FIVE CARDS, so the grid needs the 18rem minmax — at the shared 15rem four
+ * fit across and the fifth is orphaned on a row of its own. Same fix and the
+ * same number as `.home-pillars` and `.ui-cards--svc`.
+ */
+export const values = {
   eyebrow: 'Why ALFI Swiss Partners',
-  /* ASP-61. This read 'An exclusive structure built around clarity, discretion
-     and senior judgement' — the same heading, word for word, as the Home
-     pillars section. That one kept it: clarity, discretion and senior
-     judgement map onto its four cards (Integrated view, Confidentiality,
-     Senior attention). These three are about independence, so the heading
-     here says that instead. Keep them different. */
+  /* OURS, kept from October. The brief names the section but gives it no
+     heading. ASP-61 wrote this line specifically so it would not repeat the
+     Home pillars heading word for word, which is what it used to do. Keep
+     the two different. */
   heading: 'What independence actually changes.',
   items: [
     {
       n: '01',
       image: 'card-independent-advice',
-      title: 'Independent advice',
+      title: 'Independence',
       text:
-        'Free from the internal pressures of large institutions, we assess solutions and ' +
-        'partners on merit and suitability alone.',
+        'Our only loyalty is to our clients. We hold no assets, sell no products and have no ' +
+        'ties that limit our choice of providers.',
     },
     {
       n: '02',
-      image: 'card-bank-introductions',
-      /* Was 'Curated bank introductions' / 'We introduce clients to the
-         financial institutions, trust companies or other advisers best
-         suited to their needs and objectives.' The reference site describes
-         the same service in nearly the same words — 'we introduce clients to
-         associated Swiss banks and independent portfolio and asset managers'
-         — and this was the closest substantive overlap the ASP-60 audit
-         found. Reworded rather than removed: it is ALFI's core proposition. */
-      title: 'Access to the right institutions',
-      text:
-        'Where a bank, trust company or specialist adviser is needed, a partner makes the ' +
-        'introduction personally and explains why that one.',
+      image: 'card-confidentiality',
+      title: 'Discretion',
+      text: 'Confidentiality is the foundation of every relationship we have.',
     },
     {
       n: '03',
       image: 'card-long-term',
-      title: 'Long-term perspective',
-      /* 'legacy preservation' reworded in ASP-60 — see the note on `story`. */
-      text:
-        'Success is measured by durable outcomes, client continuity and decisions that ' +
-        'still hold years later.',
+      title: 'Long-term thinking',
+      text: 'We plan across generations, not quarters.',
+    },
+    {
+      n: '04',
+      image: 'card-senior-attention',
+      title: 'Personal commitment',
+      text: 'Each client works directly with a founding partner.',
+    },
+    {
+      n: '05',
+      image: 'card-institutions',
+      title: 'Global perspective, Swiss standards',
+      text: 'We advise across jurisdictions with Swiss rigour and precision.',
     },
   ],
 };
 
-export const clients = {
-  eyebrow: 'Who We Serve',
-  /* 'Advisory' -> 'Advice' (ASP-62), finishing the run started on the Services
-     cards in ASP-57 and ASP-58. This was the last visible 'Advisory' heading
-     on the site. */
-  heading: 'Advice for clients whose financial lives require discretion.',
-  note: 'Selective, discreet, reassuring — never mass-market.',
-  /* No `image` on these four, unlike every other card set on the site. They
-     describe PEOPLE, and the abstract architectural photography that works
-     for a principle or a service reads as a stand-in for a client when it
-     sits above "High-net-worth individuals". NumberedCards renders an item
-     without an image as a plain panel, so nothing else has to change. */
-  items: [
-    {
-      n: '01',
-      title: 'High-net-worth individuals',
-      text: 'Portfolio strategy guidance, risk review and long-term wealth planning.',
-    },
-    {
-      n: '02',
-      title: 'Families and family offices',
-      text: 'Intergenerational continuity, governance and specialist coordination.',
-    },
-    {
-      n: '03',
-      title: 'Business owners',
-      text: 'Strategic advice around liquidity, concentration risk and business transitions.',
-    },
-    {
-      n: '04',
-      title: 'Institutions and foundations',
-      /* 'advisory support' -> 'ongoing support' (ASP-63). */
-      text: 'Investment governance, risk oversight and ongoing support.',
-    },
-  ],
+/* How the firm is paid (ASP-72). New — the brief asks for this section by
+   name, and it is the section that turns independence from a claim into a
+   business model. Verbatim. */
+export const remuneration = {
+  heading: 'How we are remunerated',
+  body:
+    'We are paid by our clients alone, through transparent advisory fees agreed in advance. ' +
+    'We do not accept commissions, retrocessions or referral fees from the providers we ' +
+    'recommend. This keeps our advice free from conflicts of interest.',
 };
+
+/* What ALFI does not do (ASP-72). New, verbatim, and load-bearing.
+ *
+ * ASP-48 removed the regulatory notice from the footer and the Contact page,
+ * and ASP-58 removed the 'advisory only; execution and custody remain with
+ * the client's own bank' line. With those gone, this paragraph is the ONLY
+ * statement of scope anywhere on the site. Do not trim it to 'ALFI does not
+ * manage portfolios' — a site that describes advice with no stated limit
+ * reads as discretionary management, which is a different regulated activity
+ * again, and the second sentence is what explains who does the managing. */
+export const scope = {
+  heading: 'What we do not do',
+  body:
+    'ALFI does not manage portfolios, give investment or financial-markets advice, hold ' +
+    'client assets or act as a bank. These activities are carried out by the regulated ' +
+    'institutions we help you select and whose work we oversee on your behalf.',
+};
+
+/* `clients` MOVED OUT in ASP-72, to content/whoweserve.js and a page of its
+ * own, which is where the client's sitemap puts it.
+ *
+ * It held four October profiles — High-net-worth individuals, Families and
+ * family offices, Business owners, Institutions and foundations — under the
+ * heading 'Advice for clients whose financial lives require discretion.' The
+ * brief replaces all four with three written in the second person, so they
+ * were not carried across. Recorded here so nobody reinstates them later as
+ * a fix for a page that looks short.
+ *
+ * The decision to give those cards NO images went with them, and the reason
+ * still holds: they describe people, and the abstract architectural
+ * photography used everywhere else reads as a stand-in for a client when it
+ * sits above a profile heading.
+ */

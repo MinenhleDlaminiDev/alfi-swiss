@@ -18,58 +18,71 @@
 
 .about-grid { margin-top: var(--s-7); }
 
-/* ---- "Who we serve": the cards rise in, one at a time ----
+/* Five values, not three (ASP-72) — the client's philosophy section.
  *
- * The shared grid entrance lifts every card 10px on a 70ms step, which at
- * four cards reads as one movement. These travel 2rem on a 110ms step, so
- * each one arrives after the last has settled — the same rhythm as the
- * process steps on Philosophy, in the other axis.
+ * The shared grid is `minmax(15rem, 1fr)`, which at desktop width fits four
+ * across and drops the fifth onto a row of its own. An orphan on the second
+ * row reads as a mistake. 18rem forces three across, so five lays out 3 + 2.
  *
- * Every rule below is written one level more specific than the shared rule
- * it replaces, rather than relying on which stylesheet the bundler emits
- * first. index.css and this file would otherwise be deciding the outcome by
- * load order, which is luck. The counts, for anyone changing these:
+ * Third place this exact fix now appears: `.ui-cards--svc` in ui.css hit it
+ * first with the service index, and `.home-pillars` in ASP-71. Scoped rather
+ * than shared, because that class also carries a link treatment and these
+ * cards do not go anywhere. */
+.about-grid--values .ui-cards { grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+
+/* ---- Remuneration and scope ----
  *
- *   shared start   .js-motion .u-reveal .ui-cards > *            (0,3,1)
- *   ours           + .about-grid--serve                          (0,4,1)
- *   shared settled .js-motion .u-reveal.is-in … > *              (0,4,1)
- *   ours           + .about-grid--serve                          (0,5,1)
- *   shared delays  … > *:nth-child(2)                            (0,5,1)
- *   ours           + .about-grid--serve                          (0,6,1)
- */
-.js-motion .u-reveal .about-grid--serve .ui-cards > * {
-  transform: translate3d(0, 2rem, 0);
+ * The two sections that make independence checkable. Side by side and at the
+ * same weight, because neither is a footnote to the other. Collapses with
+ * the rest of the site at 900px. */
+.about-terms {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: start;
+}
+.about-terms__heading {
+  font-family: var(--f-serif);
+  font-size: var(--t-h3);
+  line-height: var(--lh-head);
+  color: var(--c-navy);
+  margin-bottom: var(--s-4);
 }
 
-.js-motion .u-reveal.is-in .about-grid--serve .ui-cards > * {
-  transform: none;
+@media (max-width: 900px) {
+  .about-terms { grid-template-columns: 1fr; }
 }
 
-.js-motion .u-reveal.is-in .about-grid--serve .ui-cards > *:nth-child(2) { transition-delay: 110ms; }
-.js-motion .u-reveal.is-in .about-grid--serve .ui-cards > *:nth-child(3) { transition-delay: 220ms; }
-.js-motion .u-reveal.is-in .about-grid--serve .ui-cards > *:nth-child(n+4) { transition-delay: 330ms; }
-
-/* A settled card still has to be allowed to lift on hover — the rule above
-   pins `transform: none` at (0,5,1), which outranks the shared hover at the
-   same count. Exactly the trap documented in index.css for the generic
-   grids; it costs one more rule here for the same reason. */
-.js-motion .u-reveal.is-in .about-grid--serve .ui-cards > .ui-card:hover {
-  transform: translateY(var(--card-lift));
-}
-
-@media (prefers-reduced-motion: reduce) {
-  /* No travel and no waiting. These outrank the rules above, which in turn
-     outrank the shared cancellers in index.css — so the cancelling has to be
-     repeated here or `reduce` would quietly lose on this grid alone. */
-  .js-motion .u-reveal .about-grid--serve .ui-cards > *,
-  .js-motion .u-reveal.is-in .about-grid--serve .ui-cards > * {
-    transform: none;
-  }
-  .js-motion .u-reveal.is-in .about-grid--serve .ui-cards > *:nth-child(n) {
-    transition-delay: 0ms;
-  }
-}
+/* The 'Who we serve' grid and its one-at-a-time entrance MOVED OUT in ASP-72,
+   to pages/WhoWeServe.css, with the cards they were written for. The rules
+   were `.about-grid--serve` versions of what is now `.serve-grid--serve`:
+   a 2rem travel on a 110ms step, a hover rule to win back the lift, and a
+   reduced-motion block repeating the cancellation. Nothing was dropped —
+   if that page is ever folded back into this one, they come back with it. */
 
 .about-closing { text-align: center; }
 .about-closing__heading { margin-top: var(--s-5); }
 .about-closing .ui-btn { margin-top: var(--s-7); }
+
+/* The Partners link under the button (ASP-72). The brief asks this page to
+   link to Partners and Contact; the button is Contact, so this is the other
+   one. Deliberately a text link and not a second button — two buttons here
+   would compete, and arranging a conversation is the action this band is
+   for. */
+.about-closing__alt {
+  margin-top: var(--s-5);
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.about-closing__alt a {
+  color: var(--c-on-dark-70);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color var(--d-fast) var(--e-out),
+              border-color var(--d-fast) var(--e-out);
+}
+.about-closing__alt a:hover {
+  color: var(--c-gold);
+  border-bottom-color: var(--c-gold);
+}

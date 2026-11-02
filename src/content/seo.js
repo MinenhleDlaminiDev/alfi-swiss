@@ -18,8 +18,17 @@ export const seo = {
   about: {
     title: 'About',
     description:
-      'Independent by design and relationship-led by nature. ALFI Swiss Partners serves ' +
-      'high-net-worth individuals, families, entrepreneurs and institutions from Geneva.',
+      /* Rewritten in ASP-72 to what the page now says: the brief's story,
+         values, fee basis and the statement of what ALFI does not do. The
+         fee line is the distinctive thing here, so it leads. */
+      'Founded by two senior Swiss private bankers. Paid by clients alone, with no ' +
+      'commissions or referral fees from the providers we recommend.',
+  },
+  whoWeServe: {
+    title: 'Who We Serve',
+    description:
+      'Entrepreneurs after a sale or liquidity event, families across generations, and ' +
+      'families living and investing in more than one country.',
   },
   services: {
     title: 'Services',
@@ -72,13 +81,14 @@ export const seo = {
   ourApproach: {
     title: 'Our Approach',
     description:
-      /* This description has now been wrong twice. ASP-59 replaced a version
-         advertising 'four principles' and a 'five-stage' process; the
-         replacement said 'four stages', and ASP-64 then removed stage 02.
-         It says THREE because the page shows three. Count the stages in
-         content/approach.js before editing this line. */
+      /* This description has now been wrong twice and corrected three times.
+         ASP-59 replaced a version advertising 'four principles' and a
+         'five-stage' process; the replacement said 'four stages', ASP-64 then
+         removed stage 02 and it became three, and ASP-72 rebuilt the page to
+         the client's five steps. It says FIVE because the page shows five.
+         Count the steps in content/approach.js before editing this line. */
       'How ALFI Swiss Partners works: independent judgement from senior Geneva advisers, ' +
-      'and the three stages of a client engagement from first conversation to ongoing review.',
+      'and the five steps of an engagement from first conversation to ongoing oversight.',
   },
   partners: {
     title: 'Partners',

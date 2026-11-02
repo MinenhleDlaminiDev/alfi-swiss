@@ -5,6 +5,7 @@ import About from '../pages/About.jsx'
 import Services from '../pages/Services.jsx'
 import ServicePillar from '../pages/ServicePillar.jsx'
 import OurApproach from '../pages/OurApproach.jsx'
+import WhoWeServe from '../pages/WhoWeServe.jsx'
 import Contact from '../pages/Contact.jsx'
 import Partners from '../pages/Partners.jsx'
 import NotFound from '../pages/NotFound.jsx'
@@ -33,6 +34,7 @@ export const router = createBrowserRouter([
          still awaiting the partners' approval — is a 404 rather than a
          redirect or a blank page. */
       { path: 'services/:slug', element: <ServicePillar /> },
+      { path: 'who-we-serve', element: <WhoWeServe /> },
       { path: 'our-approach', element: <OurApproach /> },
       { path: 'partners', element: <Partners /> },
       { path: 'contact', element: <Contact /> },

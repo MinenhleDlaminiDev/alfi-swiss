@@ -94,8 +94,10 @@ function Portrait({ slug, name, role }) {
         srcSet={srcset('jpg')}
         sizes={sizes}
         /* The role comes from content rather than being written in here:
-           both partners happen to be Managing Partners today, and a
-           hardcoded title would quietly become a lie the day one is not. */
+           both partners share a title today, and a hardcoded one would
+           quietly become a lie the day they do not. ASP-72 is the proof —
+           'Managing Partner' became 'Founding Partner' in two content files
+           and nothing in this component had to change. */
         alt={role ? `${name}, ${role}` : name}
         width={meta.width}
         height={meta.height}

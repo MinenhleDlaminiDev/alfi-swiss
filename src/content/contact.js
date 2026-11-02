@@ -36,7 +36,7 @@ export const card = {
   name: 'Alexander Dimanow',
   firstName: 'Alexander',
   lastName: 'Dimanow',
-  role: 'Managing Partner',
+  role: 'Founding Partner',
   org: 'ALFI Swiss Partners',
   phones: [
     { kind: 'cell', label: 'M', display: '+41 79 208 72 96', tel: '+41792087296' },
