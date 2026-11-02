@@ -6,11 +6,14 @@ export const seo = {
   home: {
     title: null, // home uses the bare firm name
     description:
-      /* ASP-63: 'wealth advisory firm' -> 'wealth planning firm', and
-         'introductions to leading private banks' -> 'introductions worldwide'.
-         Keep this matching the Home hero, which is what it describes. */
-      'ALFI Swiss Partners is an independent wealth planning firm in Geneva, providing ' +
-      'senior-level counsel and introductions worldwide.',
+      /* Rewritten in ASP-71 to the client's own positioning: an independent
+         family office that structures wealth and selects providers but
+         manages no assets. 'Independent wealth planning firm' is still the
+         firm's strapline in the header and footer — this describes what the
+         Home page now says, which is the brief's Introduction paragraph.
+         Keep this matching the Home hero and that paragraph. */
+      'An independent family office in Geneva. We structure wealth and select the banks, ' +
+      'lawyers and advisers who serve you — with no products to sell.',
   },
   about: {
     title: 'About',

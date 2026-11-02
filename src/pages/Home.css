@@ -61,10 +61,11 @@
 /* The clipping line box for the masked reveal (ASP-28).
 
    `overflow: hidden` on a line of 62px Georgia will cut the descenders off
-   'g', 'p' and 'y' — and 'Navigating Wealth.' has one of each. The padding
-   gives the glyphs room inside the clip and the negative margin gives the
-   space straight back to the layout, so the heading occupies exactly what it
-   did before. */
+   'g', 'p' and 'y' — and the heading has all three ('Independent advice.' has
+   the p, 'Your family's interests first.' has the y). The padding gives the
+   glyphs room inside the clip and the negative margin gives the space
+   straight back to the layout, so the heading occupies exactly what it did
+   before. */
 .home-hero__line {
   display: block;
   overflow: hidden;
@@ -104,17 +105,24 @@
  * rule as something that draws, because the heading is the thing the eye goes
  * to and it was arriving as a single block of text.
  *
+ * ASP-71 made the heading THREE lines — the client's tagline — so everything
+ * after the lines moved 90ms later to keep the same gap behind them. The
+ * third line already had a delay waiting for it in the `n+3` rule below; the
+ * rule, lead and buttons did not, and the rule would have started drawing
+ * 30ms after the last line began to rise.
+ *
  * Timing, from the moment the observer fires:
  *
  *     eyebrow      0ms
- *     line 1      90ms  ─┐ masked rise, 640ms
- *     line 2     180ms  ─┘
- *     rule       300ms     scaleX draw, 560ms
- *     lead       380ms
- *     CTAs       460ms
+ *     line 1      90ms  ─┐
+ *     line 2     180ms  ─┤ masked rise, 640ms
+ *     line 3     270ms  ─┘
+ *     rule       390ms     scaleX draw, 560ms
+ *     lead       470ms
+ *     CTAs       550ms
  *
- * Last thing to start is the CTA pair at 460ms over --d-slower (520ms), so
- * everything has settled by 980ms.
+ * Last thing to start is the CTA pair at 550ms over --d-slower (520ms), so
+ * everything has settled by 1070ms.
  *
  * Every selector here carries `.home-hero__inner` purely to outrank the
  * generic `.u-reveal--hero` rules in index.css, which match at the same
@@ -122,8 +130,8 @@
  * cascade, it is a coin toss.
  */
 .js-motion .home-hero__inner.u-reveal--hero.is-in > *:nth-child(1) { transition-delay: 0ms; }
-.js-motion .home-hero__inner.u-reveal--hero.is-in > *:nth-child(4) { transition-delay: 380ms; }
-.js-motion .home-hero__inner.u-reveal--hero.is-in > *:nth-child(5) { transition-delay: 460ms; }
+.js-motion .home-hero__inner.u-reveal--hero.is-in > *:nth-child(4) { transition-delay: 470ms; }
+.js-motion .home-hero__inner.u-reveal--hero.is-in > *:nth-child(5) { transition-delay: 550ms; }
 
 /* The heading does not animate as a block — its lines do, below. Without
    this it would fade as a unit at the same time, and the lines would be
@@ -165,7 +173,7 @@
 .js-motion .home-hero__inner.u-reveal--hero.is-in .home-hero__rule {
   transform: scaleX(1);
   transition: transform 560ms var(--e-out);
-  transition-delay: 300ms;
+  transition-delay: 390ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -323,6 +331,37 @@
 /* ---- Pillars ---- */
 .home-pillars { margin-top: var(--s-7); }
 
+/* Five cards, not four (ASP-71) — the client's five key messages.
+ *
+ * The shared grid is `minmax(15rem, 1fr)`, which at desktop width fits four
+ * across and drops the fifth onto a row of its own. An orphan on the second
+ * row reads as a mistake. 18rem forces three across, so five lays out 3 + 2,
+ * which reads as deliberate.
+ *
+ * This is the same fix and the same number as `.ui-cards--svc` in ui.css,
+ * where the service index hit it first. Scoped here rather than shared,
+ * because that class also carries the link treatment and these cards do not
+ * go anywhere. */
+.home-pillars .ui-cards { grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+
+/* ---- Network ----
+ *
+ * Heading on the left, paragraph and Partners link on the right. The brief's
+ * network copy is one paragraph, so a full-width band would set it as a very
+ * long measure; two columns keep it readable and give the heading somewhere
+ * to sit. Collapses to one column with the rest of the page at 900px. */
+.home-network {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: start;
+}
+.home-network__body {
+  color: var(--c-muted);
+  line-height: var(--lh-loose);
+  margin-bottom: var(--s-5);
+}
+
 /* ---- Services teaser ---- */
 .home-teaser {
   display: grid;
@@ -387,6 +426,7 @@
   .home-hero__cta { flex-direction: column; align-items: stretch; }
   .home-teaser { grid-template-columns: 1fr; }
   .home-teaser__list a { font-size: 1.0625rem; padding-block: var(--s-3); }
+  .home-network { grid-template-columns: 1fr; }
 }
 
 /* The teaser rows are full-width links, so the whole row may respond to the

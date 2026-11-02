@@ -6,7 +6,7 @@ import {
   StatBlock, NumberedCards, Split, Figure,
 } from '../components/ui/index.jsx'
 import { cta } from '../content/site.js'
-import { hero, credentials, positioning, pillars, servicesTeaser, closing } from '../content/home.js'
+import { hero, credentials, positioning, pillars, servicesTeaser, network, closing } from '../content/home.js'
 import { pillars as serviceIndex } from '../content/services.js'
 import './Home.css'
 import Seo from '../components/Seo.jsx'
@@ -37,16 +37,27 @@ export default function Home() {
           </h1>
           <div className="home-hero__rule" />
           <p className="home-hero__lead">{hero.lead}</p>
-          {/* One call to action (ASP-48). 'Book a Confidential Consultation'
-              was removed on the client's instruction; the contact route is
-              still reachable from the header, the footer and the closing
-              band at the bottom of this page, so nothing is stranded.
-              It is rendered gold rather than the ghost it used to be: as the
-              only button in the hero it has to carry primary weight, and an
-              outline button alone reads as a secondary action with nothing
-              to be secondary to. */}
+          {/* Two calls to action (ASP-71), on the user's instruction.
+            *
+            * The brief names one button here — 'Arrange a confidential
+            * conversation' — and the hero had carried one since ASP-48, when
+            * 'Book a Confidential Consultation' was removed and Explore Our
+            * Services was left as the survivor. The user asked to keep both
+            * rather than swap one for the other, so contact leads and
+            * services sits beside it.
+            *
+            * Contact is first and gold because it is the action the page is
+            * built to produce. Services is the outline it was before ASP-48:
+            * that ticket made the lone button gold because an outline button
+            * ALONE reads as secondary with nothing to be secondary to, and
+            * there is now a gold primary for it to be secondary to.
+            *
+            * The label is `cta.request`'s, not the brief's longer wording, so
+            * this button and the one in the header do not give two names to
+            * one action on the same screen — the reasoning from ASP-69. */}
           <div className="home-hero__cta">
-            <Button to={cta.secondary.to} variant="gold">{cta.secondary.label}</Button>
+            <Button to={cta.request.to} variant="gold">{cta.request.label}</Button>
+            <Button to={cta.secondary.to} variant="ghost">{cta.secondary.label}</Button>
           </div>
         </div>
         <ScrollCue />
@@ -125,6 +136,25 @@ export default function Home() {
               </li>
             ))}
           </ul>
+        </div>
+      </Section>
+
+      {/* The network (ASP-71).
+        *
+        * A band rather than a page: the founders parked Network as a page and
+        * the brief offered it either way. It also carries the Partners link
+        * the brief asks for — a link only, no photographs, which stay on the
+        * Partners page itself.
+        *
+        * Cream keeps the page alternating paper / cream / paper / cream /
+        * navy down to the closing band. */}
+      <Section tone="cream">
+        <div className="home-network">
+          <SectionHead eyebrow={network.eyebrow} heading={network.heading} />
+          <div className="u-stagger">
+            <p className="home-network__body">{network.body}</p>
+            <TextLink to={network.link.to}>{network.link.label}</TextLink>
+          </div>
         </div>
       </Section>
 
