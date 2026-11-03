@@ -47,10 +47,18 @@
     animation-delay: 0s;
   }
 
-  /* The sweep is removed outright rather than shortened. Unlike the ring,
-     which reveals itself in place, this one travels continuously around the
-     mark — it is exactly the kind of persistent movement in the corner of
-     the eye the preference is asking us to stop. The arc stays drawn where
-     it happens to sit, so the seal is not missing a piece. */
-  .seal__sweep { animation: none; }
+  /* THE SWEEP KEEPS TURNING, SLOWLY. The user's call, 3 Nov: they saw the
+     arc frozen on their own screen and asked for it to spin.
+
+     It used to be 'animation: none' here, on the reasoning that a mark
+     turning continuously is persistent movement in the corner of the eye,
+     which is the clearest thing the preference asks us to stop. That reading
+     is not wrong — but it is the same blanket instinct that left the rest of
+     the site motionless until ASP-80, and this is one small arc at watermark
+     opacity, not a carousel.
+
+     Halved in speed rather than left at 18s: at 36s a full turn is slow
+     enough that nothing appears to move unless you look for it, which is the
+     most of the preference that can be honoured while still turning. */
+  .seal__sweep { animation-duration: 36s; }
 }
