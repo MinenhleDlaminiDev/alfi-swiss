@@ -44,18 +44,31 @@ Licence terms: https://unsplash.com/license
 | card-svc-alternatives.jpg | Services 03 - Alternatives & Structured Solutions | Abstract view of the Kunstmuseum, Bonn | `photo-1593466486574-71b38f2ff423` |
 | card-svc-risk.jpg | About value 04 - Personal commitment | A bridge, black & white | `photo-1714474597969-8395a0793a28` |
 | card-svc-strategic.jpg | Services 05 - Corporate & Strategic Advisory | Interior of the Stroganov Palace | `photo-1577887546572-144f62fceb9e` |
-| card-serve-entrepreneurs.jpg | Who We Serve 01 - Entrepreneurs | A black and white crane under a cloudy sky | `photo-1592395699868-81e39aa28881` |
-| card-serve-generations.jpg | Who We Serve 02 - Families across generations | Stone courtyard with arched walkways and crenellated walls | `photo-1758833641452-027b0af7f4bf` |
-| card-serve-international.jpg | Who We Serve 03 - International families | Harbour building and sailboats at dusk, reflected in the water | `photo-1761687790312-e3f49cffc4d7` |
+| card-serve-entrepreneurs.jpg | Who We Serve 01 - Entrepreneurs | A row of industrial looms in a working mill | `photo-1758269664127-1f744a56e06c` |
+| card-serve-generations.jpg | Who We Serve 02 - Families across generations | Three generations of a family around a kitchen table | `photo-1791318554953-3b0cf0bb2992` |
+| card-serve-international.jpg | Who We Serve 03 - International families | An airport departures hall, travellers in motion blur | `photo-1777458679559-fe54aa736a21` |
 
-<!-- The three card-serve- images were added in ASP-80. Each was checked on
-     its own Unsplash page and carries "Free to use under the Unsplash
-     License" — none is an Unsplash+ image, which may not be used here. They
-     were sourced because every other card- slug in the manifest was already
-     in use; no photograph appears twice on the site. All three show place
-     rather than people: the cards sit under headings naming a kind of client,
-     and a person in the picture would read as a claim about who that client
-     is. -->
+<!-- The three card-serve- slugs were added in ASP-80 and REPLACED IN ASP-84.
+     ASP-80's set was a crane, a stone courtyard and a harbour: place rather
+     than people, on the reasoning that a person under a heading naming a kind
+     of client reads as a claim about who that client is. The user's verdict
+     was that the set said nothing about the three profiles and that "too many
+     of our pictures is just old architecture and landscapes". The test now is
+     relevance — swapping any two of these three should look obviously wrong.
+
+     Each was checked on its own Unsplash page and carries "Free to use under
+     the Unsplash License". None is an Unsplash+ image, which may not be used
+     here. Do not test for the string "Unsplash+" in the page body: it appears
+     in the site furniture on every page and gives a false positive every
+     time.
+
+     ONE THING TO KNOW about card-serve-generations.jpg: four faces are
+     clearly identifiable in it. The Unsplash License covers the photograph
+     but does NOT grant rights in the people shown, and the card sits under
+     "Families across generations" on a client-profile page. It was chosen
+     anyway because nothing else said "three generations at one table" as
+     plainly, and the user asked for relevance over caution. Flagged for them
+     on the ticket. The other two have no identifiable face. -->
 
 The two partner portraits were supplied by the client and are not Unsplash
 images. They are the only photographs of identifiable people on the site.

@@ -19,16 +19,29 @@
  * for a client when it sits above a heading like 'Entrepreneurs'. The page
  * was judged too plain without them and the reversal was asked for directly.
  *
- * The reasoning is still worth keeping, because it shaped what was chosen.
- * All three photographs are PLACE AND CIRCUMSTANCE, never a person: a crane
- * for something being built, a courtyard that has stood for centuries for
- * continuity, a harbour for moving between countries. No identifiable person
- * appears in any of them, and the two partner portraits remain the only
- * photographs of people on the site.
+ * ASP-84 REPLACED ALL THREE AGAIN, and the brief changed with them. ASP-80
+ * read the permission as "no people" and chose place instead: a crane, a
+ * stone courtyard, a harbour. The user's verdict was that the set said
+ * nothing about these three profiles, and that "too many of our pictures is
+ * just old architecture and landscapes" — which is a fair description of the
+ * whole library.
  *
- * All three are new masters, taken in ASP-80 because every card- slug in
- * image-manifest.json was already in use — verified with a script, not a
- * grep. Licences and photo IDs are in assets/images/CREDITS.md.
+ * THE TEST IS NOW RELEVANCE, not subject matter. Each picture has to say
+ * something about ITS OWN heading: swapping any two of them should look
+ * obviously wrong. A photograph that could sit equally well above all three
+ * has failed, which is exactly what was wrong with the ASP-80 set.
+ *
+ *   01  a row of working looms      — a business built, with plant and value
+ *   02  three generations at a table — continuity between people
+ *   03  an airport departures hall   — moving between countries
+ *
+ * People are allowed where they serve the picture. Where they appear, the
+ * preference is still for faces that are not the subject, because the
+ * Unsplash License covers the photograph and not the people in it. Card 02
+ * is the exception and is flagged in CREDITS.md.
+ *
+ * Licences and photo IDs are in assets/images/CREDITS.md. Every card- slug in
+ * the manifest is in use — verified with a script, not a grep.
  */
 
 export const hero = {
