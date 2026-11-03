@@ -1,0 +1,208 @@
+/* Service pillar dialog (ASP-82).
+ *
+ * Replaces ServicePillar.css, whose page this dialog replaced.
+ *
+ * ASP-85 took 'How it helps you' and the closing band out again, so the
+ * styles that came across from that page for them have gone with them. The
+ * dialog is now the promise, the photograph and what we do.
+ *
+ * Z-ORDER: above the sticky header (--z-header, 50) and above the WhatsApp
+ * button (60), which is fixed to the viewport and would otherwise float on
+ * top of the dialog. 70 leaves room between them rather than sitting on 61.
+ */
+.pm {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: var(--s-5);
+}
+
+.pm__scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  cursor: default;
+  background: rgba(8, 21, 38, 0.72);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+.pm__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(62rem, 100%);
+  max-height: min(88vh, 54rem);
+  background: var(--c-paper);
+  border-radius: var(--radius);
+  box-shadow: 0 2.5rem 5rem rgba(8, 21, 38, 0.45);
+  overflow: hidden;
+}
+
+/* ---- The bar, and the way out ---- */
+.pm__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-5);
+  padding: var(--s-5) var(--s-6);
+  border-bottom: 1px solid var(--c-rule);
+}
+
+.pm__close {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  background: none;
+  border: 0;
+  padding: var(--s-2);
+  cursor: pointer;
+  font-size: var(--t-caption);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  /* gold-deep, not gold-ink: this is 13px, well under the 18.66px where the
+     lighter gold is legal. The rule is in tokens.css and it has been broken
+     here before, on the eyebrow. */
+  color: var(--c-gold-deep);
+  transition: color var(--d-fast) var(--e-out);
+}
+.pm__close:hover { color: var(--c-ink); }
+
+/* The cross is drawn rather than typed. A multiplication sign renders at a
+   different weight in every fallback face, and an "x" is read aloud. */
+.pm__closeicon {
+  position: relative;
+  display: block;
+  width: 0.75rem;
+  height: 0.75rem;
+}
+.pm__closeicon::before,
+.pm__closeicon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+}
+.pm__closeicon::before { transform: rotate(45deg); }
+.pm__closeicon::after { transform: rotate(-45deg); }
+
+/* ---- The scrolling middle ----
+   The panel is a column: bar, this, nav. Only this scrolls, so the way out
+   and the way on are always reachable without scrolling back. */
+.pm__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--s-7) var(--s-6);
+}
+
+.pm__head { max-width: 46rem; }
+.pm__title {
+  font-family: var(--f-serif);
+  font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+  line-height: 1.15;
+  color: var(--c-ink);
+}
+.pm__promise {
+  margin-top: var(--s-4);
+  font-size: var(--t-lead);
+  line-height: var(--lh-loose);
+  color: var(--c-muted);
+}
+
+.pm__body { margin-top: var(--s-7); }
+.pm__heading { margin-bottom: var(--s-4); }
+
+/* `.pm__helps`, `.pm__helps-body`, `.pm__closing` and `.pm__closing-heading`
+   REMOVED IN ASP-85 with the two sections they styled — 'How it helps you'
+   and the 'Arrange a Conversation' band. Nothing renders them now, and a rule
+   left behind for markup that has gone is what ASP-79 had to clean up. */
+
+/* ---- Previous and next ---- */
+.pm__nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--c-rule);
+  background: var(--c-cream);
+}
+
+.pm__step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  background: none;
+  border: 0;
+  padding: var(--s-5) var(--s-6);
+  cursor: pointer;
+  text-align: left;
+  transition: background-color var(--d-fast) var(--e-out);
+}
+.pm__step:hover { background-color: rgba(11, 28, 51, 0.04); }
+.pm__step--next { text-align: right; border-left: 1px solid var(--c-rule); }
+
+.pm__steplabel {
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-gold-deep);
+}
+.pm__steptitle {
+  font-family: var(--f-serif);
+  font-size: var(--t-small);
+  color: var(--c-ink);
+}
+
+/* ---- The entrance ----
+ * Written as keyframes rather than as a transition because the element is
+ * mounted in its final state — there is no "before" for a transition to run
+ * from, which is the usual reason a dialog appears to pop.
+ */
+@keyframes pmScrimIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes pmPanelIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.99); }
+  to { opacity: 1; transform: none; }
+}
+
+.pm__scrim { animation: pmScrimIn var(--d-base) var(--e-out) both; }
+.pm__panel { animation: pmPanelIn var(--d-slower) var(--e-out) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* The travel and the scale go; the fade stays and runs LONGER, for the
+     reason set out in index.css under the reveal system (ASP-80). A dialog
+     that simply appears is a harder visual event than one that fades, which
+     is the opposite of what the preference asks for. */
+  .pm__panel {
+    animation-name: pmScrimIn;
+    animation-duration: 600ms;
+  }
+}
+
+/* ---- Phone ----
+   Full screen, because a 62rem panel inset by a gutter on a 375px screen is
+   a card with no margin and a scrollbar on both. The nav keeps its two
+   columns: the titles are short and stacking them puts 'next' below the fold
+   of a thumb's reach. */
+@media (max-width: 700px) {
+  .pm { padding: 0; }
+  .pm__panel {
+    width: 100%;
+    max-height: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+  .pm__bar { padding: var(--s-4) var(--s-5); }
+  .pm__scroll { padding: var(--s-6) var(--s-5); }
+  .pm__step { padding: var(--s-4) var(--s-5); }
+}

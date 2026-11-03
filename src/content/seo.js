@@ -48,8 +48,14 @@ export const seo = {
   /* One entry per published service pillar, keyed by the slug in
      content/services.js. Each is built from that pillar's own promise and
      bullets rather than written fresh, so the search result and the page say
-     the same thing. ServicePillar.jsx looks the slug up here directly, so a
-     new pillar needs a row here or the page will fail to render. */
+     the same thing. Services.jsx looks the slug up here directly when a
+     pillar's dialog is open (ASP-82), so a new pillar needs a row here or the
+     page will fail to render.
+
+     These entries did NOT become redundant when the pillars stopped being
+     pages. /services/<slug> is still a real URL that renders the index with
+     that dialog open, so it is still what gets shared and indexed, and it
+     still needs its own title and description. */
   servicePillars: {
     'wealth-structuring': {
       title: 'Wealth Structuring',

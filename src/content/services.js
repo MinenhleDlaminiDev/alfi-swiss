@@ -69,9 +69,14 @@
  * ---- PILLARS ARE PAGES NOW ----
  *
  * The brief says Services 'opens into seven subpages' and the sitemap diagram
- * draws them as pages, so each has a route at /services/<slug> rendered by
- * one template, src/pages/ServicePillar.jsx. The old `details` array and its
- * in-page anchors are gone with it.
+ * draws them as pages, so each has a route at /services/<slug>. The old
+ * `details` array and its in-page anchors are gone with it.
+ *
+ * ASP-82 CHANGED WHAT THAT ROUTE RENDERS, not whether it exists. The write-up
+ * is a dialog over the Services index now — src/components/PillarModal — and
+ * the route opens the index with it showing. Every slug below is still a live
+ * URL. The old one-page-per-pillar template, src/pages/ServicePillar.jsx, was
+ * deleted; this data is unchanged and drives the dialog as it drove the page.
  *
  * That also fixed a defect: Home builds its teaser links from this array, and
  * three of the four old entries had no `linkTo`, so Home was linking to
@@ -132,6 +137,21 @@ export const pillars = [
       'Review existing structures for efficiency, compliance and fitness for purpose.',
       'Structure the ownership of real estate, operating businesses and lifestyle assets (art, yachts, aircraft).',
     ],
+    /* NOTHING RENDERS `helps` SINCE ASP-85, on all seven pillars.
+     *
+     * The service dialog used to carry a 'How it helps you' band and the user
+     * had it taken out. The copy is kept rather than deleted, because every
+     * one of these paragraphs is the founders' own and the brief asks for the
+     * section by name — this is not ours to throw away, and restoring the
+     * band is a few lines in components/PillarModal.
+     *
+     * Where each came from, checked against the documents on 3 Nov:
+     *
+     *   wealth-structuring, provider-selection    the brief, ASP-Website CR.docx
+     *   projects, concierge                       ANSWERS-ASP.docx
+     *   succession-governance, entrepreneurs,
+     *   international-mobility                    Website - Profiles of AF & AD.docx
+     */
     helps:
       'Your wealth is protected, compliant and organised in a way that serves your ' +
       'family’s goals — today and for the next generation.',

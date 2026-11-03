@@ -3,8 +3,10 @@
 .svc-index { margin-top: var(--s-6); }
 
 /* `.svc-detail__heading` and `.svc-detail__body` removed in ASP-70 with the
-   in-page write-ups they styled. Each pillar is its own page now; its styles
-   are in ServicePillar.css. */
+   in-page write-ups they styled. The write-ups came back to this page in
+   ASP-82, but as a dialog rather than as sections — their styles are in
+   components/PillarModal/PillarModal.css, and ServicePillar.css went with the
+   page it belonged to. Nothing here styles a pillar. */
 
 .svc-closing { text-align: center; }
 .svc-closing__heading { margin-top: var(--s-5); }

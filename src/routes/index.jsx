@@ -3,7 +3,6 @@ import RootLayout from '../layouts/RootLayout.jsx'
 import Home from '../pages/Home.jsx'
 import About from '../pages/About.jsx'
 import Services from '../pages/Services.jsx'
-import ServicePillar from '../pages/ServicePillar.jsx'
 import OurApproach from '../pages/OurApproach.jsx'
 import WhoWeServe from '../pages/WhoWeServe.jsx'
 import Contact from '../pages/Contact.jsx'
@@ -28,12 +27,20 @@ export const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: 'about', element: <About /> },
       { path: 'services', element: <Services /> },
-      /* One route for all four service pillars (ASP-70). The component looks
-         the slug up in content/services.js and renders NotFound if there is
-         no match, so a mistyped or guessed URL — including the three pillars
-         still awaiting the partners' approval — is a 404 rather than a
-         redirect or a blank page. */
-      { path: 'services/:slug', element: <ServicePillar /> },
+      /* One route for all seven service pillars (ASP-70), rendering the
+         INDEX rather than a page of its own since ASP-82.
+
+         The pillars are a dialog over the Services index now. Keeping the
+         route means every published /services/<slug> still resolves, still
+         carries its own title and description for search, and still works as
+         a shared link — it opens the index with that pillar's dialog already
+         open. Services.jsx looks the slug up and renders NotFound if there is
+         no match, so a mistyped or guessed URL is still a 404 rather than a
+         redirect or a blank page.
+
+         Do not point this at a component of its own again without checking
+         what it does to those URLs. */
+      { path: 'services/:slug', element: <Services /> },
       { path: 'who-we-serve', element: <WhoWeServe /> },
       { path: 'our-approach', element: <OurApproach /> },
       { path: 'partners', element: <Partners /> },
