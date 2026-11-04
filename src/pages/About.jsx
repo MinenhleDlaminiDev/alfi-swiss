@@ -1,10 +1,13 @@
-import { Link } from 'react-router-dom'
+/* `Link`, `Eyebrow`, `Button` and `cta` are no longer imported — the closing
+   band that used all four came off this page on 5 Nov, when the client asked
+   for 'Arrange a Conversation' to appear only on the first and last pages. */
 import {
-  PageHero, Section, SectionHead, Eyebrow, Button,
+  PageHero, Section, SectionHead,
   NumberedCards, Split, Figure,
 } from '../components/ui/index.jsx'
-import { cta } from '../content/site.js'
-import { hero, story, values, remuneration, scope } from '../content/about.js'
+/* `remuneration` is no longer imported — the client removed that section on
+   5 Nov. The export is still in content/about.js; see the note there. */
+import { hero, story, values, scope } from '../content/about.js'
 import './About.css'
 import Seo from '../components/Seo.jsx'
 import { seo } from '../content/seo.js'
@@ -48,22 +51,20 @@ export default function About() {
         </div>
       </Section>
 
-      {/* How we are remunerated, and what we do not do.
+      {/* What we do not do.
         *
-        * One band, two columns, each under its own h2. These are the two
-        * sections that make independence checkable rather than claimed, so
-        * they sit together and at the same weight — neither is a footnote to
-        * the other.
+        * 'How we are remunerated' stood in the first column of this band until
+        * 5 Nov, when the client removed it — all of it, their words. The text
+        * is kept in content/about.js, unrendered, with the reasoning.
         *
-        * Real headings, not eyebrows: a reader skimming the page by its
+        * The band is now one column, so about-terms runs at a single readable
+        * measure rather than leaving the right half of the grid empty.
+        *
+        * A real heading, not an eyebrow: a reader skimming the page by its
         * headings has to be able to find 'What we do not do', and an eyebrow
         * is a styled <p>. */}
       <Section tone="paper">
         <div className="about-terms">
-          <div className="u-stagger">
-            <h2 className="about-terms__heading">{remuneration.heading}</h2>
-            <p className="about-para">{remuneration.body}</p>
-          </div>
           <div className="u-stagger">
             <h2 className="about-terms__heading">{scope.heading}</h2>
             <p className="about-para">{scope.body}</p>
@@ -71,28 +72,23 @@ export default function About() {
         </div>
       </Section>
 
-      {/* Closing. The brief's last structure item for this page is 'Link to
-          Partners and Contact', so the band carries both: the partners as a
-          text link and contact as the button it already had. */}
-      <section className="ui-section ui-section--navy about-closing">
-        <div className="wrap">
-          <Eyebrow tone="dim">Begin a Conversation</Eyebrow>
-          {/* CHANGED IN ASP-79. This read 'Senior-led relationships, conducted
-              in confidence.', which is also the Contact page's h1 — one
-              sentence doing two different jobs on two pages. Contact keeps it,
-              because there it is the main heading. This band is a closing call
-              to action, so its line stays on this page's own subject and leads
-              into the two links under it. Home's matching band carries the
-              brief's own line and is untouched. */}
-          <h2 className="about-closing__heading">
-            Independence is easier to judge in person.
-          </h2>
-          <Button to={cta.request.to} variant="gold">{cta.request.label}</Button>
-          <p className="about-closing__alt">
-            <Link to="/partners">Meet the partners</Link>
-          </p>
-        </div>
-      </section>
+      {/* THE CLOSING BAND IS GONE (5 Nov). The client asked for 'Arrange a
+          Conversation' to appear only on the first page and the last page,
+          so Home keeps its band and the four middle pages lose theirs.
+          The header carries the same button on every page, so the action is
+          never more than one click away.
+
+          What went with it, and is worth knowing before anyone restores it:
+
+            - the eyebrow 'Begin a Conversation';
+            - the heading 'Independence is easier to judge in person.',
+              written in ASP-79 to stop this page repeating the Contact
+              page's h1 word for word;
+            - a 'Meet the partners' text link, which was the brief's last
+              structure item for this page ('Link to Partners and Contact').
+              Partners is still in the header nav and in the footer, so the
+              page is not stranded — but the brief's own link is no longer
+              at the foot of About. */}
     </>
   )
 }

@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom'
-import { PageHero, Section, Eyebrow, Button, ServiceRows } from '../components/ui/index.jsx'
-import { cta } from '../content/site.js'
-import { hero, pillars, closing } from '../content/services.js'
+/* `Eyebrow`, `Button`, `cta` and `closing` went with the closing band on
+   5 Nov — see the note where it stood. */
+import { PageHero, Section, ServiceRows } from '../components/ui/index.jsx'
+import { hero, pillars } from '../content/services.js'
 import './Services.css'
 import Seo from '../components/Seo.jsx'
 import { seo } from '../content/seo.js'
@@ -62,14 +63,9 @@ export default function Services() {
         </div>
       </Section>
 
-      {/* Closing */}
-      <section className="ui-section ui-section--navy svc-closing">
-        <div className="wrap">
-          <Eyebrow tone="dim">{closing.eyebrow}</Eyebrow>
-          <h2 className="svc-closing__heading">{closing.heading}</h2>
-          <Button to={cta.request.to} variant="gold">{cta.request.label}</Button>
-        </div>
-      </section>
+      {/* THE CLOSING BAND IS GONE (5 Nov) — 'Arrange a Conversation' only on
+          the first page and the last page, on the client's instruction. The
+          `closing` export is still in content/services.js. */}
 
       {/* Keyed on the slug so that stepping to the next pillar remounts the
           dialog. Without it the panel keeps the previous pillar's scroll

@@ -11,13 +11,9 @@
 
 /* `.contact-form` removed in ASP-68 with the form it spaced. */
 
-.contact-body {
-  margin-top: var(--s-4);
-  max-width: 34rem;
-  font-size: var(--t-small);
-  line-height: var(--lh-loose);
-  color: var(--c-muted);
-}
+/* `.contact-body` removed on 5 Nov with the paragraph it styled. The email
+   link below now follows the eyebrow directly and carries its own margin.
+   `.contact-heading` above stays — the office column still uses it. */
 
 /* The one thing this page exists for, so it is set a step above the detail
    around it rather than as another small link. `.contact-email` below is the

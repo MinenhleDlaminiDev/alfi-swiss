@@ -1,6 +1,7 @@
-import { PageHero, Section, SectionHead, Eyebrow, Button, NumberedCards } from '../components/ui/index.jsx'
-import { cta } from '../content/site.js'
-import { hero, profiles, closing } from '../content/whoweserve.js'
+/* `Eyebrow`, `Button`, `cta` and `closing` went with the closing band on
+   5 Nov — see the note where it stood. */
+import { PageHero, Section, SectionHead, NumberedCards } from '../components/ui/index.jsx'
+import { hero, profiles } from '../content/whoweserve.js'
 import './WhoWeServe.css'
 import Seo from '../components/Seo.jsx'
 import { seo } from '../content/seo.js'
@@ -35,15 +36,11 @@ export default function WhoWeServe() {
         </div>
       </Section>
 
-      {/* Closing */}
-      <section className="ui-section ui-section--navy serve-closing">
-        <div className="wrap">
-          <Eyebrow tone="dim">{closing.eyebrow}</Eyebrow>
-          <h2 className="serve-closing__heading">{closing.heading}</h2>
-          <p className="serve-closing__body">{closing.body}</p>
-          <Button to={cta.request.to} variant="gold">{cta.request.label}</Button>
-        </div>
-      </section>
+      {/* THE CLOSING BAND IS GONE (5 Nov) — 'Arrange a Conversation' only on
+          the first page and the last page, on the client's instruction. It
+          carried the brief's own closing lines, 'Every family's situation is
+          unique.' and 'Let us start with a conversation.', which Home's band
+          still carries. The `closing` export stays in content/whoweserve.js. */}
     </>
   )
 }

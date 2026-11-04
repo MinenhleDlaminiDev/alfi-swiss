@@ -157,7 +157,12 @@ export const pillars = {
     },
     {
       n: '02', title: 'Experienced', image: 'card-senior-attention',
-      text: 'Four decades each inside leading Swiss banks.',
+      /* The client's own rewording, 5 Nov. It was the brief's 'Four decades
+         each inside leading Swiss banks.' The new line drops the count, so
+         this card no longer repeats the 40-each figure that the credentials
+         strip already carries as 80+ combined. The title is unchanged — they
+         rewrote the line under it, not the word above it. */
+      text: 'Decades of experience with leading Swiss banks.',
     },
     {
       n: '03', title: 'Connected', image: 'card-bank-introductions',

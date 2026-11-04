@@ -55,10 +55,5 @@
   }
 }
 
-.serve-closing { text-align: center; }
-.serve-closing__heading { margin-top: var(--s-5); }
-.serve-closing__body {
-  margin-top: var(--s-4);
-  color: var(--c-on-dark-70);
-}
-.serve-closing .ui-btn { margin-top: var(--s-7); }
+/* `.serve-closing` REMOVED 5 Nov with the band it styled — see
+   WhoWeServe.jsx. */

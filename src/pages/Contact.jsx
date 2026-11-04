@@ -34,8 +34,9 @@ export default function Contact() {
         <div className="contact-main u-stagger">
           <div className="u-stagger">
             <Eyebrow>{direct.eyebrow}</Eyebrow>
-            <h2 className="contact-heading">{direct.heading}</h2>
-            <p className="contact-body">{direct.body}</p>
+            {/* The h2 and the paragraph under it were removed on 5 Nov — see
+                the note in content/contact.js. The office column keeps its
+                own h2, so the section still has a heading in the outline. */}
             <a className="contact-primary" href={`mailto:${contact.email}`}>
               {contact.email}
             </a>

@@ -76,12 +76,17 @@ export const card = {
    an ordinary text link, deliberately NOT in WhatsApp green — the floating
    button already carries the brand mark, and a second green thing on the
    page would compete with it rather than support it. */
+/* THE HEADING AND THE PARAGRAPH ARE GONE (5 Nov, client's instruction). They
+   read 'Reach us directly.' and 'Write to us and a partner will respond
+   personally. If a message is easier, the same people answer on WhatsApp.'
+
+   The page remains — they were asked directly and said so. What goes is the
+   introduction to the two links, not the links. The eyebrow stays, because
+   with the heading gone it is the only thing naming the column. The hero lead
+   above already says a member of the team answers personally and that
+   WhatsApp is the other way in, so the paragraph was saying it twice. */
 export const direct = {
   eyebrow: 'Enquiries',
-  heading: 'Reach us directly.',
-  body:
-    'Write to us and a partner will respond personally. If a message is easier, the ' +
-    'same people answer on WhatsApp.',
   whatsappLabel: 'Message us on WhatsApp',
 };
 

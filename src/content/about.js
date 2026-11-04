@@ -136,9 +136,17 @@ export const values = {
   ],
 };
 
-/* How the firm is paid (ASP-72). New — the brief asks for this section by
-   name, and it is the section that turns independence from a claim into a
-   business model. Verbatim. */
+/* How the firm is paid (ASP-72). The brief asks for this section by name, and
+ * it is written verbatim from it.
+ *
+ * RETAINED, NOT RENDERED (5 Nov). The client asked for the whole section to
+ * come off the About page — 'Remove this part all of it' — so About.jsx no
+ * longer imports this. Kept in place because it is the client's own copy out
+ * of their brief, and because the brief still lists the section; if they want
+ * it back, putting it back is two lines in About.jsx.
+ *
+ * `scope` below is UNAFFECTED and still renders. Do not take it with this one
+ * on the grounds that the two sat in the same band — see its own note. */
 export const remuneration = {
   heading: 'How we are remunerated',
   body:

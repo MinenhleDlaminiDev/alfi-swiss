@@ -42,8 +42,13 @@
  * legal name. The image slug `card-partner-fiuza` is deliberately unchanged —
  * see the note in CREDITS.md.
  *
- * Still with the client: whether the birth years should be published at all.
- * Both paragraphs open 'Born in 1960', left as supplied until they answer.
+ * THE BIRTH YEARS ARE SETTLED, 5 Nov: they come off. Both paragraphs opened
+ * 'Born in 1960,' as supplied and the client asked for it removed from each.
+ * This was the longest-running open question on the page — it is closed, so
+ * do not restore the dates from the source biographies.
+ *
+ * The language lists were reordered in the same message and both are now the
+ * client's own order. See the notes beside each.
  */
 
 export const hero = {
@@ -84,7 +89,10 @@ export const leadership = {
          slug is missing the card simply renders without a picture. */
       portrait: 'card-partner-dimanow',
       bio: [
-        'Born in 1960, Alexander Dimanow worked at Mirabaud from 2012 until 2025, when he ' +
+        /* 'Born in 1960, ' removed 5 Nov — see the note at the head of this
+           file. The sentence now opens on his name, which is also how the
+           second paragraph opens. */
+        'Alexander Dimanow worked at Mirabaud from 2012 until 2025, when he ' +
         'joined ALFI as Managing Partner. He previously served on the Executive Committee ' +
         'of Hyposwiss Private Bank (Switzerland). Prior to that, he was Director for the ' +
         'Iberian Peninsula at ABN AMRO Bank (Switzerland).',
@@ -97,7 +105,10 @@ export const leadership = {
       /* His paragraph already says he speaks six languages; this lists them.
          Both are kept because both are his — the sentence is the claim, the
          list is the detail a reader actually wants. */
-      languages: 'Spanish, German, French, English, Portuguese and Italian',
+      /* ORDER IS THE CLIENT'S, dictated 5 Nov, and it is not alphabetical or
+         a count of fluency — do not re-sort it. It was 'Spanish, German,
+         French, English, Portuguese and Italian' as first supplied. */
+      languages: 'English, French, German, Spanish, Portuguese and Italian',
     },
     {
       name: 'António Fiúza',
@@ -107,7 +118,8 @@ export const leadership = {
          for a larger file; the ladder already declines to upscale it. */
       portrait: 'card-partner-fiuza',
       bio: [
-        'Born in 1960, António Fiúza covered the Portuguese market at Mirabaud until the ' +
+        /* 'Born in 1960, ' removed 5 Nov, with Dimanow's. */
+        'António Fiúza covered the Portuguese market at Mirabaud until the ' +
         'end of 2025, when he joined ALFI as a General Partner. Before Mirabaud, he spent ' +
         'six years at Credit Suisse Group in Geneva as a Director in the private banking ' +
         'unit serving Portugal. Earlier, he worked for 10 years in wealth management at ' +
@@ -117,7 +129,8 @@ export const leadership = {
         'Crédito, and Barclays Bank. He holds a degree in Psychology from ISPA in Lisbon, ' +
         'along with several advanced qualifications in economics and finance.',
       ],
-      languages: 'Portuguese, English and French',
+      /* Reordered 5 Nov with Dimanow's; was 'Portuguese, English and French'. */
+      languages: 'English, French and Portuguese',
     },
   ],
 };

@@ -82,7 +82,8 @@ export const seo = {
         'advisers, and separating business wealth from private wealth.',
     },
     'international-mobility': {
-      title: 'International Mobility & Residency',
+      /* Matches the pillar title in services.js, changed 5 Nov. */
+      title: 'International Mobility & Residence',
       description:
         'Residency, relocation and citizenship advice, including relocation to ' +
         'Switzerland, with tax and legal planning before and after a move.',

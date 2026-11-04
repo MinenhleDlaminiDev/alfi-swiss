@@ -37,27 +37,20 @@ export default function Home() {
           </h1>
           <div className="home-hero__rule" />
           <p className="home-hero__lead">{hero.lead}</p>
-          {/* Two calls to action (ASP-71), on the user's instruction.
+          {/* ONE call to action. 'Arrange a Conversation' was removed from the
+            * hero on the client's instruction, 5 Nov; Explore Our Services is
+            * the survivor.
             *
-            * The brief names one button here — 'Arrange a confidential
-            * conversation' — and the hero had carried one since ASP-48, when
-            * 'Book a Confidential Consultation' was removed and Explore Our
-            * Services was left as the survivor. The user asked to keep both
-            * rather than swap one for the other, so contact leads and
-            * services sits beside it.
+            * It is GOLD, not the outline it was beside the other button. That
+            * is ASP-48's finding, not a new decision: an outline button alone
+            * reads as secondary with nothing to be secondary to. It was made
+            * an outline in ASP-71 only because a gold primary had just been
+            * put next to it, and that primary has now gone again.
             *
-            * Contact is first and gold because it is the action the page is
-            * built to produce. Services is the outline it was before ASP-48:
-            * that ticket made the lone button gold because an outline button
-            * ALONE reads as secondary with nothing to be secondary to, and
-            * there is now a gold primary for it to be secondary to.
-            *
-            * The label is `cta.request`'s, not the brief's longer wording, so
-            * this button and the one in the header do not give two names to
-            * one action on the same screen — the reasoning from ASP-69. */}
+            * The header still carries 'Arrange a Conversation' on every page,
+            * so the action is one scroll-free click away from here. */}
           <div className="home-hero__cta">
-            <Button to={cta.request.to} variant="gold">{cta.request.label}</Button>
-            <Button to={cta.secondary.to} variant="ghost">{cta.secondary.label}</Button>
+            <Button to={cta.secondary.to} variant="gold">{cta.secondary.label}</Button>
           </div>
         </div>
         <ScrollCue />

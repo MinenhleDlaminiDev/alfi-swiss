@@ -1,8 +1,9 @@
+/* `Eyebrow`, `Button`, `cta` and `closing` went with the closing band on
+   5 Nov — see the note where it stood. */
 import {
-  PageHero, Section, SectionHead, Eyebrow, Button, ProcessSteps,
+  PageHero, Section, SectionHead, ProcessSteps,
 } from '../components/ui/index.jsx'
-import { cta } from '../content/site.js'
-import { hero, process, closing } from '../content/approach.js'
+import { hero, process } from '../content/approach.js'
 import './OurApproach.css'
 import Seo from '../components/Seo.jsx'
 import { seo } from '../content/seo.js'
@@ -30,14 +31,9 @@ export default function Philosophy() {
         </div>
       </Section>
 
-      {/* Closing */}
-      <section className="ui-section ui-section--navy phil-closing">
-        <div className="wrap">
-          <Eyebrow tone="dim">{closing.eyebrow}</Eyebrow>
-          <h2 className="phil-closing__heading">{closing.heading}</h2>
-          <Button to={cta.request.to} variant="gold">{cta.request.label}</Button>
-        </div>
-      </section>
+      {/* THE CLOSING BAND IS GONE (5 Nov) — 'Arrange a Conversation' only on
+          the first page and the last page, on the client's instruction. The
+          `closing` export stays in content/approach.js. */}
     </>
   )
 }

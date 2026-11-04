@@ -100,6 +100,9 @@ export const process = {
   ],
 };
 
+/* RETAINED, NOT RENDERED (5 Nov). The closing band came off this page when
+   the client asked for 'Arrange a Conversation' on the first and last pages
+   only. Home's band is the one that remains. */
 export const closing = {
   eyebrow: 'Begin a Conversation',
   heading: 'The best decisions are the ones a client understands completely.',

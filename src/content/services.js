@@ -31,7 +31,7 @@
  * The brief marked three pillars as suggestions borrowed from peer family
  * offices that 'need the partners' approval before publication', and the
  * answers document named them: Succession & Family Governance, Entrepreneurs
- * & Business Owners, International Mobility & Residency. They were held back
+ * & Business Owners, International Mobility & Residence. They were held back
  * from ASP-70 entirely — not as stubs, not in the index.
  *
  * On 2 Nov the founders supplied the client-facing copy for all three in
@@ -271,7 +271,12 @@ export const pillars = [
   {
     n: '06',
     slug: 'international-mobility',
-    title: 'International Mobility & Residency',
+    /* 'Residency' -> 'Residence' on the client's instruction, 5 Nov. The
+       URL slug is unchanged, so the published link still resolves and the
+       page keeps its search history. The word still appears in lower case
+       inside the points and in `helps` below, where it names the legal
+       status rather than the service, and they did not ask for those. */
+    title: 'International Mobility & Residence',
     promise: 'Moving your life across borders, smoothly.',
     image: 'card-hnw-individuals',
     figure: {
@@ -320,6 +325,9 @@ export const pillars = [
   },
 ];
 
+/* RETAINED, NOT RENDERED (5 Nov). The closing band came off this page when
+   the client asked for 'Arrange a Conversation' on the first and last pages
+   only. Home's band is the one that remains. */
 export const closing = {
   eyebrow: 'Next Step',
   /* The brief asks every subpage to end with its own call to action and never

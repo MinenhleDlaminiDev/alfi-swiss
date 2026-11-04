@@ -8,6 +8,4 @@
    components/PillarModal/PillarModal.css, and ServicePillar.css went with the
    page it belonged to. Nothing here styles a pillar. */
 
-.svc-closing { text-align: center; }
-.svc-closing__heading { margin-top: var(--s-5); }
-.svc-closing .ui-btn { margin-top: var(--s-7); }
+/* `.svc-closing` REMOVED 5 Nov with the band it styled — see Services.jsx. */

@@ -35,9 +35,14 @@
  * The two sections that make independence checkable. Side by side and at the
  * same weight, because neither is a footnote to the other. Collapses with
  * the rest of the site at 900px. */
+/* ONE column since 5 Nov, not two. 'How we are remunerated' sat beside 'What
+   we do not do' until the client removed it; a 1fr 1fr grid with one child
+   left would put that paragraph in the left half and leave the right half
+   blank. The cap keeps it to a readable line length instead of letting it run
+   the full width of the band. */
 .about-terms {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 48rem);
   gap: clamp(2rem, 1rem + 4vw, 5rem);
   align-items: start;
 }
@@ -49,9 +54,8 @@
   margin-bottom: var(--s-4);
 }
 
-@media (max-width: 900px) {
-  .about-terms { grid-template-columns: 1fr; }
-}
+/* The 900px override that collapsed the two columns went with the second
+   column on 5 Nov. `minmax(0, 48rem)` already shrinks below its cap. */
 
 /* The 'Who we serve' grid and its one-at-a-time entrance MOVED OUT in ASP-72,
    to pages/WhoWeServe.css, with the cards they were written for. The rules
@@ -60,29 +64,9 @@
    reduced-motion block repeating the cancellation. Nothing was dropped —
    if that page is ever folded back into this one, they come back with it. */
 
-.about-closing { text-align: center; }
-.about-closing__heading { margin-top: var(--s-5); }
-.about-closing .ui-btn { margin-top: var(--s-7); }
-
-/* The Partners link under the button (ASP-72). The brief asks this page to
-   link to Partners and Contact; the button is Contact, so this is the other
-   one. Deliberately a text link and not a second button — two buttons here
-   would compete, and arranging a conversation is the action this band is
-   for. */
-.about-closing__alt {
-  margin-top: var(--s-5);
-  font-size: 0.8125rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.about-closing__alt a {
-  color: var(--c-on-dark-70);
-  border-bottom: 1px solid transparent;
-  padding-bottom: 2px;
-  transition: color var(--d-fast) var(--e-out),
-              border-color var(--d-fast) var(--e-out);
-}
-.about-closing__alt a:hover {
-  color: var(--c-gold);
-  border-bottom-color: var(--c-gold);
-}
+/* `.about-closing` AND `.about-closing__alt` REMOVED 5 Nov with the band
+   they styled. The band carried the 'Arrange a Conversation' button and the
+   brief's 'Meet the partners' text link; the client asked for that button on
+   the first and last pages only. Home's band keeps its own rules.
+   The link styling was a muted uppercase line that went gold on hover — if
+   the Partners link is wanted back here, that is what it looked like. */
