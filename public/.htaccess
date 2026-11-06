@@ -1,0 +1,129 @@
+# ALFI Swiss Partners — Apache configuration (ASP-13)
+#
+# This file is deployed into the site web root and REPLACES the .htaccess that
+# is there. Infomaniak's original directives are preserved verbatim below; if
+# Infomaniak ever adds new ones server-side, re-merge them here before the next
+# deploy or they will be lost.
+
+
+# ---------------------------------------------------------------------------
+# Infomaniak defaults — preserved verbatim
+# ---------------------------------------------------------------------------
+SetOutputFilter DEFLATE
+AddOutputFilterByType DEFLATE "application/atom+xml" "application/javascript" "application/json" "application/ld+json" "application/manifest+json" "application/rdf+xml" "application/rss+xml" "application/schema+json" "application/vnd.geo+json" "application/vnd.ms-fontobject" "application/x-font-ttf" "application/x-javascript" "application/x-web-app-manifest+json" "application/xhtml+xml" "application/xml" "font/eot" "font/opentype" "image/bmp" "image/svg+xml" "image/vnd.microsoft.icon" "image/x-icon" "text/cache-manifest" "text/css" "text/html" "text/javascript" "text/plain" "text/vcard" "text/vnd.rim.location.xloc" "text/vtt" "text/x-component" "text/x-cross-domain-policy" "text/xml"
+
+# SECTION BEGIN GIT PROTECTION
+RedirectMatch 404 /\.git
+# SECTION END GIT PROTECTION
+
+
+# ---------------------------------------------------------------------------
+# Single-page application routing
+# ---------------------------------------------------------------------------
+# /about, /services, /our-approach and /contact have no file on disk, so without
+# this a refresh or a shared deep link returns Apache's 404.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Guard dot-paths FIRST. In per-directory context mod_rewrite runs before
+  # mod_alias, so the catch-all below would otherwise rewrite /.git/config to
+  # index.html and return 200 — silently defeating the git protection above.
+  # .well-known is exempt: Let's Encrypt uses it for certificate renewal.
+  RewriteRule (^|/)\.(?!well-known/) - [F,L]
+
+  # The enquiry endpoint (ASP-67) — DISABLED IN ASP-68, when the client had
+  # the message form taken off the Contact page. Commented out rather than
+  # deleted; api/enquiry.php is commented out in the same way and explains
+  # how to restore both.
+  #
+  # Note that removing this line is not on its own enough: enquiry.php still
+  # ships inside dist/ and Apache will still execute it at its own path.
+  # That is why the PHP body is commented out too.
+  #
+  # When it was live, the -f guard below did not cover it — /api/enquiry has
+  # no extension and is not a file on disk, so without this line the catch-all
+  # handed the form the HTML shell and the browser tried to parse it as JSON.
+  #
+  # RewriteRule ^api/enquiry/?$ /api/enquiry.php [L]
+
+  # Never rewrite a request that maps to a real file or directory, or
+  # /images/*, /assets/* and /favicon.svg would all return the HTML shell.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Everything else is handled by the client-side router.
+  RewriteRule . /index.html [L]
+</IfModule>
+
+
+# ---------------------------------------------------------------------------
+# MIME types
+# ---------------------------------------------------------------------------
+# `AddType text/vcard .vcf` was removed in ASP-51 with the digital business
+# card. Nothing generates a .vcf any more. The matching block in netlify.toml
+# went in the same change: the two configs are only useful while they
+# predict each other.
+<IfModule mod_mime.c>
+  # Apache builds older than 2.4.49 do not know AVIF and would serve it as
+  # application/octet-stream, which `nosniff` below then forbids the browser
+  # from correcting — the image would simply not render (ASP-47).
+  AddType image/avif .avif
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Caching
+# ---------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # Order matters: Apache applies every matching FilesMatch in sequence and the
+  # last `Header set` wins, so the general rule goes first and the specific
+  # content-hashed rule overrides it.
+
+  # Unhashed scripts and styles revalidate hourly.
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+
+  # Vite's content-hashed bundles (index-DMwA1gVP.css) change name whenever the
+  # content does, so they are safe to pin forever.
+  <FilesMatch "-[A-Za-z0-9_-]{8,}\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Images are NOT content-hashed: the pipeline emits stable names like
+  # home-positioning-1200w.webp. A replaced photo keeps its filename, so
+  # "immutable" would strand visitors on the old one for a year. 30 days.
+  <FilesMatch "\.(avif|webp|jpe?g|png|svg)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+
+  # index.html must always revalidate, or visitors keep booting an old build
+  # and never receive the new hashed asset URLs.
+  <FilesMatch "\.(html|json)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  # The .vcf and QR cache tier was removed in ASP-51 with the card that
+  # produced them.
+
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # LCP preload for the home page only (ASP-47), mirroring the Link header in
+  # netlify.toml. It cannot be a <link> in index.html: that file is the SPA
+  # shell for every route, so all six pages were fetching this 362KB
+  # photograph at high priority and five never displayed it.
+  #
+  # A FilesMatch would be no better — every route serves index.html, so it
+  # would match all of them. SetEnvIf tests the REQUESTED path, which is
+  # evaluated before the rewrite, so only "/" is tagged.
+  #
+  # AVIF on purpose: <picture> offers AVIF first, so preloading the WebP
+  # would hand an AVIF-capable browser two copies of the same image.
+  # Must match slides[0] in src/content/home.js.
+  <IfModule mod_setenvif.c>
+    SetEnvIf Request_URI "^/$" ALFI_HOME=1
+    Header set Link "</images/hero-geneva-1800w.avif>; rel=preload; as=image; type=image/avif; imagesrcset=\"/images/hero-geneva-768w.avif 768w, /images/hero-geneva-1200w.avif 1200w, /images/hero-geneva-1800w.avif 1800w, /images/hero-geneva-2560w.avif 2560w, /images/hero-geneva-3200w.avif 3200w\"; imagesizes=100vw; fetchpriority=high" env=ALFI_HOME
+  </IfModule>
+</IfModule>

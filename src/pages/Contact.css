@@ -1,0 +1,97 @@
+/* Contact (ASP-11) */
+
+.contact-main {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: start;
+}
+
+.contact-heading { margin-top: var(--s-4); }
+
+/* `.contact-form` removed in ASP-68 with the form it spaced. */
+
+/* `.contact-body` removed on 5 Nov with the paragraph it styled. The email
+   link below now follows the eyebrow directly and carries its own margin.
+   `.contact-heading` above stays — the office column still uses it. */
+
+/* The one thing this page exists for, so it is set a step above the detail
+   around it rather than as another small link. `.contact-email` below is the
+   small treatment, still used nowhere since the address lost its copy of the
+   address line — kept because the aside may want it back. */
+.contact-primary {
+  display: inline-block;
+  margin-top: var(--s-5);
+  font-size: var(--t-lead);
+  color: var(--c-gold-deep);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 3px;
+}
+
+/* Deliberately not WhatsApp green. The floating button carries the mark and
+   the colour; a second green thing on the same screen competes with it. */
+.contact-wa {
+  display: block;
+  width: fit-content;
+  margin-top: var(--s-4);
+  font-size: var(--t-small);
+  color: var(--c-muted);
+  border-bottom: 1px solid var(--c-rule);
+  padding-bottom: 2px;
+  transition: color var(--d-fast) var(--e-out);
+}
+.contact-wa:hover { color: var(--c-gold-deep); }
+
+.contact-aside { }
+
+.contact-address {
+  display: flex;
+  flex-direction: column;
+  font-style: normal;
+  margin-top: var(--s-5);
+  color: var(--c-muted);
+  font-size: var(--t-small);
+}
+
+.contact-email {
+  display: inline-block;
+  margin-top: var(--s-3);
+  font-size: var(--t-small);
+  color: var(--c-gold-deep);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+
+/* .contact-reach removed in ASP-53 with the paragraph it styled. */
+
+/* .contact-figure removed in ASP-43, with the photograph it framed. */
+
+/* ---- The entrance (ASP-43) ----
+ *
+ * `.contact-main` staggers its two columns, and each column staggers its own
+ * lines. That still happens; it needs no rules here.
+ *
+ * REMOVED IN ASP-68: eight rules that existed only for the enquiry form.
+ * They gave `.enq`'s children a base delay so the fields followed the
+ * heading two rows above them instead of racing it, plus a `:focus-within`
+ * guard so tabbing into the form mid-entrance did not draw a focus ring
+ * around an input at opacity 0 (the ASP-41 defect), plus the reduced-motion
+ * cancel for both. Every one of them was keyed on `.enq`, which nothing
+ * renders any more. The generic guard they were overriding still lives in
+ * index.css and still covers the links that replaced the form.
+ */
+
+/* Leadership and the digital card moved to Partners.css in ASP-38. */
+
+/* ---- Regulatory ----
+ *
+ * REMOVED IN ASP-79: `.contact-reg` and `.contact-reg__body`. They styled the
+ * regulatory notice ASP-48 deleted from this page, and nothing has rendered
+ * either class since. Do not reinstate them to put a notice back — the only
+ * statement of scope on the site now lives in About's 'What we do not do'
+ * band, which is the client's own paragraph.
+ */
+
+@media (max-width: 900px) {
+  .contact-main { grid-template-columns: 1fr; }
+}

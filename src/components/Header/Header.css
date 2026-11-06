@@ -1,0 +1,304 @@
+/* Site header (ASP-04) */
+
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background: var(--c-navy);
+  border-bottom: 1px solid var(--c-rule-dark);
+  /* Background and shadow only. Nothing here changes the header's size, so
+     sticking cannot shift the page. */
+  transition: background-color var(--d-base) var(--e-out),
+              box-shadow var(--d-base) var(--e-out);
+}
+
+/* Once stuck, the header gains a shadow so content passing under it reads as
+   behind rather than butting against it. */
+.hdr.is-stuck { box-shadow: var(--shadow-header); }
+
+/* The translucency is applied ONLY where the blur behind it is supported.
+   Without the blur, a semi-transparent navy bar over a cream section shows
+   sharp text sliding through the nav links and is unreadable — so browsers
+   without backdrop-filter keep the solid navy, which is the original look. */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .hdr.is-stuck {
+    background: rgba(11, 28, 51, 0.88);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+  }
+}
+
+/* The mobile panel sits inside the header but carries its own opaque navy,
+   so the translucent bar above it does not bleed through the open menu. */
+
+/* Below 1101px this is the mobile row — the brand and the toggle, with the
+   menu and the button hidden — so it stays a flex row. The desktop grid is
+   declared in the `min-width: 1101px` block lower down, beside the
+   breakpoint it belongs to rather than overriding this from a distance. */
+.hdr__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  min-height: var(--header-h-sm);
+}
+
+.hdr__brand { display: flex; align-items: center; gap: var(--s-3); }
+.hdr__brandtext { display: flex; flex-direction: column; gap: 0.3125rem; }
+
+.hdr__name {
+  font-family: var(--f-serif);
+  font-size: 1.1875rem;
+  letter-spacing: var(--ls-wordmark);
+  color: var(--c-cream);
+  line-height: 1;
+}
+
+.hdr__sub {
+  font-size: 0.5rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+  line-height: 1;
+}
+
+/* ---- Desktop nav ---- */
+/* Gap narrowed from --s-7 to --s-6 in ASP-69, and to --s-5 in ASP-72 when
+   'Who We Serve' made it seven items. The header's `.wrap` caps its contents
+   however wide the screen is, so a bigger monitor buys the menu nothing —
+   at --s-7 six items plus the button measured the full cap exactly, and at
+   --s-6 seven items overflowed it.
+
+   Six gaps, so each step down the scale is worth 48px to the row. That is
+   where the space for the seventh item came from; the letter-spacing below
+   was left alone, having already been tightened once in ASP-69.
+
+   ASP-80 KEEPS --s-5 AT EVERY WIDTH. The menu no longer shares a fixed gap
+   with the conversation button, so the 1101–1280 band that took this down to
+   --s-4 has been removed rather than relaxed. Measured at a 1101px viewport
+   before and after; the figures are on the ticket. */
+.hdr__nav { display: flex; gap: var(--s-5); }
+
+/* `.hdr__right` REMOVED IN ASP-80, with the markup it wrapped. It was the
+   menu and the button as one group, separated by --s-7. Those 40px plus the
+   24px `.hdr__inner` gap were fixed width in the middle of the row, which is
+   where the room for a seventh menu item had to come from. The desktop grid
+   below spends that space on the flexible columns either side of the menu
+   instead, so it collapses when the row is tight and opens up when it is
+   not. */
+
+/* The page CTAs are 17px/30px padding, built for a section, and nearly fill
+   the 70px header band. This is the same button at header scale. Keep the
+   font size at or above the menu's 0.71875rem — anything smaller and the
+   primary action is the smallest text in the header. */
+.hdr__cta {
+  padding: 0.6875rem 1.125rem;
+  font-size: 0.71875rem;
+  letter-spacing: 0.12em;
+  /* Without this the label breaks after 'ARRANGE A' and the button is two
+     lines and 62px tall inside a 70px header. Measured, not guessed. */
+  white-space: nowrap;
+}
+
+.hdr__link {
+  position: relative;
+  font-size: 0.71875rem;
+  /* 0.22em until ASP-69. At 11.5px, each 0.01em is about 0.115px per
+     character, and the six labels run to 49 characters — so the tracking
+     alone was costing the menu some 45px. The size is unchanged; only the
+     spacing between letters is tighter. */
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-on-dark-50);
+  padding-block: var(--s-2);
+  transition: color var(--d-fast) var(--e-out);
+  /* ASP-69 gave two items a second word, and flex shrank them until 'ABOUT
+     ALFI' and 'OUR APPROACH' broke across two lines. Worth knowing: this is
+     invisible to a height check, because .hdr__nav stretches every link to
+     the tallest one — all six still measure 54px while two of them wrap.
+     Count the line boxes with Range.getClientRects, not the height. */
+  white-space: nowrap;
+}
+.hdr__link:hover { color: var(--c-cream); }
+.hdr__link.is-active { color: var(--c-cream); }
+.hdr__link.is-active::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--c-gold);
+}
+
+/* ---- Mobile toggle ---- */
+.hdr__toggle {
+  display: none;
+  background: none;
+  border: 0;
+  padding: var(--s-2);
+  cursor: pointer;
+  color: var(--c-cream);
+}
+
+.hdr__bars {
+  display: block;
+  position: relative;
+  width: 1.625rem;
+  height: 0.875rem;
+}
+.hdr__bars span {
+  position: absolute;
+  inset-inline: 0;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform var(--d-fast) var(--e-out), opacity var(--d-fast) var(--e-out);
+}
+.hdr__bars span:nth-child(1) { top: 0; }
+.hdr__bars span:nth-child(2) { top: 0.375rem; }
+.hdr__bars span:nth-child(3) { top: 0.75rem; }
+
+.hdr__bars.is-open span:nth-child(1) { transform: translateY(0.375rem) rotate(45deg); }
+.hdr__bars.is-open span:nth-child(2) { opacity: 0; }
+.hdr__bars.is-open span:nth-child(3) { transform: translateY(-0.375rem) rotate(-45deg); }
+
+/* The bars morph into a cross by moving, so the transition is real motion.
+   Drop the tween but keep the end states — the icon must still read as a
+   cross when the menu is open, or there is no way to tell it is open. */
+@media (prefers-reduced-motion: reduce) {
+  .hdr__bars span { transition: none; }
+}
+
+/* ---- Mobile panel ---- */
+.hdr__panel {
+  display: none;
+  background: var(--c-navy);
+  border-top: 1px solid var(--c-rule-dark);
+}
+.hdr__panelnav {
+  display: flex;
+  flex-direction: column;
+  padding: var(--s-4) var(--wrap-pad) var(--s-6);
+}
+.hdr__panelnav .hdr__link {
+  padding-block: var(--s-4);
+  border-bottom: 1px solid var(--c-rule-dark);
+  font-size: 0.8125rem;
+}
+.hdr__panelnav .hdr__link.is-active::after { content: none; }
+.hdr__panelnav .hdr__link.is-active { color: var(--c-gold); }
+
+/* No top padding: .hdr__panelnav already ends with --s-6 beneath its last
+   link, and doubling it leaves the button floating. */
+.hdr__panelcta { padding: 0 var(--wrap-pad) var(--s-6); }
+.hdr__panelcta .ui-btn { display: block; width: 100%; }
+
+/* THE MENU SWITCHES TO THE PANEL AT 1100px, NOT THE SITE'S 900px (ASP-69).
+ *
+ * Six menu items and the conversation button need about 1040px of header
+ * before anything is cramped — measured at 1024px wide, where the row ran
+ * 34px past the viewport, and at 910px, where it ran 145px past. Six items
+ * plus a 245px button simply do not fit a 900px screen; tightening the gaps
+ * enough to make them fit left the type cramped and still overflowed.
+ *
+ * So this one breakpoint is deliberately decoupled from the `md` 900px used
+ * elsewhere on the site. The rest of Header.css, the Footer and the figures
+ * still switch at 900. If a menu item is ever added or removed, re-measure:
+ * `document.documentElement.scrollWidth` against `clientWidth` at 1101px.
+ *
+ * MOBILE_QUERY in Header.jsx must match the max-width below, or the panel
+ * can be left open with no visible way to close it. */
+@media (max-width: 1100px) {
+  /* `space-between` belongs to the mobile row and nowhere else (ASP-80). It
+     used to sit on the base rule, which meant the desktop GRID inherited it —
+     and `justify-content` on a grid distributes free space between the
+     tracks, so the button was pushed 4px past the content box. Measured, at a
+     1101px viewport. Keep this here, with the layout it is for. */
+  .hdr__inner { justify-content: space-between; }
+
+  .hdr__nav { display: none; }
+  /* Both of these hide themselves. `.hdr__right` used to wrap the pair, and
+     the note here warned that hiding the group was not enough. ASP-80 removed
+     the group, so these two rules are now the only thing keeping the menu and
+     the button out of the mobile row. */
+  .hdr__cta { display: none; }
+  .hdr__toggle { display: block; }
+  .hdr__panel.is-open { display: block; }
+}
+
+@media (min-width: 1101px) {
+  /* THREE COLUMNS: brand hard left, menu centred, button hard right (ASP-80).
+   *
+   * `1fr auto 1fr` is what centres the menu on the HEADER rather than on
+   * whatever space is left over. The brand and the button are different
+   * widths, so a flex row with space-between puts the menu wherever those
+   * two happen to leave room; equal flexible columns either side of an
+   * `auto` middle put it in the actual middle.
+   *
+   * `column-gap` is a floor, not the spacing. The 1fr columns carry the real
+   * separation and only fall back to this 16px when the row is at its
+   * tightest — which is the whole saving over `.hdr__right`, whose 40px was
+   * fixed at every width.
+   *
+   * The toggle is a fourth child of this element and is display:none up here,
+   * so it takes no grid cell and the three columns are the three that matter.
+   */
+  /* `.hdr__inner.wrap` on purpose: `.wrap` sets the cap at one class, and
+     this rule has to beat it. Equal specificity would leave the outcome to
+     whichever stylesheet the bundler emits second, which is a coin toss, and
+     index.css happens to win it. */
+  .hdr__inner.wrap {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    column-gap: var(--s-5);
+    min-height: var(--header-h);
+    /* THE HEADER ROW IS NOT CONTENT (ASP-80). `.wrap` caps everything it is
+       on at --wrap, and on this element that put the brand and the button
+       1180px apart however wide the monitor was. A navigation bar spans the
+       bar; the cap belongs to the prose and the grids below it. With the cap
+       off, the brand sits hard left, the button hard right, and the menu has
+       the whole width to be centred in. */
+    max-width: none;
+  }
+  .hdr__nav { justify-self: center; }
+  .hdr__cta { justify-self: end; }
+  .hdr__panel { display: none !important; }
+}
+
+/* THE 1101–1280 SQUEEZE BAND IS GONE (ASP-80). It took the menu gap to --s-4
+ * and the right-hand group to --s-5, because at a 1101px viewport seven items
+ * needed 1114px and there were only about 1086px of room — 28px over.
+ *
+ * A 1101px viewport is STILL the binding case, and still the thing to
+ * understand before widening anything here: Chrome matches `min-width`
+ * against the viewport INCLUDING the scrollbar while the content box excludes
+ * it, so the desktop menu first appears with roughly 15px less room than the
+ * breakpoint reads.
+ *
+ * What changed is where the fixed width sat. `.hdr__right` held the menu and
+ * the button 40px apart and `.hdr__inner` added 24px on top, both fixed at
+ * every width. The grid above spends that on flexible columns instead, so the
+ * row fits at --s-5 with no band at any width a real monitor has.
+ *
+ * ONE NARROW BAND SURVIVES, and it trims the GRID gap only. Between 1101px
+ * and 1150px the brand, the seven items and the button come to 20px more
+ * than the row, even with the cap off. Taking the two gaps either side of the
+ * menu from 24px to 12px covers it with a little to spare, and the menu
+ * itself keeps its --s-5 — which was the point of the whole change. Measured
+ * at a 1101px viewport: 1086px of room, 20px over at 24px gaps, 0 at 12px,
+ * and no label wraps at either.
+ *
+ * Re-measure here if an eighth item is ever added — and count line boxes,
+ * not heights. */
+@media (min-width: 1101px) and (max-width: 1150px) {
+  .hdr__inner.wrap { column-gap: var(--s-3); }
+}
+
+/* Zero-height marker in normal flow directly above the sticky header.
+   Not display:none — a hidden element has no box to intersect, so the
+   observer would never fire. */
+.hdr__sentinel {
+  display: block;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}

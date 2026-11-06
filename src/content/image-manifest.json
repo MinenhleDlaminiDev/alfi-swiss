@@ -1,0 +1,368 @@
+{
+  "about-firm": {
+    "width": 2400,
+    "height": 1881,
+    "aspect": 1.2759,
+    "widths": [
+      480,
+      768,
+      1200
+    ]
+  },
+  "card-bank-introductions": {
+    "width": 1440,
+    "height": 983,
+    "aspect": 1.4649,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-business-owners": {
+    "width": 1440,
+    "height": 955,
+    "aspect": 1.5079,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-confidentiality": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-diversification": {
+    "width": 1440,
+    "height": 1013,
+    "aspect": 1.4215,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-families": {
+    "width": 1440,
+    "height": 1080,
+    "aspect": 1.3333,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-hnw-individuals": {
+    "width": 1440,
+    "height": 957,
+    "aspect": 1.5047,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-independence": {
+    "width": 1440,
+    "height": 1080,
+    "aspect": 1.3333,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-independent-advice": {
+    "width": 1440,
+    "height": 957,
+    "aspect": 1.5047,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-institutions": {
+    "width": 1440,
+    "height": 1080,
+    "aspect": 1.3333,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-integrated-view": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-long-term": {
+    "width": 1440,
+    "height": 810,
+    "aspect": 1.7778,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-monitoring": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-partner-dimanow": {
+    "width": 900,
+    "height": 1200,
+    "aspect": 0.75,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-partner-fiuza": {
+    "width": 320,
+    "height": 427,
+    "aspect": 0.7494,
+    "widths": [
+      320
+    ]
+  },
+  "card-preservation": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-risk-opportunity": {
+    "width": 1440,
+    "height": 862,
+    "aspect": 1.6705,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-senior-attention": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-serve-entrepreneurs": {
+    "width": 1600,
+    "height": 1061,
+    "aspect": 1.508,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-serve-generations": {
+    "width": 1600,
+    "height": 1067,
+    "aspect": 1.4995,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-serve-international": {
+    "width": 1600,
+    "height": 1067,
+    "aspect": 1.4995,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-svc-alternatives": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-svc-portfolio": {
+    "width": 1440,
+    "height": 1000,
+    "aspect": 1.44,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-svc-risk": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-svc-strategic": {
+    "width": 1440,
+    "height": 960,
+    "aspect": 1.5,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "card-svc-wealth": {
+    "width": 1440,
+    "height": 1007,
+    "aspect": 1.43,
+    "widths": [
+      320,
+      560,
+      720
+    ]
+  },
+  "contact-geneva": {
+    "width": 2400,
+    "height": 1600,
+    "aspect": 1.5,
+    "widths": [
+      480,
+      768,
+      1200
+    ]
+  },
+  "hero-alps": {
+    "width": 3200,
+    "height": 2136,
+    "aspect": 1.4981,
+    "widths": [
+      768,
+      1200,
+      1800,
+      2560,
+      3200
+    ]
+  },
+  "hero-arcade": {
+    "width": 3200,
+    "height": 2133,
+    "aspect": 1.5002,
+    "widths": [
+      768,
+      1200,
+      1800,
+      2560,
+      3200
+    ]
+  },
+  "hero-boardroom": {
+    "width": 3200,
+    "height": 2133,
+    "aspect": 1.5002,
+    "widths": [
+      768,
+      1200,
+      1800,
+      2560,
+      3200
+    ]
+  },
+  "hero-geneva": {
+    "width": 3200,
+    "height": 2048,
+    "aspect": 1.5625,
+    "widths": [
+      768,
+      1200,
+      1800,
+      2560,
+      3200
+    ]
+  },
+  "home-positioning": {
+    "width": 2400,
+    "height": 1799,
+    "aspect": 1.3341,
+    "widths": [
+      480,
+      768,
+      1200
+    ]
+  },
+  "philosophy-principles": {
+    "width": 2400,
+    "height": 1600,
+    "aspect": 1.5,
+    "widths": [
+      480,
+      768,
+      1200
+    ]
+  },
+  "services-investment-advisory": {
+    "width": 2400,
+    "height": 1600,
+    "aspect": 1.5,
+    "widths": [
+      480,
+      768,
+      1200
+    ]
+  },
+  "services-strategic-advisory": {
+    "width": 2400,
+    "height": 1606,
+    "aspect": 1.4944,
+    "widths": [
+      480,
+      768,
+      1200
+    ]
+  },
+  "services-wealth-management": {
+    "width": 2400,
+    "height": 1600,
+    "aspect": 1.5,
+    "widths": [
+      480,
+      768,
+      1200
+    ]
+  }
+}

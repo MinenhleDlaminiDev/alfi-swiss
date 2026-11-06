@@ -1,0 +1,162 @@
+/* Team (ASP-38) */
+
+.team-heading { margin-top: var(--s-4); }
+
+.team-people {
+  display: grid;
+  /* Two profiles, wide enough that the portrait above the text does not look
+     like a stamp. Two partners today; auto-fit means a third needs no change
+     here, it just joins the row. */
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: var(--s-6);
+  margin-top: var(--s-7);
+}
+
+/* The card vocabulary from ASP-31, laid out vertically: portrait on top,
+   text beneath. The Contact version put them side by side, which worked for
+   a one-line role but squeezed a four-line biography into a column half the
+   width of the card. */
+.team-person {
+  --card-lift: -4px;
+  display: flex;
+  flex-direction: column;
+  background: var(--c-paper);
+  border: 1px solid var(--c-rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+  transition: transform var(--d-base) var(--e-out),
+              box-shadow var(--d-base) var(--e-out),
+              border-color var(--d-base) var(--e-out);
+}
+
+.team-person:hover {
+  transform: translateY(var(--card-lift));
+  box-shadow: var(--shadow-3);
+  border-color: rgba(201, 169, 78, 0.45);
+}
+
+/* A fixed ratio so both portraits are cropped identically. The two supplied
+   photographs are framed quite differently — one studio, one cut-out — and
+   without this the cards would sit at different heights and the heads would
+   land at different levels. */
+/* 3/4 PORTRAIT, not 4/3 landscape (ASP-42).
+   Both supplied photographs are vertical, and forcing a vertical portrait
+   through a landscape hole leaves almost nothing but face — which is why
+   Dimanow read as over-zoomed. The framing was the photographer's; the hole
+   was ours.
+
+   Capped and inset rather than full-bleed, for two reasons: a full-width 3/4
+   portrait on a 560px card runs past 700px tall and swamps the biography,
+   and Fiúza's master is only 325px wide, so a slot wider than this is asking
+   for resolution his file does not have. */
+.team-person__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  /* 240px, not 300px (ASP-50).
+     Fiúza's supplied file is 325px wide, and the crop that matches Dimanow's
+     framing uses 212px of it. In a 300px box that is a 1.42x enlargement and
+     the face visibly breaks up. At 240px it is 1.13x — near native, and the
+     difference on screen is obvious.
+     Applied to BOTH partners so the two cards stay identical, which is the
+     whole point of the exercise. Dimanow has resolution to spare either way.
+     If a larger original ever arrives from Fiúza, this can go back to 300. */
+  max-width: 240px;
+  margin: var(--s-5) auto 0;
+  border-radius: var(--radius);
+  background: var(--c-navy-lift);
+}
+
+.team-person__media picture { display: block; height: 100%; }
+
+.team-person__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Faces sit high in both frames; centring the crop would cut foreheads. */
+  object-position: top center;
+  transition: transform var(--d-slower) var(--e-out);
+}
+
+.team-person:hover .team-person__img { transform: scale(1.04); }
+
+.team-person__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--s-6) var(--s-5) var(--s-5);
+}
+
+.team-person__name { font-size: var(--t-h3); }
+
+.team-person__role {
+  margin-top: var(--s-2);
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  /* 11px is small text and needs 4.5:1. --c-gold-ink is 3.84:1 on paper;
+     --c-gold-deep is 5.35:1 (ASP-33). */
+  color: var(--c-gold-deep);
+}
+
+.team-person__bio {
+  margin-top: var(--s-4);
+  font-size: var(--t-small);
+  line-height: var(--lh-loose);
+  color: var(--c-muted);
+}
+
+/* Languages (ASP-76). Set apart from the biography above it with a rule
+   rather than more whitespace: it is a different kind of information — a
+   fact list, not prose — and on a card this size extra space alone does not
+   read as a separation. */
+.team-person__langs {
+  margin-top: var(--s-5);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--c-rule);
+  font-size: var(--t-small);
+  line-height: var(--lh-loose);
+  color: var(--c-muted);
+}
+
+.team-person__langlabel {
+  display: block;
+  margin-bottom: var(--s-2);
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  /* Same colour as the role line above, and for the same reason: 11px is
+     small text and needs 4.5:1. --c-gold-deep is 5.35:1 on paper (ASP-33),
+     where --c-gold-ink is only 3.84:1. */
+  color: var(--c-gold-deep);
+}
+
+/* `.team-person__flag` was removed in ASP-76. It rendered ' (Pending
+   approval)' in --c-error italic after an unapproved biography, measured
+   5.19:1 on paper. Both biographies are now the client's own approved copy,
+   so nothing on this page is awaiting sign-off and the flag has nothing to
+   mark. If a third partner is ever added before their copy arrives, bring it
+   back rather than publishing filler unmarked. */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Movement goes, depth and colour stay. */
+  .team-person { --card-lift: 0px; }
+  .team-person:hover .team-person__img { transform: none; }
+  .team-person__img { transition: none; }
+}
+
+@media (max-width: 560px) {
+  /* A 4/3 portrait at full phone width is most of the screen before the
+     reading starts. */
+  /* Still portrait on a phone, just smaller — a landscape crop here would
+     reintroduce exactly the close-up this ticket removed. */
+  .team-person__media { max-width: 220px; }
+}
+
+/* The digital-card trigger and the .vcf download button were styled here
+   until ASP-51, where the client removed the V-card feature. Deleted
+   rather than commented out: the markup they styled is gone too. */

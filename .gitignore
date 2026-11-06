@@ -4,3 +4,19 @@ dist-ssr
 *.local
 .env
 .DS_Store
+
+# Generated image derivatives — masters live in assets/images/
+# Rebuild with: npm run images
+#
+# Every format the pipeline emits must be listed. AVIF was added in ASP-47
+# and this line with it: without it, 105 generated files (~5MB) would have
+# been committed, which is the stale-artefact problem the rest of this
+# section exists to prevent.
+public/images/*.avif
+public/images/*.webp
+public/images/*.jpg
+
+# The generated vCard artefacts were ignored here until ASP-51 removed the
+# feature. Nothing produces a .vcf or a QR any more, so the rules went with
+# the generator rather than lingering as instructions for a build step that
+# no longer exists.

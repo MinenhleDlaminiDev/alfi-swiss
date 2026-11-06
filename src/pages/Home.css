@@ -1,0 +1,568 @@
+/* Home (ASP-07) */
+
+/* ---- Hero ---- */
+.home-hero {
+  position: relative;
+  color: var(--c-on-dark);
+  background: var(--c-navy);
+
+  /* No `overflow: hidden` here on purpose. The backdrop clips its own images,
+     and clipping the section instead cut the CTAs off the bottom on any
+     screen shorter than about 950px — the buttons were there, just sliced.
+     Without it the section grows past the viewport when the content needs
+     more room, which costs a few pixels of scroll instead of a lost button. */
+
+  /* Full viewport, with the content sitting at the bottom over the darkest
+     part of the veil.
+
+     svh, not vh: on mobile `100vh` is the viewport with the address bar
+     HIDDEN, so the hero overflows by the height of the bar on load and the
+     page jumps as it retracts. `100svh` is the smallest stable viewport and
+     does not move. The vh line is the fallback for browsers without svh. */
+  /* The header is sticky, not fixed, so it sits in normal flow ABOVE this
+     section and the hero starts at y = header height. A plain 100svh would
+     therefore run a full header's worth past the fold — which it did, pushing
+     the CTAs off the bottom of every laptop screen. Subtract it. */
+  min-height: calc(100vh - var(--header-h));
+  min-height: calc(100svh - var(--header-h));
+
+  display: flex;
+  align-items: center;
+
+  /* Equal top and bottom, so `center` actually reads as centred. With uneven
+     padding the block sits optically low even when it is mathematically
+     centred within the content box. */
+  padding-block: var(--s-8);
+}
+
+/* The eyebrow is gold everywhere else, where it sits on flat navy and
+   measures 7.55:1. Over a photograph it does not: measured 2.07:1 at its worst
+   across the four slides, against the 4.5:1 that 11px text needs.
+
+   Darkening the veil enough to rescue gold would need roughly half the current
+   luminance at that height, which flattens the photograph into a grey panel
+   and defeats the point of having one. Cream costs one accent colour and
+   measures 5.5:1+ over every slide. */
+.home-hero .ui-eyebrow { color: var(--c-cream); }
+
+.home-hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 47.5rem;
+}
+
+.home-hero__heading {
+  font-size: var(--t-hero);
+  line-height: var(--lh-tight);
+  color: var(--c-cream);
+  margin-top: var(--s-5);
+}
+
+/* The clipping line box for the masked reveal (ASP-28).
+
+   `overflow: hidden` on a line of 62px Georgia will cut the descenders off
+   'g', 'p' and 'y' — and the heading has all three ('Independent advice.' has
+   the p, 'Your family's interests first.' has the y). The padding gives the
+   glyphs room inside the clip and the negative margin gives the space
+   straight back to the layout, so the heading occupies exactly what it did
+   before. */
+.home-hero__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.home-hero__line-in { display: block; }
+
+.home-hero__rule {
+  width: 3.375rem;
+  height: 1px;
+  background: var(--c-gold);
+  margin-block: var(--s-6);
+  /* Draws from the left. Set here rather than in the motion block so the
+     origin is right even if the rule is mid-transition when the class lands. */
+  transform-origin: left center;
+}
+
+.home-hero__lead {
+  max-width: 37.5rem;
+  font-size: var(--t-lead);
+  line-height: var(--lh-loose);
+  color: var(--c-on-dark-70);
+}
+
+.home-hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  margin-top: var(--s-7);
+}
+
+/* ---- Hero choreography (ASP-28) ----
+ *
+ * ASP-24 already staggered the hero's five children at 80ms apart. This
+ * replaces that with a sequence that treats the heading as two lines and the
+ * rule as something that draws, because the heading is the thing the eye goes
+ * to and it was arriving as a single block of text.
+ *
+ * ASP-71 made the heading THREE lines — the client's tagline — so everything
+ * after the lines moved 90ms later to keep the same gap behind them. The
+ * third line already had a delay waiting for it in the `n+3` rule below; the
+ * rule, lead and buttons did not, and the rule would have started drawing
+ * 30ms after the last line began to rise.
+ *
+ * Timing, from the moment the observer fires:
+ *
+ *     eyebrow      0ms
+ *     line 1      90ms  ─┐
+ *     line 2     180ms  ─┤ masked rise, 640ms
+ *     line 3     270ms  ─┘
+ *     rule       390ms     scaleX draw, 560ms
+ *     lead       470ms
+ *     CTAs       550ms
+ *
+ * Last thing to start is the CTA pair at 550ms over --d-slower (520ms), so
+ * everything has settled by 1070ms.
+ *
+ * Every selector here carries `.home-hero__inner` purely to outrank the
+ * generic `.u-reveal--hero` rules in index.css, which match at the same
+ * specificity. Relying on which stylesheet the bundler emits second is not a
+ * cascade, it is a coin toss.
+ */
+.js-motion .home-hero__inner.u-reveal--hero.is-in > *:nth-child(1) { transition-delay: 0ms; }
+.js-motion .home-hero__inner.u-reveal--hero.is-in > *:nth-child(4) { transition-delay: 470ms; }
+.js-motion .home-hero__inner.u-reveal--hero.is-in > *:nth-child(5) { transition-delay: 550ms; }
+
+/* The heading does not animate as a block — its lines do, below. Without
+   this it would fade as a unit at the same time, and the lines would be
+   rising inside something that is itself still arriving. */
+.js-motion .home-hero__inner.u-reveal--hero > .home-hero__heading {
+  opacity: 1;
+  transform: none;
+}
+
+.js-motion .home-hero__inner.u-reveal--hero .home-hero__line-in {
+  opacity: 0;
+  /* 105%, not 100%: a hair further than the clip, so no sliver of the cap
+     height is visible before it starts. */
+  transform: translateY(105%);
+}
+
+.js-motion .home-hero__inner.u-reveal--hero.is-in .home-hero__line-in {
+  opacity: 1;
+  transform: none;
+  /* The opacity finishes well before the travel does, so the line is fully
+     opaque while it is still rising. Fading and moving over the same duration
+     reads as a dissolve; this reads as type being set. */
+  transition: transform 640ms var(--e-out),
+              opacity 380ms var(--e-out);
+  transition-delay: var(--line-delay, 0ms);
+}
+
+.home-hero__line:nth-child(1) .home-hero__line-in { --line-delay: 90ms; }
+.home-hero__line:nth-child(2) .home-hero__line-in { --line-delay: 180ms; }
+.home-hero__line:nth-child(n+3) .home-hero__line-in { --line-delay: 270ms; }
+
+/* The rule draws rather than fades. It is already full opacity at rest; only
+   its width is animated, and via scaleX so it composites. */
+.js-motion .home-hero__inner.u-reveal--hero .home-hero__rule {
+  opacity: 1;
+  transform: scaleX(0);
+}
+
+.js-motion .home-hero__inner.u-reveal--hero.is-in .home-hero__rule {
+  transform: scaleX(1);
+  transition: transform 560ms var(--e-out);
+  transition-delay: 390ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* TRAVEL GOES, THE CHOREOGRAPHY STAYS (ASP-80).
+   *
+   * This block used to zero every delay in the sequence as well, so the most
+   * considered entrance on the site became one 240ms flash with six elements
+   * landing on the same frame — at the top of the page, on first load. The
+   * order and the spacing are not movement; they are the whole reason the
+   * entrance reads as deliberate. What goes is the rising, the mask and the
+   * scaleX draw, which is what the preference is about.
+   *
+   * The nth-child delays above are therefore left alone: 0ms, 470ms, 550ms
+   * still stand under `reduce`.
+   */
+
+  /* The lines appear in place, still 90ms apart. `--line-delay` is untouched,
+     so only the rise is cancelled — and the fade is lengthened, because a
+     fade on its own needs longer than one chasing a 640ms rise. The
+     `transition-delay` has to be restated: the shorthand above it resets
+     that longhand to 0s, which would silently flatten the stagger. */
+  .js-motion .home-hero__inner.u-reveal--hero .home-hero__line-in,
+  .js-motion .home-hero__inner.u-reveal--hero.is-in .home-hero__line-in {
+    transform: none;
+  }
+  .js-motion .home-hero__inner.u-reveal--hero.is-in .home-hero__line-in {
+    transition: opacity 600ms var(--e-out);
+    transition-delay: var(--line-delay, 0ms);
+  }
+
+  /* The rule FADES in at its place in the sequence rather than drawing.
+     It sits at full opacity at rest, so once the scaleX is cancelled there is
+     nothing left for it to animate — which is why this used to be
+     `transition: none` and the rule simply appeared. Giving it an opacity to
+     travel instead keeps it at 390ms, between the heading and the lead, with
+     nothing moving. */
+  .js-motion .home-hero__inner.u-reveal--hero .home-hero__rule {
+    opacity: 0;
+    transform: none;
+  }
+  .js-motion .home-hero__inner.u-reveal--hero.is-in .home-hero__rule {
+    opacity: 1;
+    transform: none;
+    transition: opacity 560ms var(--e-out);
+    transition-delay: 390ms;
+  }
+}
+
+/* ---- Scroll cue (ASP-28) ---- */
+.home-hero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: var(--s-6);
+  z-index: 1;
+  width: 1px;
+  height: 2.5rem;
+  /* Fades up into nothing, so it reads as a mark on the photograph rather
+     than a UI element stuck to the bottom of the screen. */
+  background: linear-gradient(to bottom, rgba(201, 169, 78, 0) 0%, var(--c-gold) 100%);
+  transition: opacity var(--d-base) var(--e-out);
+}
+
+.home-hero__cue.is-gone { opacity: 0; }
+
+/* A bead travelling down the hairline, twice, then still.
+   Two passes at 2.2s is 4.4s of movement — under the five seconds past which
+   WCAG 2.2.2 would require a pause control for something that moves by
+   itself. Three passes would cross it. */
+.home-hero__cue::after {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--c-gold-soft);
+  animation: heroCue 2200ms var(--e-out) 2;
+}
+
+@keyframes heroCue {
+  0%   { opacity: 0; transform: translateY(0); }
+  30%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(2.5rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The hairline stays — it is the part that carries the meaning. Only the
+     travelling bead goes. */
+  .home-hero__cue::after { animation: none; opacity: 0; }
+}
+
+@media (max-width: 900px), (max-height: 760px) {
+  /* No room. Below either of these the hero's own content comes close enough
+     to the bottom edge that the cue would sit on top of the CTAs — and on a
+     phone, that the page scrolls is not news to anybody. */
+  .home-hero__cue { display: none; }
+}
+
+/* ---- Credentials ---- */
+.home-creds {
+  background: var(--c-navy-deep);
+  border-top: 1px solid var(--c-rule-dark);
+  padding-block: var(--s-8);
+}
+
+/* The rules beside each stat wipe downward as the strip arrives (ASP-28).
+ *
+ * A border cannot be scaled, so the painted rule moves to a pseudo-element
+ * and the real border is held transparent — not removed, so the box keeps its
+ * 1px and nothing shifts by a pixel when the treatment is absent.
+ *
+ * Scoped to .home-creds: the same StatBlock is used elsewhere and should keep
+ * its plain borders. */
+.home-creds .ui-stat {
+  position: relative;
+  border-left-color: transparent;
+}
+
+.home-creds .ui-stat::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--c-rule-dark);
+  transform-origin: top center;
+}
+
+.js-motion .home-creds .u-reveal .ui-stat::before { transform: scaleY(0); }
+
+.js-motion .home-creds .u-reveal.is-in .ui-stat::before {
+  transform: scaleY(1);
+  transition: transform var(--d-slower) var(--e-out);
+}
+
+/* Each rule starts after the one to its left. */
+.js-motion .home-creds .u-reveal.is-in .ui-stat:nth-child(2)::before { transition-delay: 90ms; }
+.js-motion .home-creds .u-reveal.is-in .ui-stat:nth-child(3)::before { transition-delay: 180ms; }
+.js-motion .home-creds .u-reveal.is-in .ui-stat:nth-child(n+4)::before { transition-delay: 270ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* The rules are simply there. A wipe is travel, and there is no fade worth
+     having on a 1px hairline. */
+  .js-motion .home-creds .u-reveal .ui-stat::before,
+  .js-motion .home-creds .u-reveal.is-in .ui-stat::before {
+    transform: none;
+    transition: none;
+    transition-delay: 0ms;
+  }
+}
+
+@media (max-width: 900px) {
+  /* Matches the 2px gold rule the stats take at this width in ui.css. */
+  .home-creds .ui-stat::before {
+    left: -2px;
+    width: 2px;
+    background: var(--c-gold);
+  }
+}
+
+/* ---- Positioning ---- */
+.home-pos__heading { margin-top: var(--s-4); }
+.home-pos__body {
+  margin-top: var(--s-5);
+  color: var(--c-muted);
+  line-height: var(--lh-loose);
+}
+
+/* ---- Pillars ---- */
+.home-pillars { margin-top: var(--s-7); }
+
+/* Five cards, not four (ASP-71) — the client's five key messages.
+ *
+ * The shared grid is `minmax(15rem, 1fr)`, which at desktop width fits four
+ * across and drops the fifth onto a row of its own. An orphan on the second
+ * row reads as a mistake. 18rem forces three across, so five lays out 3 + 2,
+ * which reads as deliberate.
+ *
+ * This is the same fix and the same number as `.ui-cards--svc` in ui.css,
+ * where the service index hit it first. Scoped here rather than shared,
+ * because that class also carries the link treatment and these cards do not
+ * go anywhere. */
+.home-pillars .ui-cards { grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+
+/* ---- Network ----
+ *
+ * Heading on the left, paragraph and Partners link on the right. The brief's
+ * network copy is one paragraph, so a full-width band would set it as a very
+ * long measure; two columns keep it readable and give the heading somewhere
+ * to sit. Collapses to one column with the rest of the page at 900px. */
+.home-network {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: start;
+}
+.home-network__body {
+  color: var(--c-muted);
+  line-height: var(--lh-loose);
+  margin-bottom: var(--s-5);
+}
+
+/* ---- Services teaser ---- */
+.home-teaser {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: start;
+}
+.home-teaser__heading { margin-top: var(--s-4); }
+.home-teaser__body {
+  margin-top: var(--s-4);
+  color: var(--c-muted);
+  font-size: var(--t-lead);
+  line-height: var(--lh-loose);
+}
+.home-teaser__btn { margin-top: var(--s-6); }
+
+.home-teaser__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--c-rule);
+}
+.home-teaser__list li { border-bottom: 1px solid var(--c-rule); }
+.home-teaser__list a {
+  /* Three columns (ASP-28): number, label, arrow. Was a flex row of two.
+     Baseline alignment is kept so the small number still sits on the title's
+     baseline rather than floating at the top of a taller row. */
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  column-gap: var(--s-5);
+  padding-block: var(--s-4);
+  font-family: var(--f-serif);
+  font-size: 1.25rem;
+  color: var(--c-navy);
+  transition: color var(--d-fast) var(--e-out);
+}
+.home-teaser__list a:hover { color: var(--c-gold-deep); }
+.home-teaser__n {
+  font-size: var(--t-caption);
+  color: var(--c-gold-deep);
+  min-width: 1.25rem;
+}
+
+/* ---- Closing ---- */
+.home-closing { text-align: center; }
+.home-closing__heading { margin-top: var(--s-5); }
+.home-closing__body {
+  margin: var(--s-5) auto 0;
+  max-width: 31rem;
+  color: var(--c-on-dark-70);
+  font-size: var(--t-lead);
+}
+.home-closing .ui-btn { margin-top: var(--s-7); }
+
+@media (max-width: 900px) {
+  /* The header is shorter below this breakpoint, so the hero can be taller. */
+  .home-hero {
+    min-height: calc(100vh - var(--header-h-sm));
+    min-height: calc(100svh - var(--header-h-sm));
+  }
+  .home-hero__cta { flex-direction: column; align-items: stretch; }
+  .home-teaser { grid-template-columns: 1fr; }
+  .home-teaser__list a { font-size: 1.0625rem; padding-block: var(--s-3); }
+  .home-network { grid-template-columns: 1fr; }
+}
+
+/* The teaser rows are full-width links, so the whole row may respond to the
+   cursor (ASP-21). Honest, because the entire row really is the click target.
+
+   The tint goes on the <li> and the nudge on the <a>: transitioning the link's
+   own padding would reflow the row on every frame, while a transform is
+   composited and cannot. Same reason the underline wipes use scaleX. */
+.home-teaser__list li {
+  transition: background-color var(--d-base) var(--e-out);
+}
+.home-teaser__list li:hover,
+.home-teaser__list li:focus-within {
+  background-color: rgba(201, 169, 78, 0.06);
+}
+
+.home-teaser__list a {
+  transition: color var(--d-fast) var(--e-out),
+              transform var(--d-base) var(--e-out);
+}
+.home-teaser__list a:hover,
+.home-teaser__list a:focus-visible {
+  transform: translateX(6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-teaser__list a { transition: color var(--d-fast) var(--e-out); }
+  /* The row still warms on hover; it just does not slide. */
+  .home-teaser__list a:hover,
+  .home-teaser__list a:focus-visible { transform: none; }
+}
+
+/* ---- Teaser row previews (ASP-28) ----
+ *
+ * Each row already links to a service whose one-line description is written
+ * on the Services page. Hovering or focusing a row shows that line, so the
+ * list previews rather than just naming.
+ *
+ * The row genuinely grows and the rows beneath it move down. That is the
+ * honest version of this interaction: the alternatives are reserving the
+ * space permanently, which leaves a gap under every title at rest, or
+ * overlaying the description on top of the next row, which hides a link.
+ * The row under the cursor keeps its own position — it expands downward —
+ * so the hover is never stolen from the thing being pointed at.
+ */
+.home-teaser__label { display: block; }
+
+/* 0fr to 1fr, not height: the natural height of the text is never written
+   down anywhere, so there is no pixel value to animate to. Interpolating the
+   grid track does it without one. Where the browser will not interpolate fr,
+   the row simply snaps open — the description still appears. */
+.home-teaser__more {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows var(--d-base) var(--e-out);
+}
+
+.home-teaser__more-in {
+  /* A grid item's automatic minimum size is its content, which would keep the
+     track from ever reaching zero. */
+  min-height: 0;
+  /* The gap above the description has to collapse with it. `min-height: 0`
+     only zeroes the automatic minimum of the CONTENT box — padding is still
+     counted in the item's size, so 8px of padding here left every row 8px
+     taller at rest with a visible empty gap under each title. Measured at
+     exactly that, 8px, before this was moved onto the hover state. */
+  padding-top: 0;
+  font-family: var(--f-sans);
+  font-size: var(--t-small);
+  line-height: var(--lh-body);
+  color: var(--c-muted);
+  opacity: 0;
+  transition: opacity var(--d-fast) var(--e-out),
+              padding-top var(--d-base) var(--e-out);
+}
+
+.home-teaser__list li:hover .home-teaser__more,
+.home-teaser__list li:focus-within .home-teaser__more {
+  grid-template-rows: 1fr;
+}
+
+.home-teaser__list li:hover .home-teaser__more-in,
+.home-teaser__list li:focus-within .home-teaser__more-in {
+  opacity: 1;
+  padding-top: var(--s-2);
+  /* The opacity waits behind the opening, so the text arrives into a space
+     that already exists instead of being squeezed out of a closed row. The
+     padding does not wait — it is part of the opening. */
+  transition-delay: 90ms, 0ms;
+}
+
+.home-teaser__arrow {
+  font-family: var(--f-sans);
+  font-size: 1rem;
+  color: var(--c-gold-deep);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity var(--d-fast) var(--e-out),
+              transform var(--d-base) var(--e-out);
+}
+
+.home-teaser__list li:hover .home-teaser__arrow,
+.home-teaser__list li:focus-within .home-teaser__arrow {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The description still appears — it is information, and revealing it is
+     not movement. What goes is the sliding open and the arrow's travel. */
+  .home-teaser__more { transition: none; }
+  .home-teaser__more-in { transition: opacity var(--d-fast) var(--e-out); }
+  .home-teaser__list li:hover .home-teaser__more-in,
+  .home-teaser__list li:focus-within .home-teaser__more-in { transition-delay: 0ms; }
+  .home-teaser__arrow { transition: opacity var(--d-fast) var(--e-out); }
+  .home-teaser__arrow,
+  .home-teaser__list li:hover .home-teaser__arrow,
+  .home-teaser__list li:focus-within .home-teaser__arrow {
+    transform: none;
+  }
+}

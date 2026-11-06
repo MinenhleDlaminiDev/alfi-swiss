@@ -1,0 +1,64 @@
+/* Seal (ASP-04).
+   The draw animation lives here rather than in an inline style so the
+   reduced-motion rule can actually override it — an inline `style` would win
+   over any stylesheet declaration. */
+
+.seal__ring--draw {
+  stroke-dasharray: 390;
+  stroke-dashoffset: 390;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  animation: alfiDraw 1.3s var(--e-out) 0.2s forwards;
+}
+
+/* The travelling arc on the watermark (ASP-45).
+ *
+ * `transform-box: view-box` makes `transform-origin` resolve in the SVG's own
+ * viewBox units, so 66px 66px is the centre of the seal. Without it the
+ * origin would resolve against the element's own bounding box and the arc
+ * would orbit its own edge instead of the centre of the mark.
+ *
+ * Rotation only — no stroke or dash animation — so this composites on the
+ * GPU and costs nothing per frame in layout or paint. 18s is slow enough to
+ * read as drift rather than a spinner; at watermark opacity anything faster
+ * pulls the eye off the heading. */
+.seal__sweep {
+  transform-box: view-box;
+  transform-origin: 66px 66px;
+  animation: alfiSweep 18s linear infinite;
+}
+
+@keyframes alfiSweep {
+  to { transform: rotate(360deg); }
+}
+
+/* Under reduced motion the ring still draws, but quickly.
+   The same reasoning as the reveals in index.css: the preference is about
+   vestibular triggers — travel, scale, spin, parallax — and a stroke revealing
+   itself in place moves nothing across the screen. Nothing translates, nothing
+   scales, the mark does not rotate while it draws.
+
+   It was previously switched off entirely here. That was part of a blanket
+   approach which, taken together, left the whole site motionless for anyone
+   with the setting on. Shortened rather than removed. */
+@media (prefers-reduced-motion: reduce) {
+  .seal__ring--draw {
+    animation-duration: 420ms;
+    animation-delay: 0s;
+  }
+
+  /* THE SWEEP KEEPS TURNING, SLOWLY. The user's call, 3 Nov: they saw the
+     arc frozen on their own screen and asked for it to spin.
+
+     It used to be 'animation: none' here, on the reasoning that a mark
+     turning continuously is persistent movement in the corner of the eye,
+     which is the clearest thing the preference asks us to stop. That reading
+     is not wrong — but it is the same blanket instinct that left the rest of
+     the site motionless until ASP-80, and this is one small arc at watermark
+     opacity, not a carousel.
+
+     Halved in speed rather than left at 18s: at 36s a full turn is slow
+     enough that nothing appears to move unless you look for it, which is the
+     most of the preference that can be honoured while still turning. */
+  .seal__sweep { animation-duration: 36s; }
+}

@@ -1,0 +1,141 @@
+# ALFI Swiss Partners — Netlify configuration (ASP-37)
+#
+# The UAT mirror of public/.htaccess. Apache serves production on Infomaniak
+# and never reads this file; Netlify serves UAT and never reads the .htaccess.
+# The two have to be changed together or UAT stops predicting production,
+# which is the only reason UAT exists.
+#
+# Deliberately absent, both recorded on the ticket so the gaps read as
+# decisions rather than oversights:
+#
+#   [build]  — the site already builds from settings in the Netlify UI. A
+#              build block here would override them, so adding one risks
+#              breaking a working deploy to restate what already works.
+#
+#   dot-path guard — Apache needs `RewriteRule (^|/)\.(?!well-known/) - [F,L]`
+#              because its web root can contain a .git directory. Netlify
+#              publishes only dist/, which has none, and declines to serve
+#              dotfiles regardless.
+
+
+# ---------------------------------------------------------------------------
+# Enquiry endpoint (ASP-67) — DISABLED IN ASP-68
+# ---------------------------------------------------------------------------
+# The client removed the message form from the Contact page, so nothing posts
+# here. The route is commented out rather than deleted, as is the function it
+# pointed at; see netlify/functions/enquiry.mjs for how to restore both.
+#
+# When it was live it HAD to stay above the SPA catch-all: Netlify applies the
+# first matching redirect, so with /* first the form would have been served
+# index.html and tried to parse the HTML shell as JSON.
+#
+# [[redirects]]
+#   from = "/api/enquiry"
+#   to = "/.netlify/functions/enquiry"
+#   status = 200
+
+# This rule STAYS, and now does more than it used to. Everything in public/ is
+# copied into dist/, so the PHP twin still ships here even though Netlify
+# cannot run it; and with the redirect above commented out, /api/enquiry now
+# matches this instead. Both paths return 404 rather than falling through to
+# the catch-all below and answering with the HTML shell and a 200.
+[[redirects]]
+  from = "/api/*"
+  to = "/index.html"
+  status = 404
+
+
+# ---------------------------------------------------------------------------
+# Single-page application routing
+# ---------------------------------------------------------------------------
+# /about, /services, /our-approach and /contact have no file on disk. Without
+# this they return Netlify's own 404 on a refresh or a shared link, which is
+# exactly what UAT has been doing since it went up.
+#
+# Netlify checks the publish directory for a real file BEFORE applying a
+# redirect, so this cannot shadow /images/*, /assets/* or /favicon.svg.
+# That is the opposite of Apache, where the equivalent catch-all has to
+# be guarded with explicit -f and -d conditions.
+#
+# status = 200, not 301: the browser keeps the URL it asked for and the
+# client-side router reads it. A redirect would rewrite the address bar to /
+# and lose the route.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+
+# ---------------------------------------------------------------------------
+# MIME types
+# ---------------------------------------------------------------------------
+# The text/vcard block that lived here was removed in ASP-51 with the digital
+# business card itself. Nothing generates a .vcf any more, and a MIME rule
+# for a file type the site no longer serves is the kind of leftover that
+# makes a config harder to read than it needs to be. The matching AddType in
+# public/.htaccess went in the same change — the two files are only useful
+# while they predict each other.
+
+
+# ---------------------------------------------------------------------------
+# Security headers — every response
+# ---------------------------------------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+
+# ---------------------------------------------------------------------------
+# Caching
+# ---------------------------------------------------------------------------
+# Netlify applies every matching rule and the LAST match wins, the same way
+# Apache treats FilesMatch — so these run general to specific, and the order
+# below is load-bearing.
+
+# Vite's content-hashed bundles change filename whenever their content does,
+# so they are safe to pin forever. Scoped to /assets/, which is the only
+# place Vite emits them.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Images are NOT content-hashed: the pipeline emits stable names like
+# home-positioning-1200w.webp. A replaced photograph keeps its filename, so
+# "immutable" would strand visitors on the old one for a year. Thirty days.
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# index.html must always revalidate, or a visitor keeps booting an old build
+# and never receives the new hashed asset URLs.
+#
+# The Link header is the home page's LCP preload (ASP-47). It used to be a
+# <link rel="preload"> in index.html, but that file is the SPA shell for
+# every route, so all six pages fetched this 362KB photograph at high
+# priority and five of them never showed it.
+#
+# Scoped to "/" so only the home page pays for it, and declared as AVIF on
+# purpose: <picture> offers AVIF first, so that is what a modern browser
+# will choose. Preloading the WebP instead would give an AVIF-capable
+# browser two copies of the same image. Browsers without AVIF ignore this
+# header and fetch their own format normally, with fetchpriority="high"
+# already set on the <img> by HeroBackdrop.
+#
+# Must match slides[0] in src/content/home.js.
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+    Link = '''</images/hero-geneva-1800w.avif>; rel=preload; as=image; type=image/avif; imagesrcset="/images/hero-geneva-768w.avif 768w, /images/hero-geneva-1200w.avif 1200w, /images/hero-geneva-1800w.avif 1800w, /images/hero-geneva-2560w.avif 2560w, /images/hero-geneva-3200w.avif 3200w"; imagesizes=100vw; fetchpriority=high'''
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+
+# The QR's own cache tier was removed in ASP-51 along with the card that
+# generated it. No *-qr.svg is produced any more.
